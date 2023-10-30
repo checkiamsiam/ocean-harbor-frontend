@@ -3,3 +3,5 @@ export const theme: any = {
     primary: "#BABD92",
   },
 };
+
+export const getTheme = () => theme;
