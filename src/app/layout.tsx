@@ -1,7 +1,6 @@
-
-import "./globals.css";
 import Providers from "@/lib/Providers";
 import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Golden Anchor",
