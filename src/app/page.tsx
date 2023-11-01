@@ -4,7 +4,9 @@ const HomePage = () => {
   return (
     <>
       <CustomerLayout>
-        <h1>Home Page</h1>
+        <h1 className="min-h-screen">Home Page</h1>
+        <h1 className="min-h-screen">Home Page</h1>
+        <h1 className="min-h-screen">Home Page</h1>
       </CustomerLayout>
     </>
   );

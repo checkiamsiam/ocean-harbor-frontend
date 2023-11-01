@@ -5,7 +5,7 @@ const CustomerLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <Header />
-      {children}
+      <div style={{ marginTop: "125px" }}>{children}</div>
     </div>
   );
 };
