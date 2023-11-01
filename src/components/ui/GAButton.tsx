@@ -11,8 +11,8 @@ type IProps = {
 
 const GAButton = ({ children, square, shape = "round", arrow, style, ...rest }: IProps & ButtonProps) => {
   return (
-    <Button type="primary" style={{ textTransform: "uppercase" , borderRadius: square ? 0 : undefined,  ...style }} shape={shape} {...rest}>
-      <Flex justify="center" align="center" gap={4} style={{ fontSize: 12 }}>
+    <Button type="primary" style={{ textTransform: "uppercase", borderRadius: square ? 0 : undefined, ...style }} shape={shape} {...rest}>
+      <Flex justify="center" align="center" gap={4} >
         <span>{children}</span>
         {arrow && (
           <span>

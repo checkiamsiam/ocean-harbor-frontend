@@ -44,12 +44,12 @@ const FormInput = ({ name, type, size = "small", value, id, placeholder, validat
               type={type}
               size={size}
               placeholder={placeholder}
-              style={{ borderRadius: 0 }}
+              style={{ borderRadius: 0 , fontSize: "15px" }}
               {...field}
               value={value ? value : field.value}
             />
           ) : (
-            <Input type={type} size={size} placeholder={placeholder} style={{ borderRadius: 0 }} {...field} value={value ? value : field.value} />
+            <Input type={type} size={size}  placeholder={placeholder} style={{ borderRadius: 0 , fontSize: "15px" }} {...field} value={value ? value : field.value} />
           )
         }
       />

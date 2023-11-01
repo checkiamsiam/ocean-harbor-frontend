@@ -18,7 +18,7 @@ const FormTextArea = ({ name, label, rows, value, placeholder }: TextAreaProps) 
       <Controller
         name={name}
         control={control}
-        render={({ field }) => <Input.TextArea rows={rows} placeholder={placeholder} {...field} defaultValue={value} style={{ borderRadius: 0 }} />}
+        render={({ field }) => <Input.TextArea rows={rows} placeholder={placeholder} {...field} defaultValue={value} style={{ borderRadius: 0  , fontSize: "15px"}} />}
       />
     </div>
   );

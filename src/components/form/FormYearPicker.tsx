@@ -15,7 +15,7 @@ const FormYearPicker = ({ name, label, picker }: { name: string; label?: string;
         render={({ field }) => {
           return (
             <DatePicker
-              style={{ width: "100%", borderRadius: 0 }}
+              style={{ width: "100%", borderRadius: 0, fontSize: "15px" }}
               defaultValue={field.value}
               value={field.value ? dayjs().year(field.value) : null}
               picker={picker}
