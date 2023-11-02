@@ -11,19 +11,13 @@
   font-family: "Noto Sans", sans-serif;
 }
 
-body {
-  background: url("/img/pattern-light.png");
-}
-
-.pattern-dark {
-  background: url("/img/pattern.png");
-}
 
 .ga-container {
   max-width: 100%;
   padding: 0 1rem;
   margin: 0 auto;
 }
+
 
 @media (min-width: 576px) {
   .ga-container {

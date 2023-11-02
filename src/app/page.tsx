@@ -5,8 +5,6 @@ const HomePage = () => {
     <>
       <CustomerLayout>
         <h1 className="min-h-screen">Home Page</h1>
-        <h1 className="min-h-screen">Home Page</h1>
-        <h1 className="min-h-screen">Home Page</h1>
       </CustomerLayout>
     </>
   );

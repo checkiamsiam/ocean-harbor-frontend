@@ -13,10 +13,10 @@ interface ITheme {
 export const theme: ITheme = {
   colors: {
     primary: "#BABD92",
-    secondary: "#193460",
+    secondary: "black",
   },
   fontSizes: {
-    body: "0.95rem",
+    body: "0.938rem",
     heading: "1.85rem",
     icon: "1.5rem",
   },

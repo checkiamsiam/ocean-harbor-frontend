@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "../sections/Footer";
 import Header from "../sections/Header";
 
 const CustomerLayout = ({ children }: { children: React.ReactNode }) => {
@@ -6,6 +7,7 @@ const CustomerLayout = ({ children }: { children: React.ReactNode }) => {
     <div>
       <Header />
       <div style={{ marginTop: "125px" }}>{children}</div>
+      <Footer />
     </div>
   );
 };

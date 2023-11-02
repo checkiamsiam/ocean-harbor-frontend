@@ -10,7 +10,12 @@ const config: Config = {
       },
       colors: {
         primary: "#BABD92",
-        secondary: "#193460",
+        secondary: "black",
+      },
+      fontSize: {
+        body: "0.938rem",
+        heading: "1.85rem",
+        icon: "1.5rem",
       },
     },
   },
