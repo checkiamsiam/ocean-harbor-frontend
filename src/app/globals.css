@@ -17,6 +17,11 @@
   margin: 0 auto;
 }
 
+.flex-wrap-half {
+  flex: 1;
+  width: 50%;
+}
+
 
 @media (min-width: 576px) {
   .ga-container {

@@ -4,7 +4,7 @@ import HomeAboutListItem from "./HomeAboutListItem";
 const WeAreInWord = () => {
   return (
     <div>
-      <h1 className="text-heading2 italic text-primary ">We are in word</h1>
+      <h1 className="text-heading italic text-primary ">We are in word</h1>
       <ul className="list-none py-5 flex flex-col gap-5">
         <HomeAboutListItem icon={<TbWorldWww />} text="Strong in African, Asian, Middle Eastern and Latin American products" />
         <HomeAboutListItem icon={<TbWorldWww />} text="highly qualitative authentic products" />

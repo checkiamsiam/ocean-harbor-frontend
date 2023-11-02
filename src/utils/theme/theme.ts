@@ -6,7 +6,6 @@ interface ITheme {
   fontSizes: {
     body: string;
     heading: string;
-    heading2: string;
     icon: string;
   };
 }
@@ -18,8 +17,7 @@ export const theme: ITheme = {
   },
   fontSizes: {
     body: "1rem",
-    heading: "1.85rem",
-    heading2: "1.5rem", 
+    heading: "1.5rem",
     icon: "1.5rem",
   },
 };

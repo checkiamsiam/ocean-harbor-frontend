@@ -14,8 +14,7 @@ const config: Config = {
       },
       fontSize: {
         body: "1rem",
-        heading: "1.85rem",
-        heading2: "1.5rem", 
+        heading: "1.5rem",
         icon: "1.5rem",
       },
     },
