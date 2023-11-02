@@ -1,6 +1,6 @@
-import FooterHead from "../sectionComponents/Footer/FooterHead";
-import FooterMain from "../sectionComponents/Footer/FooterMain";
-import FooterRights from "../sectionComponents/Footer/FooterRights";
+import FooterHead from "../../sectionComponents/Footer/FooterHead";
+import FooterMain from "../../sectionComponents/Footer/FooterMain";
+import FooterRights from "../../sectionComponents/Footer/FooterRights";
 
 const Footer = () => {
   return (

@@ -1,12 +1,12 @@
 import React from "react";
-import Footer from "../sections/Footer";
-import Header from "../sections/Header";
+import Footer from "../sections/Layout/Footer";
+import Header from "../sections/Layout/Header";
 
 const CustomerLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <Header />
-      <div style={{ marginTop: "125px" }}>{children}</div>
+      <div style={{ marginTop: "122px" }}>{children}</div>
       <Footer />
     </div>
   );

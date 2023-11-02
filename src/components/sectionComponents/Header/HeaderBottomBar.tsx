@@ -1,4 +1,3 @@
-import { theme } from "@/utils/theme/theme";
 import { Col, Flex, Row } from "antd";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,10 +21,10 @@ const HeaderBottomBar = () => {
         <Col span={20} md={8}>
           <Flex justify="end" align="center" gap={10}>
             <Link href="/" className="text-white flex justify-center gap-2 items-center hover:text-primary">
-              <span>Sign In</span> <BiSolidUser style={{ fontSize: theme.fontSizes.icon }} />
+              <span>Sign In</span> <BiSolidUser className="text-icon" />
             </Link>
             <Link href="/" className="text-white flex justify-center gap-2 items-center hover:text-primary">
-              <BiSolidCartAlt style={{ fontSize: theme.fontSizes.icon }} />
+              <BiSolidCartAlt className="text-icon" />
             </Link>
           </Flex>
         </Col>

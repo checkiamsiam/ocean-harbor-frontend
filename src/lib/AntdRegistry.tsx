@@ -16,7 +16,7 @@ const StyledComponentsRegistry = ({ children }: React.PropsWithChildren) => {
         theme={{
           token: {
             colorPrimary: theme.colors.primary,
-            fontSize: 15,
+            fontSize: 16,
             fontFamily: "Noto Sans, sans-serif",
           },
         }}

@@ -1,0 +1,9 @@
+.bannerBg1 {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/img/home-banner-1.jpg") no-repeat center center/cover;
+}
+.bannerBg2 {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/img/home-banner-2.jpg") no-repeat center center/cover;
+}
+.bannerBg3 {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/img/home-banner-3.jpg") no-repeat center center/cover;
+}

@@ -13,8 +13,9 @@ const config: Config = {
         secondary: "black",
       },
       fontSize: {
-        body: "0.938rem",
+        body: "1rem",
         heading: "1.85rem",
+        heading2: "1.5rem", 
         icon: "1.5rem",
       },
     },
