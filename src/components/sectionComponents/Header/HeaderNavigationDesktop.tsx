@@ -15,7 +15,7 @@ const HeaderNavigationDesktop = () => {
         <Link href="/brands" className="text-white uppercase hover:text-primary">
           Brands
         </Link>
-        <Link href="/" className="text-white uppercase hover:text-primary">
+        <Link href="/faq" className="text-white uppercase hover:text-primary">
           Faqs
         </Link>
         <Link href="/" className="text-white uppercase hover:text-primary">
