@@ -27,7 +27,7 @@ const MobileHeader = () => {
             <Link href="/" className="text-white uppercase hover:text-primary no-underline">
               Products
             </Link>
-            <Link href="/" className="text-white uppercase hover:text-primary no-underline">
+            <Link href="/brands" className="text-white uppercase hover:text-primary no-underline">
               Brands
             </Link>
             <Link href="/" className="text-white uppercase hover:text-primary no-underline">

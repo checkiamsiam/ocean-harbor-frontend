@@ -12,7 +12,7 @@ const HeaderNavigationDesktop = () => {
 
         <ProductsPopoverContent />
 
-        <Link href="/" className="text-white uppercase hover:text-primary">
+        <Link href="/brands" className="text-white uppercase hover:text-primary">
           Brands
         </Link>
         <Link href="/" className="text-white uppercase hover:text-primary">
