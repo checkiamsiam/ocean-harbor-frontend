@@ -1,5 +1,5 @@
+import GALogo from "@/components/common/GALogo";
 import { Col, Flex, Row } from "antd";
-import Image from "next/image";
 import Link from "next/link";
 import { BiSolidCartAlt, BiSolidUser } from "react-icons/bi";
 import SearchBar from "./SearchBar";
@@ -10,7 +10,7 @@ const HeaderBottomBar = () => {
       <Row justify="center" align="bottom">
         <Col span={0} md={6}>
           <div className="hidden lg:block">
-            <Image src="/img/GOLDEN-ANCHOR-PNG-LOGO.png" alt="golden anchor logo" width={50} height={50} />
+            <GALogo />
           </div>
         </Col>
         <Col span={4} md={10}>

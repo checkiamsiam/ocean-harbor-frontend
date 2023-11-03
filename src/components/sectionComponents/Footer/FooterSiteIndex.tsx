@@ -22,7 +22,7 @@ const FooterSiteIndex = () => {
         </span>
         <span>
           <Link href="/" className=" hover:text-primary hover:underline text-inherit">
-            Vacancies
+            Pre-order
           </Link>
         </span>
         <span>

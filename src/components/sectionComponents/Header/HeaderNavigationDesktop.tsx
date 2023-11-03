@@ -22,7 +22,7 @@ const HeaderNavigationDesktop = () => {
           About golden anchor
         </Link>
         <Link href="/" className="text-white uppercase hover:text-primary">
-          Vacancies
+          Pre-order
         </Link>
         <Link href="/" className="text-white uppercase hover:text-primary">
           Contact us

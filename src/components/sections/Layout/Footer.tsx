@@ -4,7 +4,7 @@ import FooterRights from "../../sectionComponents/Footer/FooterRights";
 
 const Footer = () => {
   return (
-    <div className="bg-black py-10 text-gray-300">
+    <div className="bg-[#202225] py-10 text-gray-300">
       <div className="ga-container">
         <div>
           <FooterHead />

@@ -3,7 +3,6 @@ import { Col, Row } from "antd";
 import { Squash as Hamburger } from "hamburger-react";
 import Link from "next/link";
 import { useState } from "react";
-import { AiFillCaretDown } from "react-icons/ai";
 import SearchBar from "./SearchBar";
 
 const MobileHeader = () => {
@@ -26,7 +25,7 @@ const MobileHeader = () => {
               Home
             </Link>
             <Link href="/" className="text-white uppercase hover:text-primary no-underline">
-            Products
+              Products
             </Link>
             <Link href="/" className="text-white uppercase hover:text-primary no-underline">
               Brands
@@ -38,7 +37,7 @@ const MobileHeader = () => {
               About golden anchor
             </Link>
             <Link href="/" className="text-white uppercase hover:text-primary no-underline">
-              Vacancies
+              Pre-order
             </Link>
             <Link href="/" className="text-white uppercase hover:text-primary no-underline">
               Contact us

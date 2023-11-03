@@ -7,3 +7,6 @@
 .bannerBg3 {
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/img/home-banner-3.jpg") no-repeat center center/cover;
 }
+.callToActBG {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/img/call-to-act.jpg") no-repeat center center/cover;
+}

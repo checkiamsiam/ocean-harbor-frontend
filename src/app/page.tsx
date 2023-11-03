@@ -1,8 +1,10 @@
+import Banner from "@/components/common/Banner";
 import CustomerLayout from "@/components/layout/CustomerLayout";
 import HomBanner from "@/components/sections/Home/HomBanner";
 import HomeAbout from "@/components/sections/Home/HomeAbout";
 import HomeBrands from "@/components/sections/Home/HomeBrands";
 import HomeCategories from "@/components/sections/Home/HomeCategories";
+import styles from "@/styles/Home.module.css";
 
 const HomePage = () => {
   return (
@@ -12,6 +14,15 @@ const HomePage = () => {
         <HomeAbout />
         <HomeCategories />
         <HomeBrands />
+        <Banner
+          background={styles.callToActBG}
+          title="Wanna Join Us?"
+          subTitle="Let's work together with the Golden Anchor"
+          action={{
+            title: "Request Price Quotation",
+            link: "/",
+          }}
+        />
       </CustomerLayout>
     </>
   );
