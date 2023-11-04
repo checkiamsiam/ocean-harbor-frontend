@@ -25,7 +25,6 @@ const FormInput = ({ name, type, size = "small", value, id, placeholder, validat
 
   return (
     <>
-      
       {label ? label : null}
       {required ? (
         <span
@@ -44,13 +43,22 @@ const FormInput = ({ name, type, size = "small", value, id, placeholder, validat
             <Input.Password
               type={type}
               size={size}
+              required={required}
               placeholder={placeholder}
-              style={{ borderRadius: 0 , fontSize: "15px" , backgroundColor: "#FAFAFA" }}
+              style={{ borderRadius: 0, fontSize: "15px", backgroundColor: "#FAFAFA" }}
               {...field}
               value={value ? value : field.value}
             />
           ) : (
-            <Input type={type} size={size}  placeholder={placeholder} style={{ borderRadius: 0 , fontSize: "15px" , backgroundColor: "#FAFAFA" }} {...field} value={value ? value : field.value} />
+            <Input
+              required={required}
+              type={type}
+              size={size}
+              placeholder={placeholder}
+              style={{ borderRadius: 0, fontSize: "15px", backgroundColor: "#FAFAFA" }}
+              {...field}
+              value={value ? value : field.value}
+            />
           )
         }
       />
