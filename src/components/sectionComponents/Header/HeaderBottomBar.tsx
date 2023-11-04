@@ -20,7 +20,7 @@ const HeaderBottomBar = () => {
         </Col>
         <Col span={20} md={8}>
           <Flex justify="end" align="center" gap={10}>
-            <Link href="/" className="text-white flex justify-center gap-2 items-center hover:text-primary">
+            <Link href="/login" className="text-white flex justify-center gap-2 items-center hover:text-primary">
               <span>Sign In</span> <BiSolidUser className="text-icon" />
             </Link>
             <Link href="/" className="text-white flex justify-center gap-2 items-center hover:text-primary">
