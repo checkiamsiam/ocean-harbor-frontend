@@ -33,7 +33,7 @@ const MobileHeader = () => {
             <Link href="/faq" className="text-white uppercase hover:text-primary no-underline">
               Faqs
             </Link>
-            <Link href="/" className="text-white uppercase hover:text-primary no-underline">
+            <Link href="/about" className="text-white uppercase hover:text-primary no-underline">
               About golden anchor
             </Link>
             <Link href="/" className="text-white uppercase hover:text-primary no-underline">

@@ -18,7 +18,7 @@ const HeaderNavigationDesktop = () => {
         <Link href="/faq" className="text-white uppercase hover:text-primary">
           Faqs
         </Link>
-        <Link href="/" className="text-white uppercase hover:text-primary">
+        <Link href="/about" className="text-white uppercase hover:text-primary">
           About golden anchor
         </Link>
         <Link href="/" className="text-white uppercase hover:text-primary">

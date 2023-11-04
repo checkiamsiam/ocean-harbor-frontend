@@ -1,0 +1,6 @@
+.bannerBG {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/img/aboutBanner-bg.jpg") no-repeat center center/cover;
+}
+.secondaryBannerBG {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/img/aout-us-foot-banner.jpg") no-repeat center center/cover;
+}

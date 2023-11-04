@@ -15,7 +15,7 @@ const FAQsAndAns = ({
 }) => {
   return (
     <div>
-      <h1 className="text-heading text-primary">{question}</h1>
+      <h1 className="text-heading text-primary uppercase">{question}</h1>
       <hr className="text-primary bg-primary" />
       <div className="pt-5 text-secondary leading-6 pl-10">
         <p className="text-body mb-5">{answer}</p>
