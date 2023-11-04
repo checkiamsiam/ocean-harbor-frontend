@@ -39,7 +39,7 @@ const MobileHeader = () => {
             <Link href="/" className="text-white uppercase hover:text-primary no-underline">
               Pre-order
             </Link>
-            <Link href="/" className="text-white uppercase hover:text-primary no-underline">
+            <Link href="/contact" className="text-white uppercase hover:text-primary no-underline">
               Contact us
             </Link>
           </div>

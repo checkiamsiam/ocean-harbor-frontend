@@ -24,7 +24,7 @@ const HeaderNavigationDesktop = () => {
         <Link href="/" className="text-white uppercase hover:text-primary">
           Pre-order
         </Link>
-        <Link href="/" className="text-white uppercase hover:text-primary">
+        <Link href="/contact" className="text-white uppercase hover:text-primary">
           Contact us
         </Link>
       </Flex>
