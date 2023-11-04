@@ -7,7 +7,7 @@ const ContactProcess = () => {
     <div className="ga-container">
       <div className="py-10 ">
         <Card>
-          <div className="p-5  grid md:grid-cols-2 grid-cols-1 gap-5">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
             <div>
               <ReachUsToContact />
             </div>
