@@ -46,7 +46,7 @@ const FormSelectField = ({
             loading={loading}
             options={options}
             value={value}
-            style={{ width: "100%" , borderRadius: 0 , fontSize: "15px" }}
+            style={{ width: "100%" , borderRadius: 0 , fontSize: "15px", backgroundColor: "#FAFAFA" }}
             placeholder={placeholder}
           />
         )}

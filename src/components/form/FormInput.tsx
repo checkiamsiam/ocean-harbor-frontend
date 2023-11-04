@@ -25,6 +25,8 @@ const FormInput = ({ name, type, size = "small", value, id, placeholder, validat
 
   return (
     <>
+      
+      {label ? label : null}
       {required ? (
         <span
           style={{
@@ -34,7 +36,6 @@ const FormInput = ({ name, type, size = "small", value, id, placeholder, validat
           *
         </span>
       ) : null}
-      {label ? label : null}
       <Controller
         control={control}
         name={name}
@@ -44,12 +45,12 @@ const FormInput = ({ name, type, size = "small", value, id, placeholder, validat
               type={type}
               size={size}
               placeholder={placeholder}
-              style={{ borderRadius: 0 , fontSize: "15px" }}
+              style={{ borderRadius: 0 , fontSize: "15px" , backgroundColor: "#FAFAFA" }}
               {...field}
               value={value ? value : field.value}
             />
           ) : (
-            <Input type={type} size={size}  placeholder={placeholder} style={{ borderRadius: 0 , fontSize: "15px" }} {...field} value={value ? value : field.value} />
+            <Input type={type} size={size}  placeholder={placeholder} style={{ borderRadius: 0 , fontSize: "15px" , backgroundColor: "#FAFAFA" }} {...field} value={value ? value : field.value} />
           )
         }
       />

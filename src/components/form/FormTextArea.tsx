@@ -8,17 +8,39 @@ type TextAreaProps = {
   rows?: number;
   value?: string;
   placeholder?: string;
+  required?: boolean;
 };
 
-const FormTextArea = ({ name, label, rows, value, placeholder }: TextAreaProps) => {
+const FormTextArea = ({ name, label, rows, value, placeholder, required }: TextAreaProps) => {
   const { control } = useFormContext();
   return (
     <div className={`flex flex-col  w-full`}>
-      {label ? label : null}
+      <span>
+        {label ? label : null}
+        {required ? (
+          <span
+            style={{
+              color: "red",
+            }}
+          >
+            *
+          </span>
+        ) : null}
+      </span>
+
       <Controller
         name={name}
         control={control}
-        render={({ field }) => <Input.TextArea rows={rows} placeholder={placeholder} {...field} defaultValue={value} style={{ borderRadius: 0  , fontSize: "15px"}} />}
+        render={({ field }) => (
+          <Input.TextArea
+            rows={rows}
+            placeholder={placeholder}
+            required={required}
+            {...field}
+            defaultValue={value}
+            style={{ borderRadius: 0, fontSize: "15px", backgroundColor: "#FAFAFA" }}
+          />
+        )}
       />
     </div>
   );
