@@ -3,7 +3,7 @@ const AboutMore = () => {
     <div>
       <div className="ga-container">
         <div className="pb-10">
-          <div className="lg:flex gap-5">
+          <div className="md:grid md:grid-cols-2 gap-5">
             <div>
               <h1 className="text-heading text-primary uppercase">WHAT WE DO</h1>
               <hr className="text-primary bg-primary" />
