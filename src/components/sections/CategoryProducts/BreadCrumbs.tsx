@@ -4,7 +4,7 @@ const BreadCrumbs = ({ category }: { category: string }) => {
   return (
     <div>
       <div className="ga-container">
-        <div className="py-10">
+        <div className="py-5">
           <GABreadCrumb
             items={[
               { label: "Home", link: "/" },
