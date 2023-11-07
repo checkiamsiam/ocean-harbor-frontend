@@ -35,7 +35,7 @@ const ProductsPopoverContent = () => {
             <Row gutter={[10, 10]}>
               {dummyCategory.map((slug, i) => (
                 <Col span={8} key={i}>
-                  <Link href="/" className="text-white  hover:text-primary">
+                  <Link href={`/categories/${slug}`} className="text-white  hover:text-primary">
                     {slug}
                   </Link>
                 </Col>
