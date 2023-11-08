@@ -3,6 +3,7 @@ import Form from "@/components/form/Form";
 import FormInput from "@/components/form/FormInput";
 import GAButton from "@/components/ui/GAButton";
 import { Card } from "antd";
+import Link from "next/link";
 
 const LoginForm = () => {
   const submitHandler = (data: any) => {
@@ -14,6 +15,7 @@ const LoginForm = () => {
         <div className="max-w-lg mx-auto">
           <Card>
             <h1 className="text-[2rem] mb-5 text-primary">Login</h1>
+
             <Form submitHandler={submitHandler}>
               <div className="flex flex-col gap-4">
                 <div>
@@ -22,6 +24,12 @@ const LoginForm = () => {
                 <div>
                   <FormInput name="password" required type="password" label="Password" size="large" />
                 </div>
+
+                <p className="text-center">
+                  <Link href="/registration" className="text-primary underline hover:text-primary">
+                    No account? Request a registration
+                  </Link>
+                </p>
 
                 <div className="flex justify-end">
                   <GAButton htmlType="submit" size="large" arrow>

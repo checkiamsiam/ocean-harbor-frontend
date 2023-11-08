@@ -29,8 +29,9 @@ const FormSelectField = ({
   loading,
   label,
   defaultValue,
+  style,
   handleChange,
-}: SelectFieldProps) => {
+}: SelectFieldProps & { style ?: Record<string, any> }) => {
   const { control } = useFormContext();
 
   return (
@@ -46,7 +47,14 @@ const FormSelectField = ({
             loading={loading}
             options={options}
             value={value}
-            style={{ width: "100%" , borderRadius: 0 , fontSize: "15px", backgroundColor: "#FAFAFA" }}
+            defaultValue={defaultValue}
+            style={{
+              width: "100%",
+              borderRadius: 0,
+              fontSize: "15px",
+              backgroundColor: "#FAFAFA",
+              ...style,
+            }}
             placeholder={placeholder}
           />
         )}

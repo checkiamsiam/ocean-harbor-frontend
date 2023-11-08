@@ -21,7 +21,7 @@ const HeaderNavigationDesktop = () => {
         <Link href="/about" className="text-white uppercase hover:text-primary">
           About golden anchor
         </Link>
-        <Link href="/" className="text-white uppercase hover:text-primary">
+        <Link href="/pre-order" className="text-white uppercase hover:text-primary">
           Pre-order
         </Link>
         <Link href="/contact" className="text-white uppercase hover:text-primary">
