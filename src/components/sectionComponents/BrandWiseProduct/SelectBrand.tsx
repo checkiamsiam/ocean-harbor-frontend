@@ -9,7 +9,7 @@ const SelectBrand = () => {
   const searchQuery = Object.fromEntries(searchParams.entries());
   const handleChange: SelectProps["onChange"] = (value) => {
     const { category, subCategory, ...rest } = searchQuery;
-    router.push(`/brands/${value}?${new URLSearchParams(rest)}`);
+    router.replace(`/brands/${value}?${new URLSearchParams(rest)}`);
   };
 
   return (

@@ -10,7 +10,7 @@ const SelectCategory = () => {
   const { subCategory, ...rest } = searchQuery;
   const handleChange: SelectProps["onChange"] = (value) => {
     const newQuery = { ...rest, category: value };
-    router.push(`/brands/${params.brandSlug}?${new URLSearchParams(newQuery)}`);
+    router.replace(`/brands/${params.brandSlug}?${new URLSearchParams(newQuery)}`);
   };
 
   return (

@@ -9,7 +9,7 @@ const CategoryProductPagination = () => {
   const searchQuery = Object.fromEntries(searchParams.entries());
   const handleChange: PaginationProps["onChange"] = (current, pageSize) => {
     const newQuery = { ...searchQuery, limit: String(pageSize), page: String(current) };
-    router.push(`/categories/${params.catSlug}?${new URLSearchParams(newQuery)}`);
+    router.replace(`/categories/${params.catSlug}?${new URLSearchParams(newQuery)}`);
   };
   return (
     <div>
