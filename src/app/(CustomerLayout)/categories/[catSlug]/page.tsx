@@ -1,11 +1,11 @@
 import BreadCrumbs from "@/components/sections/CategoryProducts/BreadCrumbs";
-import ProductFilter from "@/components/sections/CategoryProducts/ProductFilter";
+import CategoryWiseProductFilter from "@/components/sections/CategoryProducts/CategoryWiseProductFilter";
 
 const CategoryProductsPage = ({ params }: { params: { catSlug: string } }) => {
   return (
     <div>
       <BreadCrumbs category={params.catSlug} />
-      <ProductFilter />
+      <CategoryWiseProductFilter />
     </div>
   );
 };

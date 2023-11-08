@@ -1,6 +1,6 @@
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
 
-const BreadCrumbs = ({ category }: { category: string }) => {
+const BreadCrumbs = ({ brand }: { brand: string }) => {
   return (
     <div>
       <div className="ga-container">
@@ -8,8 +8,8 @@ const BreadCrumbs = ({ category }: { category: string }) => {
           <GABreadCrumb
             items={[
               { label: "Home", link: "/" },
-              { label: "Categories", link: "/categories" },
-              { label: category , link: `/categories/${category}` },
+              { label: "Brand", link: "/brands" },
+              { label: brand , link: `/categories/${brand}` },
             ]}
           />
         </div>
