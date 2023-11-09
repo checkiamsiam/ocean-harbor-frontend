@@ -1,6 +1,6 @@
 import ProductCard from "@/components/common/ProductCard";
 
-const CategoryWiseProducts = () => {
+const BrandWiseProducts = () => {
   return (
     <div>
       <div className="ga-container">
@@ -31,4 +31,4 @@ const CategoryWiseProducts = () => {
   );
 };
 
-export default CategoryWiseProducts;
+export default BrandWiseProducts;

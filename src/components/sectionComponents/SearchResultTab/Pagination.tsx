@@ -1,15 +1,14 @@
 "use client";
 import { Pagination, PaginationProps } from "antd";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
-const BrandProductPagination = () => {
+const ProductPagination = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const params = useParams();
   const searchQuery = Object.fromEntries(searchParams.entries());
   const handleChange: PaginationProps["onChange"] = (current, pageSize) => {
     const newQuery = { ...searchQuery, limit: String(pageSize), page: String(current) };
-    router.replace(`/brands/${params.brandSlug}?${new URLSearchParams(newQuery)}`);
+    router.replace(`/search?${new URLSearchParams(newQuery)}`);
   };
   return (
     <div>
@@ -26,4 +25,4 @@ const BrandProductPagination = () => {
   );
 };
 
-export default BrandProductPagination;
+export default ProductPagination;

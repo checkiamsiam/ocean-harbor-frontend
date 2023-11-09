@@ -24,7 +24,7 @@ const MobileHeader = () => {
             <Link href="/" className="text-white uppercase hover:text-primary no-underline">
               Home
             </Link>
-            <Link href="/" className="text-white uppercase hover:text-primary no-underline">
+            <Link href="/categories" className="text-white uppercase hover:text-primary no-underline">
               Products
             </Link>
             <Link href="/brands" className="text-white uppercase hover:text-primary no-underline">
@@ -36,7 +36,7 @@ const MobileHeader = () => {
             <Link href="/about" className="text-white uppercase hover:text-primary no-underline">
               About golden anchor
             </Link>
-            <Link href="/" className="text-white uppercase hover:text-primary no-underline">
+            <Link href="/pre-order" className="text-white uppercase hover:text-primary no-underline">
               Pre-order
             </Link>
             <Link href="/contact" className="text-white uppercase hover:text-primary no-underline">

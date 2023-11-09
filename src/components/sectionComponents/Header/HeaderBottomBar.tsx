@@ -23,7 +23,7 @@ const HeaderBottomBar = () => {
             <Link href="/login" className="text-white flex justify-center gap-2 items-center hover:text-primary">
               <span>Sign In</span> <BiSolidUser className="text-icon" />
             </Link>
-            <Link href="/" className="text-white flex justify-center gap-2 items-center hover:text-primary">
+            <Link href="/cart" className="text-white flex justify-center gap-2 items-center hover:text-primary">
               <BiSolidCartAlt className="text-icon" />
             </Link>
           </Flex>

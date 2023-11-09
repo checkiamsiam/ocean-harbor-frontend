@@ -3,10 +3,12 @@ import Form from "@/components/form/Form";
 import FormInput from "@/components/form/FormInput";
 import GAButton from "@/components/ui/GAButton";
 import { Flex } from "antd";
+import { useRouter } from "next/navigation";
 
 const SearchBar = () => {
+  const router = useRouter();
   const submitHandler = (data: any) => {
-    console.log(data);
+    router.push(`/search?searchKey=${data.searchKey}`);
   };
   return (
     <div>

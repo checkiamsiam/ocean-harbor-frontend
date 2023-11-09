@@ -19,6 +19,7 @@ const CategoryProductPagination = () => {
         defaultCurrent={1}
         total={500}
         pageSizeOptions={[12, 24, 48]}
+        defaultPageSize={12}
         onChange={handleChange}
       />
     </div>

@@ -4,7 +4,7 @@ import Link from "next/link";
 const CategoryLinkCard = ({ img, title, link }: { img: string; title: string; link: string }) => {
   return (
     <div className="sm:w-[100px] w-[80px]">
-      <Link href={link} className="no-underline hover:underline  text-primary flex flex-col justify-center">
+      <Link href={link} className="no-underline hover:underline hover:text-primary  text-primary flex flex-col justify-center">
         <Image
           src={img}
           alt="cat"

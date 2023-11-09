@@ -1,3 +1,4 @@
+import BrandWiseProducts from "@/components/sections/BrandProducts/BrandWiseProduct";
 import BrandWiseProductFilter from "@/components/sections/BrandProducts/BrandWiseProductFilter";
 import BreadCrumbs from "@/components/sections/BrandProducts/BreadCrumbs";
 
@@ -6,6 +7,7 @@ const BrandProductsPage = ({ params }: { params: { brandSlug: string } }) => {
     <div>
       <BreadCrumbs brand={params.brandSlug} />
       <BrandWiseProductFilter />
+      <BrandWiseProducts />
     </div>
   );
 };
