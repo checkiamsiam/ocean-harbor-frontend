@@ -14,6 +14,10 @@ const ProductInfo = () => {
           <p className="text-secondary">10 x 1 kg</p>
         </div>
         <div className="grid grid-cols-2 text-md">
+          <p className="text-secondary font-semibold">Type:</p>
+          <p className="text-secondary">dry/frozen</p>
+        </div>
+        <div className="grid grid-cols-2 text-md">
           <p className="text-secondary font-semibold">Category:</p>
           <p className="text-secondary">
             <Link href="/" className="hover:text-primary text-secondary hover:underline">
