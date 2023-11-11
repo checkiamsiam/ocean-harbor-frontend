@@ -36,7 +36,16 @@ const RegistrationRequestForm = () => {
                   />
                 </div>
                 <div>
-                  <FormInput name="company" required label="Company Name" size="large" />
+                  <FormInput name="name" required label="Customer Name" size="large" />
+                </div>
+                <div>
+                  <FormInput name="companyName" required label="Company Name" size="large" />
+                </div>
+                <div>
+                  <FormInput name="companyRegisteredNo" required label="Company Registered No." size="large" />
+                </div>
+                <div>
+                  <FormInput name="taxNumber" required label="TAX No." size="large" />
                 </div>
                 <div>
                   <FormInput name="address" required label="Address" size="large" />
