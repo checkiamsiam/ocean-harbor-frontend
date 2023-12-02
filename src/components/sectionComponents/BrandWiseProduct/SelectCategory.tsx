@@ -1,6 +1,7 @@
 "use client";
 import { Select, SelectProps } from "antd";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams,  useSearchParams } from "next/navigation";
+import { useRouter } from "@/lib/router-events";
 
 const SelectCategory = () => {
   const params = useParams();

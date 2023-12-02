@@ -1,5 +1,5 @@
+import { Link } from "@/lib/router-events";
 import Image from "next/image";
-import Link from "next/link";
 
 const CategoryLinkCard = ({ img, title, link }: { img: string; title: string; link: string }) => {
   return (

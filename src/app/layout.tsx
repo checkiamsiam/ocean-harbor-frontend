@@ -1,3 +1,4 @@
+import NProgressBar from "@/components/loadings/NProgressBar";
 import Providers from "@/lib/Providers";
 import type { Metadata } from "next";
 import "./globals.css";
@@ -9,10 +10,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Providers>
-      <html lang="en">
-        <body>{children}</body>
-      </html>
-    </Providers>
+    <html lang="en">
+      <body>
+        <Providers>
+          <NProgressBar color="#BABD92" height={3} />
+          {children}
+        </Providers>
+      </body>
+    </html>
   );
 }

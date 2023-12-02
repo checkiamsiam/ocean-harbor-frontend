@@ -2,8 +2,8 @@
 import Form from "@/components/form/Form";
 import FormInput from "@/components/form/FormInput";
 import GAButton from "@/components/ui/GAButton";
+import { Link } from "@/lib/router-events";
 import { Card } from "antd";
-import Link from "next/link";
 
 const LoginForm = () => {
   const submitHandler = (data: any) => {

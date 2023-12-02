@@ -4,8 +4,8 @@ import FormInput from "@/components/form/FormInput";
 import FormSelectField from "@/components/form/FormSelectField";
 import FormTextArea from "@/components/form/FormTextArea";
 import GAButton from "@/components/ui/GAButton";
+import { Link } from "@/lib/router-events";
 import { Card } from "antd";
-import Link from "next/link";
 
 const RegistrationRequestForm = () => {
   const submitHandler = (data: any) => {
@@ -62,7 +62,7 @@ const RegistrationRequestForm = () => {
                 <div>
                   <FormInput name="phone" required label="Phone" size="large" />
                 </div>
-                
+
                 <div>
                   <FormTextArea name="message" required label="Message" rows={5} />
                 </div>

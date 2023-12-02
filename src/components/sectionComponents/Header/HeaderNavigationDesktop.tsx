@@ -1,5 +1,5 @@
+import { Link } from "@/lib/router-events";
 import { Flex } from "antd";
-import Link from "next/link";
 import ProductsPopoverContent from "./ProductsPopoverContent";
 
 const HeaderNavigationDesktop = () => {

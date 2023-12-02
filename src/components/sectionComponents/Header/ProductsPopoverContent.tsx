@@ -1,7 +1,7 @@
 "use client";
 import useClickOutside from "@/hooks/useClickOutside";
+import { Link } from "@/lib/router-events";
 import { Col, Row } from "antd";
-import Link from "next/link";
 import { useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 

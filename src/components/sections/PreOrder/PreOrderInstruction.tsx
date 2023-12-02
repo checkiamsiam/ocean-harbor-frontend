@@ -1,5 +1,5 @@
 import GAButton from "@/components/ui/GAButton";
-import Link from "next/link";
+import { Link } from "@/lib/router-events";
 
 const PreOrderInstruction = () => {
   return (

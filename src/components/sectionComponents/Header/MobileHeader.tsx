@@ -1,7 +1,7 @@
 "use client";
 import { Col, Row } from "antd";
 import { Squash as Hamburger } from "hamburger-react";
-import Link from "next/link";
+import { Link } from "@/lib/router-events";
 import { useState } from "react";
 import SearchBar from "./SearchBar";
 

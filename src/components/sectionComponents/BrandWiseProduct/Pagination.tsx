@@ -1,6 +1,7 @@
 "use client";
+import { useRouter } from "@/lib/router-events";
 import { Pagination, PaginationProps } from "antd";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams,  useSearchParams } from "next/navigation";
 
 const BrandProductPagination = () => {
   const searchParams = useSearchParams();

@@ -1,5 +1,5 @@
+import { Link } from "@/lib/router-events";
 import Image from "next/image";
-import Link from "next/link";
 
 const GALogo = ({ width = 140, height = 53 }: { width?: number; height?: number }) => {
   return (

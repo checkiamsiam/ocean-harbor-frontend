@@ -3,7 +3,7 @@ import Form from "@/components/form/Form";
 import FormInput from "@/components/form/FormInput";
 import GAButton from "@/components/ui/GAButton";
 import { Flex } from "antd";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/lib/router-events";
 
 const SearchBar = () => {
   const router = useRouter();

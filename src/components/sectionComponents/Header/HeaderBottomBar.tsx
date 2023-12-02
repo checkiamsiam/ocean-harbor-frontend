@@ -1,6 +1,6 @@
 import GALogo from "@/components/common/GALogo";
+import { Link } from "@/lib/router-events";
 import { Col, Flex, Row } from "antd";
-import Link from "next/link";
 import { BiSolidCartAlt, BiSolidUser } from "react-icons/bi";
 import SearchBar from "./SearchBar";
 

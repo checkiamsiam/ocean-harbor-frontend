@@ -1,7 +1,7 @@
 import SectionHeader from "@/components/common/SectionHeader";
 import HomeCategoriesMap from "@/components/sectionComponents/HomeCategories/HomeCategoriesMap";
 import GAButton from "@/components/ui/GAButton";
-import Link from "next/link";
+import { Link } from "@/lib/router-events";
 
 const HomeCategories = () => {
   return (

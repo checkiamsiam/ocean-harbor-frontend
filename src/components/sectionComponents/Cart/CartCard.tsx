@@ -1,7 +1,7 @@
 import ProductCartAction from "@/components/common/ProductCartAction";
+import { Link } from "@/lib/router-events";
 import { Card } from "antd";
 import Image from "next/image";
-import Link from "next/link";
 
 const CartCard = () => {
   return (
