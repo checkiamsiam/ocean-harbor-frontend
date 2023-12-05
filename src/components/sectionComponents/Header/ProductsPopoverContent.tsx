@@ -7,10 +7,11 @@ import { useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 
 const ProductsPopoverContent = () => {
-  const { data } = useGetCategoriesQuery({});
+  const { data, isLoading , isSuccess } = useGetCategoriesQuery({});
   const ref = useRef(null);
   const [show, setShow] = useState(false);
   useClickOutside(ref, () => setShow(false));
+  if (isLoading && !isSuccess) return <div>Loading...</div>;
   return (
     <>
       <div className="relative">
