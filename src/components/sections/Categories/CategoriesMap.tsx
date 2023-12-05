@@ -13,7 +13,7 @@ const CategoriesMap = () => {
           <SectionHeader title="Categories" subtitle="The best of the best categories of our products" />
           <div className="p-5 mt-5">
             <div className="flex flex-wrap md:gap-10 gap-5 justify-center ">
-              {data?.categories.map((cat, i) => (
+              {data?.categories?.map((cat, i) => (
                 <CategoryLinkCard key={cat.id} link={`/categories/${cat.id}`} img={cat.icon} title={cat.title} />
               ))}
             </div>
