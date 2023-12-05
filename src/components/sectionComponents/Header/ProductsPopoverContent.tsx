@@ -1,26 +1,13 @@
 "use client";
 import useClickOutside from "@/hooks/useClickOutside";
 import { Link } from "@/lib/router-events";
+import { useGetCategoriesQuery } from "@/redux/features/category/categoryApi";
 import { Col, Row } from "antd";
 import { useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 
-const dummyCategory: string[] = [
-  "Fruit",
-  "Vegetables",
-  "Meat",
-  "Fish",
-  "Dairy",
-  "Bread",
-  "Canned",
-  "Frozen",
-  "Beverages",
-  "Baking",
-  "Household",
-  "Personal care",
-];
-
 const ProductsPopoverContent = () => {
+  const { data } = useGetCategoriesQuery({});
   const ref = useRef(null);
   const [show, setShow] = useState(false);
   useClickOutside(ref, () => setShow(false));
@@ -33,10 +20,10 @@ const ProductsPopoverContent = () => {
         {show && (
           <div ref={ref} className="absolute z-50 p-5 bg-secondary mt-4 w-[800px] shadow-lg">
             <Row gutter={[10, 10]}>
-              {dummyCategory.map((slug, i) => (
+              {data?.categories.map((slug, i) => (
                 <Col span={8} key={i}>
-                  <Link href={`/categories/${slug}`} className="text-white  hover:text-primary">
-                    {slug}
+                  <Link href={`/categories/${slug.id}`} className="text-white  hover:text-primary">
+                    {slug.title}
                   </Link>
                 </Col>
               ))}

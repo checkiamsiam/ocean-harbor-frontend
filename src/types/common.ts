@@ -9,14 +9,16 @@ export type ResponseSuccessType = {
   meta?: IMeta;
 };
 
-export type IGenericResponse<T> = {
-  meta: {
-    page: number;
-    limit: number;
-    total: number;
-  };
-  data: T;
-};
+export interface IQueryFeatures {
+  page?: number;
+  limit?: number;
+  fields?: string;
+  populate?: string;
+  sort?: string;
+  searchKey?: string;
+}
+
+export type IQuery = IQueryFeatures & { [key: string]: any };
 
 export type IGenericErrorResponse = {
   statusCode: number;
@@ -28,4 +30,3 @@ export type IGenericErrorMessage = {
   path: string | number;
   message: string;
 };
-
