@@ -20,7 +20,8 @@ const categoris = [
 ];
 
 const HomeCategoriesMap = () => {
-  const { data } = useGetCategoriesQuery({});
+  const { data, isLoading , isSuccess } = useGetCategoriesQuery({});
+  if (isLoading && !isSuccess) return <div>Loading...</div>;
   return (
     <div>
       <div className="flex flex-wrap md:gap-10 gap-5 justify-center ">

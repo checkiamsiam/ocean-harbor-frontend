@@ -4,7 +4,8 @@ import SectionHeader from "@/components/common/SectionHeader";
 import { useGetCategoriesQuery } from "@/redux/features/category/categoryApi";
 
 const CategoriesMap = () => {
-  const { data } = useGetCategoriesQuery({});
+  const { data, isLoading , isSuccess } = useGetCategoriesQuery({});
+  if (isLoading && !isSuccess) return <div>Loading...</div>;
   return (
     <div>
       <div className="ga-container">
