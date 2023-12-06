@@ -6,11 +6,11 @@ const brand_url = "/brand";
 
 export const brandApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getBrands: builder.query<{ brands: Brand[]; meta: IMeta }, IQuery>({
-      query: (params) => ({
+    getBrands: builder.query<{ brands: Brand[]; meta: IMeta }, { params?: IQuery }>({
+      query: (arg) => ({
         url: brand_url,
         method: "GET",
-        params,
+        params : arg?.params,
       }),
       transformResponse: (response: Brand[], meta: IMeta) => {
         return {

@@ -8,4 +8,3 @@ export const envConfig: EnvConfig = {
   backendUrl: process.env.NEXT_PUBLIC_BACKEND_URL || "",
 };
 
-console.log(envConfig);

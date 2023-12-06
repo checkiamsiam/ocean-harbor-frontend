@@ -10,8 +10,8 @@ export type ResponseSuccessType = {
 };
 
 export interface IQueryFeatures {
-  page?: number;
-  limit?: number;
+  page?: number | string;
+  limit?: number | string;
   fields?: string;
   populate?: string;
   sort?: string;

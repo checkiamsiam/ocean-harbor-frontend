@@ -2,25 +2,8 @@
 import CategoryLinkCard from "@/components/common/CategoryLinkCard";
 import { useGetCategoriesQuery } from "@/redux/features/category/categoryApi";
 
-const categoris = [
-  "Drinks",
-  "Food",
-  "Household",
-  "Personal Care",
-  "Tobacco",
-  "Pet Care",
-  "Baby Care",
-  "Health & Beauty",
-  "Stationary",
-  "Candy & Snacks",
-  "Pharmacy",
-  "General Merchandise",
-  "Vitamins & Supplements",
-  "More",
-];
-
 const HomeCategoriesMap = () => {
-  const { data, isLoading , isSuccess } = useGetCategoriesQuery({});
+  const { data, isLoading, isSuccess } = useGetCategoriesQuery({});
   if (isLoading && !isSuccess) return <div>Loading...</div>;
   return (
     <div>

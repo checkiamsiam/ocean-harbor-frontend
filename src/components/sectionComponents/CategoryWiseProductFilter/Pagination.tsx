@@ -1,13 +1,16 @@
 "use client";
+import { useRouter } from "@/lib/router-events";
+import { useGetProductsQuery } from "@/redux/features/product/productApi";
 import { Pagination, PaginationProps } from "antd";
 import { useParams, useSearchParams } from "next/navigation";
-import { useRouter } from "@/lib/router-events";
 
 const CategoryProductPagination = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const params = useParams();
   const searchQuery = Object.fromEntries(searchParams.entries());
+  const queryParamsForProductQuery = { ...searchQuery, categoryId: params.catSlug, limit: searchQuery.limit || 12, page: searchQuery.page || 1 };
+  const { data, isLoading } = useGetProductsQuery({ params: queryParamsForProductQuery }, { refetchOnMountOrArgChange: true });
   const handleChange: PaginationProps["onChange"] = (current, pageSize) => {
     const newQuery = { ...searchQuery, limit: String(pageSize), page: String(current) };
     router.replace(`/categories/${params.catSlug}?${new URLSearchParams(newQuery)}`);
@@ -18,7 +21,7 @@ const CategoryProductPagination = () => {
         size="small"
         showLessItems
         defaultCurrent={1}
-        total={500}
+        total={data?.meta.total}
         pageSizeOptions={[12, 24, 48]}
         defaultPageSize={12}
         onChange={handleChange}
