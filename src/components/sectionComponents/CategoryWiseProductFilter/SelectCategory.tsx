@@ -1,14 +1,13 @@
 "use client";
 import { useRouter } from "@/lib/router-events";
-import { useGetCategoriesQuery } from "@/redux/features/category/categoryApi";
+import { Category } from "@/types/ApiResponse";
 import { Select, SelectProps } from "antd";
 import { useParams, useSearchParams } from "next/navigation";
 
-const SelectCategory = () => {
+const SelectCategory = ({ categories }: { categories: Category[] }) => {
   const params = useParams();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { data, isLoading } = useGetCategoriesQuery({} , { refetchOnMountOrArgChange: true });
   const handleChange: SelectProps["onChange"] = (value) => {
     const searchQuery = Object.fromEntries(searchParams.entries());
     const { subCategoryId, brandId, ...rest } = searchQuery;
@@ -17,13 +16,12 @@ const SelectCategory = () => {
 
   return (
     <div>
-      {data && (
+      {categories && (
         <Select
-          loading={isLoading}
-          options={data?.categories?.map((c) => {
+          options={categories?.map((c) => {
             return { label: c.title, value: c.id };
           })}
-          value={{ label: data?.categories.find((c) => c.id === params.catSlug)?.title, value: params.catSlug }}
+          value={{ label: categories?.find((c) => c.id === params.catSlug)?.title, value: params.catSlug }}
           style={{ width: "200px" }}
           placeholder={"Category"}
           onChange={handleChange}

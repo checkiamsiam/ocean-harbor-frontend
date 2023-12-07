@@ -4,7 +4,7 @@ import { CategoryBrand } from "@/types/ApiResponse";
 import { Select, SelectProps } from "antd";
 import { useParams, useSearchParams } from "next/navigation";
 
-const SelectBrand = ({ brands, isLoading }: { brands: CategoryBrand[]; isLoading: boolean }) => {
+const SelectBrand = ({ brands }: { brands: CategoryBrand[] }) => {
   const searchParams = useSearchParams();
   const params = useParams();
   const router = useRouter();
@@ -17,7 +17,6 @@ const SelectBrand = ({ brands, isLoading }: { brands: CategoryBrand[]; isLoading
   return (
     <div>
       <Select
-        loading={isLoading}
         options={brands?.map((cb) => {
           return { label: cb.brand.title, value: cb.brand.id };
         })}

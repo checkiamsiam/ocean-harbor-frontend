@@ -1,3 +1,4 @@
+import { axiosInstance } from "@/helpers/axios/axiosInstance";
 import { baseApi } from "@/redux/baseApi";
 import { IMeta, IQuery } from "@/types";
 import { Brand } from "@/types/ApiResponse";
@@ -10,7 +11,7 @@ export const brandApi = baseApi.injectEndpoints({
       query: (arg) => ({
         url: brand_url,
         method: "GET",
-        params : arg?.params,
+        params: arg?.params,
       }),
       transformResponse: (response: Brand[], meta: IMeta) => {
         return {
@@ -21,5 +22,18 @@ export const brandApi = baseApi.injectEndpoints({
     }),
   }),
 });
+
+export const getBrands = async ({ params }: { params?: IQuery }): Promise<{ brands: Brand[]; meta: IMeta }> => {
+  const result = await axiosInstance({
+    url: brand_url,
+    method: "GET",
+    params,
+  });
+  return {
+    brands: result.data,
+    //@ts-ignore
+    meta: result.meta,
+  };
+};
 
 export const { useGetBrandsQuery } = brandApi;

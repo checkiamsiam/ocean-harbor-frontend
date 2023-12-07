@@ -20,7 +20,7 @@ const ProductsPopoverContent = () => {
         {show && !isLoading && isSuccess && (
           <div ref={ref} className="absolute z-50 p-5 bg-secondary mt-4 w-[800px] shadow-lg">
             <Row gutter={[10, 10]}>
-              {data?.categories.map((slug, i) => (
+              {data?.categories?.map((slug, i) => (
                 <Col span={8} key={i}>
                   <Link href={`/categories/${slug.id}`} className="text-white  hover:text-primary">
                     {slug.title}

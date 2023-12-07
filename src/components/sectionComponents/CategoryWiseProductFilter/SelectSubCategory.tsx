@@ -4,7 +4,7 @@ import { SubCategory } from "@/types/ApiResponse";
 import { Select, SelectProps } from "antd";
 import { useParams, useSearchParams } from "next/navigation";
 
-const SelectSubCategory = ({ subCategories, isLoading }: { subCategories: SubCategory[]; isLoading: boolean }) => {
+const SelectSubCategory = ({ subCategories }: { subCategories: SubCategory[];  }) => {
   const searchParams = useSearchParams();
   const params = useParams();
   const router = useRouter();
@@ -17,7 +17,6 @@ const SelectSubCategory = ({ subCategories, isLoading }: { subCategories: SubCat
   return (
     <div>
       <Select
-        loading={isLoading}
         options={subCategories?.map((subCategory) => {
           return { label: subCategory.title, value: subCategory.id };
         })}

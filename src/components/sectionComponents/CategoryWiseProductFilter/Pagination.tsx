@@ -17,15 +17,17 @@ const CategoryProductPagination = () => {
   };
   return (
     <div>
-      <Pagination
-        size="small"
-        showLessItems
-        defaultCurrent={1}
-        total={data?.meta.total}
-        pageSizeOptions={[12, 24, 48]}
-        defaultPageSize={12}
-        onChange={handleChange}
-      />
+      {data && (
+        <Pagination
+          size="small"
+          showLessItems
+          defaultCurrent={1}
+          total={data?.meta?.total}
+          pageSizeOptions={[12, 24, 48]}
+          defaultPageSize={12}
+          onChange={handleChange}
+        />
+      )}
     </div>
   );
 };

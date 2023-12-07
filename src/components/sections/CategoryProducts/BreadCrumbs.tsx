@@ -1,17 +1,10 @@
-"use client";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
-import { useGetSingleCategoryQuery } from "@/redux/features/category/categoryApi";
+import { getSingleCategory } from "@/redux/features/category/categoryApi";
 
-const BreadCrumbs = ({ categoryId }: { categoryId: string }) => {
-  const { data } = useGetSingleCategoryQuery(
-    {
-      id: categoryId,
-      params: {
-        populate: "subCategories,brands",
-      },
-    },
-    { refetchOnMountOrArgChange: true }
-  );
+const BreadCrumbs = async ({ categoryId }: { categoryId: string }) => {
+  const data = await getSingleCategory({
+    id: categoryId,
+  });
   return (
     <div>
       <div className="ga-container">

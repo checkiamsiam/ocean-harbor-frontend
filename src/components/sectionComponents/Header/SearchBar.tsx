@@ -8,13 +8,14 @@ import { useRouter } from "@/lib/router-events";
 const SearchBar = () => {
   const router = useRouter();
   const submitHandler = (data: any) => {
-    router.push(`/search?searchKey=${data.searchKey}`);
+    if(!data.searchKey) return;
+    router.push(`/search/${data.searchKey}`);
   };
   return (
     <div>
       <Form submitHandler={submitHandler}>
         <Flex>
-          <FormInput name="searchKey" size="large" placeholder="Search for product" />
+          <FormInput name="searchKey" size="large"  placeholder="Search for product" />
           <GAButton htmlType="submit" square arrow size="large">
             Search
           </GAButton>

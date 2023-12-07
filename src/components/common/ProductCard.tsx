@@ -1,4 +1,3 @@
-"use client";
 import { Link } from "@/lib/router-events";
 import { Product } from "@/types/ApiResponse";
 import { Card } from "antd";
