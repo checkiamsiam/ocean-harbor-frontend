@@ -16,7 +16,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           </p>
         </Link>
         <div className="flex justify-center">
-          <ProductCartAction />
+          <ProductCartAction product={product}/>
         </div>
       </div>
     </Card>

@@ -1,0 +1,1 @@
+export const cart_key : string = "ga_cart";

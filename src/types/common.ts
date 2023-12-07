@@ -1,3 +1,5 @@
+import { Product } from "./ApiResponse";
+
 export interface IMeta {
   limit: number;
   page: number;
@@ -30,3 +32,10 @@ export type IGenericErrorMessage = {
   path: string | number;
   message: string;
 };
+
+export interface ICartItem {
+  product: Product;
+  quantity: number;
+}
+
+export type ICart = ICartItem[];

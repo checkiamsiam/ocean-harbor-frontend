@@ -5,9 +5,12 @@ import { getSingleProduct } from "@/redux/features/product/productApi";
 import { Col, Row } from "antd";
 
 const ProductHero = async ({ productId }: { productId: string }) => {
-  const { product } = await getSingleProduct({ id: productId , params: {
-    populate: "category,brand,subCategory"
-  }});
+  const { product } = await getSingleProduct({
+    id: productId,
+    params: {
+      populate: "category,brand,subCategory",
+    },
+  });
   return (
     <div>
       <div className="ga-container">
@@ -19,9 +22,9 @@ const ProductHero = async ({ productId }: { productId: string }) => {
             <Col span={24} md={14}>
               <div className="md:p-5">
                 <div>
-                  <ProductInfo product={product}/>
+                  <ProductInfo product={product} />
                   <div className="mt-5">
-                    <ProductCartAction />
+                    <ProductCartAction product={product} />
                   </div>
                 </div>
               </div>
