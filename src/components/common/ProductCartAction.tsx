@@ -1,20 +1,38 @@
 "use client";
+import { addToCart, getCart, removeFromCart, removeQntFromCart } from "@/service/cart/cart.service";
+import { ICart } from "@/types";
+import { Product } from "@/types/ApiResponse";
 import { Button, ButtonProps } from "antd";
+import { useEffect, useState } from "react";
 import { RiAddFill, RiDeleteBin2Fill, RiSubtractFill } from "react-icons/ri";
 
-const ProductCartAction = () => {
+const ProductCartAction = ({ product }: { product: Product }) => {
+  const [render, setRender] = useState(false);
+  const [quantity, setQuantity] = useState(0);
   const handleRemoveQuantityFromCart: ButtonProps["onClick"] = (e) => {
     e.stopPropagation();
-    console.log("clickedButton");
+    removeQntFromCart(product);
+    setRender(!render);
   };
   const handleAddQuantityToCart: ButtonProps["onClick"] = (e) => {
     e.stopPropagation();
-    console.log("clickedButton");
+    addToCart(product);
+    setRender(!render);
   };
   const handleRemoveItem: ButtonProps["onClick"] = (e) => {
     e.stopPropagation();
-    console.log("clickedButton");
+    removeFromCart(product);
+    setRender(!render);
   };
+  useEffect(() => {
+    const cart: ICart = getCart();
+    const isAlreadyInCart = cart.find((item) => item.product.id === product.id);
+    if (isAlreadyInCart) {
+      setQuantity(isAlreadyInCart.quantity);
+    } else {
+      setQuantity(0);
+    }
+  }, [product, render]);
   return (
     <div>
       <div className="flex items-center gap-5">
@@ -39,7 +57,7 @@ const ProductCartAction = () => {
             }}
             className="flex items-center justify-center text-secondary "
           >
-            0
+            {quantity}
           </span>
           <Button
             onClick={handleAddQuantityToCart}

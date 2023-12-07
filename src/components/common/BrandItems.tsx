@@ -6,7 +6,7 @@ const BrandItems = ({ icon, link }: { icon: string; link: string }) => {
     <div>
       <div className="p-5 flex justify-center items-center">
         <Link href={link} className="hover:grayscale grayscale-0 transition duration-300 ease-in-out">
-          <Image src={icon} alt="" width={300} height={300} className="w-full h-full " />
+          <Image src={icon} alt="" width={150} height={150}  />
         </Link>
       </div>
     </div>

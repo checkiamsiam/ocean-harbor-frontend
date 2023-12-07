@@ -1,11 +1,9 @@
-"use client";
 import CategoryLinkCard from "@/components/common/CategoryLinkCard";
 import SectionHeader from "@/components/common/SectionHeader";
-import { useGetCategoriesQuery } from "@/redux/features/category/categoryApi";
+import { getCategory } from "@/redux/features/category/categoryApi";
 
-const CategoriesMap = () => {
-  const { data, isLoading , isSuccess } = useGetCategoriesQuery({});
-  if (isLoading && !isSuccess) return <div>Loading...</div>;
+const CategoriesMap = async () => {
+  const data = await getCategory({});
   return (
     <div>
       <div className="ga-container">

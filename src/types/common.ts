@@ -1,3 +1,5 @@
+import { Product } from "./ApiResponse";
+
 export interface IMeta {
   limit: number;
   page: number;
@@ -10,8 +12,8 @@ export type ResponseSuccessType = {
 };
 
 export interface IQueryFeatures {
-  page?: number;
-  limit?: number;
+  page?: number | string;
+  limit?: number | string;
   fields?: string;
   populate?: string;
   sort?: string;
@@ -30,3 +32,10 @@ export type IGenericErrorMessage = {
   path: string | number;
   message: string;
 };
+
+export interface ICartItem {
+  product: Product;
+  quantity: number;
+}
+
+export type ICart = ICartItem[];
