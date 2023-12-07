@@ -17,11 +17,11 @@ const CategoryProductPagination = () => {
   };
   return (
     <div>
-      {data && (
+      {data && !isLoading && (
         <Pagination
           size="small"
           showLessItems
-          defaultCurrent={1}
+          current={Number(searchQuery.page) || 1}
           total={data?.meta?.total}
           pageSizeOptions={[12, 24, 48]}
           defaultPageSize={12}

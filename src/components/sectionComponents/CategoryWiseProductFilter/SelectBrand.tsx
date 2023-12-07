@@ -9,8 +9,9 @@ const SelectBrand = ({ brands }: { brands: CategoryBrand[] }) => {
   const params = useParams();
   const router = useRouter();
   const searchQuery = Object.fromEntries(searchParams.entries());
+  const { brandId, limit, page, ...rest } = searchQuery;
   const handleChange: SelectProps["onChange"] = (value) => {
-    const newQuery = { ...searchQuery, brandId: value };
+    const newQuery = { ...rest, brandId: value };
     router.replace(`/categories/${params.catSlug}?${new URLSearchParams(newQuery)}`);
   };
 

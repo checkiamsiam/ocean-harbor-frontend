@@ -20,6 +20,19 @@ export const brandApi = baseApi.injectEndpoints({
         };
       },
     }),
+
+    getSingleBrand: builder.query<{ brand: Brand }, { id: string; params?: IQuery }>({
+      query: (arg) => ({
+        url: brand_url + "/" + arg?.id,
+        method: "GET",
+        params: arg?.params,
+      }),
+      transformResponse: (response: Brand) => {
+        return {
+          brand: response,
+        };
+      },
+    }),
   }),
 });
 
@@ -36,4 +49,15 @@ export const getBrands = async ({ params }: { params?: IQuery }): Promise<{ bran
   };
 };
 
-export const { useGetBrandsQuery } = brandApi;
+export const getSingleBrand = async ({ id, params }: { id: string; params?: IQuery }): Promise<{ brand: Brand }> => {
+  const result = await axiosInstance({
+    url: brand_url + "/" + id,
+    method: "GET",
+    params,
+  });
+  return {
+    brand: result.data,
+  };
+};
+
+export const { useGetBrandsQuery, useGetSingleBrandQuery } = brandApi;

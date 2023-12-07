@@ -1,27 +1,20 @@
 "use client";
-import { Select, SelectProps } from "antd";
-import { useParams,  useSearchParams } from "next/navigation";
 import { useRouter } from "@/lib/router-events";
+import { Brand } from "@/types/ApiResponse";
+import { Select, SelectProps } from "antd";
 
-const SelectBrand = () => {
-  const searchParams = useSearchParams();
-  const params = useParams();
+const SelectBrand = ({ allBrands, currentBrand }: { allBrands: Brand[]; currentBrand: Brand }) => {
   const router = useRouter();
-  const searchQuery = Object.fromEntries(searchParams.entries());
   const handleChange: SelectProps["onChange"] = (value) => {
-    const { category, subCategory, ...rest } = searchQuery;
-    router.replace(`/brands/${value}?${new URLSearchParams(rest)}`);
+    router.replace(`/brands/${value}`);
   };
-
   return (
     <div>
       <Select
-        // loading={loading}
-        options={[
-          { label: "Food", value: "food" },
-          { label: "Drinks", value: "drinks" },
-        ]}
-        value={params.brandSlug}
+        options={allBrands?.map((b) => {
+          return { label: b.title, value: b.id };
+        })}
+        value={{ label: currentBrand?.title, value: currentBrand?.id }}
         style={{ width: "200px" }}
         placeholder={"Brand"}
         onChange={handleChange}

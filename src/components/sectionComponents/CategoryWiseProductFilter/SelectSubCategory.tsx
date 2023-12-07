@@ -9,8 +9,9 @@ const SelectSubCategory = ({ subCategories }: { subCategories: SubCategory[];  }
   const params = useParams();
   const router = useRouter();
   const searchQuery = Object.fromEntries(searchParams.entries());
+  const { subCategoryId, limit , page , ...rest } = searchQuery;
   const handleChange: SelectProps["onChange"] = (value) => {
-    const newQuery = { ...searchQuery, subCategoryId: value };
+    const newQuery = { ...rest, subCategoryId: value };
     router.replace(`/categories/${params.catSlug}?${new URLSearchParams(newQuery)}`);
   };
 

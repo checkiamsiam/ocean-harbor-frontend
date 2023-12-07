@@ -11,17 +11,16 @@ const CategoryWiseProductFilter = async ({ categoryId }: { categoryId: string })
       populate: "subCategories,brands",
     },
   });
-
-  const allCat = await getCategory({})
+  const allCat = await getCategory({});
   return (
     <div>
       <div className="ga-container">
         <div className="pb-5">
           <div className="flex flex-wrap gap-1 justify-between items-center">
             <div className="flex flex-wrap gap-1">
-              {allCat && <SelectCategory categories={allCat.categories}/>}
-              {data?.category?.subCategories && <SelectSubCategory subCategories={data?.category.subCategories}  />}
-              {data?.category?.brands && <SelectBrand brands={data?.category?.brands}  />}
+              {allCat && <SelectCategory categories={allCat.categories} categoryId={categoryId} />}
+              {data?.category?.subCategories && <SelectSubCategory subCategories={data?.category.subCategories} />}
+              {data?.category?.brands && <SelectBrand brands={data?.category?.brands} />}
             </div>
             <div>
               <CategoryProductPagination />
