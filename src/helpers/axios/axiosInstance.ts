@@ -1,5 +1,6 @@
-import { getServerSession } from "@/service/auth/getServerSession";
+import { accessToken_key } from "@/constants/localstorageKeys";
 import { IGenericErrorResponse, ResponseSuccessType } from "@/types";
+import { getFromLocalStorage } from "@/utils/browserStorage/localstorage";
 import axios from "axios";
 import { signOut } from "next-auth/react";
 import { envConfig } from "../config/envConfig";
@@ -13,11 +14,11 @@ axiosInstance.defaults.timeout = 60000;
 
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
-  async function (config) {
+  function (config) {
     // Do something before request is sent
-    const session = await getServerSession();
-    if (session?.accessToken) {
-      config.headers.Authorization = session?.accessToken;
+    const accessToken = getFromLocalStorage(accessToken_key);
+    if (accessToken) {
+      config.headers.Authorization = accessToken;
     }
     return config;
   },
