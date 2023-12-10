@@ -25,7 +25,7 @@ export type IQuery = IQueryFeatures & { [key: string]: any };
 export type IGenericErrorResponse = {
   statusCode: number;
   message: string;
-  errorMessages: IGenericErrorMessage[];
+  error: IGenericErrorMessage[];
 };
 
 export type IGenericErrorMessage = {
@@ -36,6 +36,11 @@ export type IGenericErrorMessage = {
 export interface ICartItem {
   product: Product;
   quantity: number;
+}
+
+export interface ILoginCredentials {
+  email: string;
+  password: string;
 }
 
 export type ICart = ICartItem[];

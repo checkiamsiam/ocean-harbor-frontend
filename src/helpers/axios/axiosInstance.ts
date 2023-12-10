@@ -1,5 +1,7 @@
+import { getServerSession } from "@/service/auth/getServerSession";
 import { IGenericErrorResponse, ResponseSuccessType } from "@/types";
 import axios from "axios";
+import { signOut } from "next-auth/react";
 import { envConfig } from "../config/envConfig";
 
 const axiosInstance = axios.create({
@@ -13,10 +15,10 @@ axiosInstance.defaults.timeout = 60000;
 axiosInstance.interceptors.request.use(
   async function (config) {
     // Do something before request is sent
-    // const accessToken = getFromLocalStorage(AUTH_KEY);
-    // if (accessToken) {
-    //   config.headers.Authorization = accessToken;
-    // }
+    const session = await getServerSession();
+    if (session?.accessToken) {
+      config.headers.Authorization = session?.accessToken;
+    }
     return config;
   },
   function (error) {
@@ -28,7 +30,10 @@ axiosInstance.interceptors.request.use(
 // Add a response interceptor
 axiosInstance.interceptors.response.use(
   //@ts-ignore
-  function (response) {
+  async function (response) {
+    if (response?.status === 401 || response?.status === 403) {
+      await signOut({ redirect: true, callbackUrl: "/login" });
+    }
     const responseObject: ResponseSuccessType = {
       data: response?.data?.data,
       meta: response?.data?.meta,
@@ -39,7 +44,7 @@ axiosInstance.interceptors.response.use(
     const responseObject: IGenericErrorResponse = {
       statusCode: error?.response?.data?.statusCode || 500,
       message: error?.response?.data?.message || "Something went wrong",
-      errorMessages: error?.response?.data?.message,
+      error: error?.response?.data?.message,
     };
     return responseObject;
   }

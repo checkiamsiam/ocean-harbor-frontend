@@ -3,11 +3,18 @@ import Form from "@/components/form/Form";
 import FormInput from "@/components/form/FormInput";
 import GAButton from "@/components/ui/GAButton";
 import { Link } from "@/lib/router-events";
+import { ILoginCredentials } from "@/types";
 import { Card } from "antd";
+import { signIn } from "next-auth/react";
 
 const LoginForm = () => {
-  const submitHandler = (data: any) => {
-    console.log("submited");
+  const submitHandler = async (data: ILoginCredentials) => {
+    await signIn("GA-Login-With-Credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: true,
+      callbackUrl: "/",
+    });
   };
   return (
     <div className="ga-container">
