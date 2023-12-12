@@ -20,11 +20,11 @@ const providers: Provider[] = [
           throw new Error("please enter email or password");
         }
 
-        const { data, message } = await loginWithCredential({ email, password });
+        const { data } = await loginWithCredential({ email, password });
 
         const verifiedToken: any = jwtHelpers.verifyToken(data?.accessToken, envConfig.jwt.secret);
         // If no error and we have user data, return it
-        if (data.accessToken && verifiedToken) {
+        if (data?.accessToken && verifiedToken) {
           return {
             id: verifiedToken?.userId,
             accessToken: data?.accessToken,
@@ -37,9 +37,8 @@ const providers: Provider[] = [
           };
         }
 
-        throw new Error(message || "Something went wrong");
+        throw new Error(data?.error?.message || "Something went wrong");
       } catch (error: any) {
-        console.log("error", error);
         throw new Error(error?.message || "Something went wrong");
       }
     },
@@ -77,5 +76,5 @@ export const auth_options: NextAuthOptions = {
   callbacks,
   pages: { signIn: "/login", signOut: "*", error: "/" },
   secret: envConfig.jwt.secret,
-  jwt: { maxAge: 60 * 60 * 24 * 1 }, //default
+  jwt: { maxAge:  60 * 60 * 24 * 1 }, //default
 };

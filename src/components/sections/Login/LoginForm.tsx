@@ -4,26 +4,26 @@ import FormInput from "@/components/form/FormInput";
 import GAButton from "@/components/ui/GAButton";
 import { Link } from "@/lib/router-events";
 import { signIn } from "@/service/auth/signIn";
-import { signOut } from "@/service/auth/signOut";
 import { ILoginCredentials } from "@/types";
 import { Card } from "antd";
-import { useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const LoginForm = () => {
-  const { data: session } = useSession();
+  const router = useRouter();
+  const [error, setError] = useState<boolean>(false);
   const submitHandler = async (data: ILoginCredentials) => {
-    await signIn({
+    const res = await signIn({
       email: data.email,
       password: data.password,
     });
-  };
-
-  useEffect(() => {
-    if (session) {
-      signOut();
+    if (res?.ok && !res?.error) {
+      router.push("/");
+      setError(false);
+    } else {
+      setError(true);
     }
-  }, [session]);
+  };
 
   return (
     <div className="ga-container">
@@ -46,6 +46,12 @@ const LoginForm = () => {
                     No account? Request a registration
                   </Link>
                 </p>
+
+                {error && (
+                  <p className="text-center">
+                    <span className="text-red-500 underline ">Login failed !. Try with different credentials.</span>
+                  </p>
+                )}
 
                 <div className="flex justify-end">
                   <GAButton htmlType="submit" size="large" arrow>

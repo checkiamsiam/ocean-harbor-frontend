@@ -1,7 +1,7 @@
 import { accessToken_key } from "@/constants/localstorageKeys";
 import { signOut } from "@/service/auth/signOut";
 import { IGenericErrorResponse, ResponseSuccessType } from "@/types";
-import { getFromLocalStorage } from "@/utils/browserStorage/localstorage";
+import { getFromCookie } from "@/utils/browserStorage/cookiestorage";
 import axios from "axios";
 import { envConfig } from "../config/envConfig";
 
@@ -16,7 +16,7 @@ axiosInstance.defaults.timeout = 60000;
 axiosInstance.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-    const accessToken = getFromLocalStorage(accessToken_key);
+    const accessToken = getFromCookie(accessToken_key);
     if (accessToken) {
       config.headers.Authorization = accessToken;
     }
