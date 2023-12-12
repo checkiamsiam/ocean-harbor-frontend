@@ -1,3 +1,4 @@
+import { login_credential } from "@/constants/credentialId";
 import { envConfig } from "@/helpers/config/envConfig";
 import { jwtHelpers } from "@/helpers/jwthelpers/jwthelpers";
 import { loginWithCredential } from "@/redux/features/auth/authApi";
@@ -7,7 +8,7 @@ import { Provider } from "next-auth/providers/index";
 
 const providers: Provider[] = [
   CredentialsProvider({
-    id: "GA-Login-With-Credentials",
+    id: login_credential,
     name: "Credentials",
     type: "credentials",
     credentials: {},
@@ -74,7 +75,7 @@ const callbacks: Partial<CallbacksOptions> = {
 export const auth_options: NextAuthOptions = {
   providers,
   callbacks,
-  pages: { signIn: "/login", signOut: "/", error: "/" },
+  pages: { signIn: "/login", signOut: "*", error: "/" },
   secret: envConfig.jwt.secret,
   jwt: { maxAge: 60 * 60 * 24 * 1 }, //default
 };

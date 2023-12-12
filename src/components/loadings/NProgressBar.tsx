@@ -79,7 +79,7 @@ const Next13NProgress = ({
       NProgress.configure(options);
       NProgress.set(startPosition);
     }
-  }, []);
+  }, [options , startPosition]);
 
   const css = `
     #nprogress {

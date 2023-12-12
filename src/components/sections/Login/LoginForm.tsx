@@ -3,19 +3,28 @@ import Form from "@/components/form/Form";
 import FormInput from "@/components/form/FormInput";
 import GAButton from "@/components/ui/GAButton";
 import { Link } from "@/lib/router-events";
+import { signIn } from "@/service/auth/signIn";
+import { signOut } from "@/service/auth/signOut";
 import { ILoginCredentials } from "@/types";
 import { Card } from "antd";
-import { signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 const LoginForm = () => {
+  const { data: session } = useSession();
   const submitHandler = async (data: ILoginCredentials) => {
-    await signIn("GA-Login-With-Credentials", {
+    await signIn({
       email: data.email,
       password: data.password,
-      redirect: true,
-      callbackUrl: "/",
     });
   };
+
+  useEffect(() => {
+    if (session) {
+      signOut();
+    }
+  }, [session]);
+
   return (
     <div className="ga-container">
       <div className="py-10">

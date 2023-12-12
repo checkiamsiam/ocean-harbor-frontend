@@ -7,12 +7,13 @@ import { BiSolidCartAlt, BiSolidUser } from "react-icons/bi";
 
 const HeaderUserActions = () => {
   const { data: session, status } = useSession();
+
   return (
     <Flex justify="end" align="center" gap={10}>
       {session && status === "authenticated" ? (
-        <span className="text-white flex cursor-pointer justify-center gap-2 items-center hover:text-primary">
+        <Link href="/dashboard/profile" className="text-white flex cursor-pointer justify-center gap-2 items-center hover:text-primary">
           <span>{session?.user?.username}</span> <BiSolidUser className="text-icon" />
-        </span>
+        </Link>
       ) : (
         <Link href="/login" className="text-white flex justify-center gap-2 items-center hover:text-primary">
           <span>Sign In</span> <BiSolidUser className="text-icon" />

@@ -1,8 +1,8 @@
 import { accessToken_key } from "@/constants/localstorageKeys";
+import { signOut } from "@/service/auth/signOut";
 import { IGenericErrorResponse, ResponseSuccessType } from "@/types";
 import { getFromLocalStorage } from "@/utils/browserStorage/localstorage";
 import axios from "axios";
-import { signOut } from "next-auth/react";
 import { envConfig } from "../config/envConfig";
 
 const axiosInstance = axios.create({
@@ -33,7 +33,7 @@ axiosInstance.interceptors.response.use(
   //@ts-ignore
   async function (response) {
     if (response?.status === 401 || response?.status === 403) {
-      await signOut({ redirect: true, callbackUrl: "/login" });
+      await signOut();
     }
     const responseObject: ResponseSuccessType = {
       data: response?.data?.data,
