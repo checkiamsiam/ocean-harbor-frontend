@@ -1,7 +1,7 @@
 const Profile = () => {
   return (
     <div>
-      <h1>Admin dashbord</h1>
+      <span>Admin dashbord</span>
     </div>
   );
 };

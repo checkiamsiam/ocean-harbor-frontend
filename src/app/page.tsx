@@ -1,5 +1,5 @@
 import Banner from "@/components/common/Banner";
-import CustomerLayout from "@/components/layout/CustomerLayout";
+import CustomerLayout from "@/components/layout/PublicLayout";
 import HomBanner from "@/components/sections/Home/HomBanner";
 import HomeAbout from "@/components/sections/Home/HomeAbout";
 import HomeBrands from "@/components/sections/Home/HomeBrands";

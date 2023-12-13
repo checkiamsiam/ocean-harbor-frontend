@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "../sections/Layout/Footer";
 import Header from "../sections/Layout/Header";
 
-const CustomerLayout = ({ children }: { children: React.ReactNode }) => {
+const PublicLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <Header />
@@ -12,4 +12,4 @@ const CustomerLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default CustomerLayout;
+export default PublicLayout;

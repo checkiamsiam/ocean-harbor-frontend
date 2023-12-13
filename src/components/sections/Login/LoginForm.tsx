@@ -2,11 +2,10 @@
 import Form from "@/components/form/Form";
 import FormInput from "@/components/form/FormInput";
 import GAButton from "@/components/ui/GAButton";
-import { Link } from "@/lib/router-events";
+import { Link, useRouter } from "@/lib/router-events";
 import { signIn } from "@/service/auth/signIn";
 import { ILoginCredentials } from "@/types";
 import { Card } from "antd";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const LoginForm = () => {
@@ -16,7 +15,7 @@ const LoginForm = () => {
     const res = await signIn({
       email: data.email,
       password: data.password,
-    });
+    })
     if (res?.ok && !res?.error) {
       router.push("/");
       setError(false);

@@ -22,10 +22,11 @@ export async function middleware(request: NextRequest) {
 
   // redirect conditions
 
+  if (isAdmin && pathname === "/") {
+    return NextResponse.redirect(new URL("/admin/profile", request.nextUrl));
+  }
+
   if (adminRestrictionCondition || publicRestrictionCondition || customerRestrictionCondition) {
-    if (isAdmin && pathname === "/") {
-      return NextResponse.redirect(new URL("/admin/profile", request.nextUrl));
-    }
     return NextResponse.redirect(new URL("/", request.nextUrl));
   }
 
