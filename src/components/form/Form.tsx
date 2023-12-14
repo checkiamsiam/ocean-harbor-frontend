@@ -27,8 +27,8 @@ const Form = ({
 
   const { handleSubmit, reset } = methods;
 
-  const onSubmit = (data: any) => {
-    submitHandler(data);
+  const onSubmit = async (data: any) => {
+    await submitHandler(data);
     reset();
   };
 
