@@ -23,13 +23,11 @@ export interface IQueryFeatures {
 export type IQuery = IQueryFeatures & { [key: string]: any };
 
 export type IGenericErrorResponse = {
-  statusCode: number;
-  message: string;
-  error: IGenericErrorMessage[];
+  error: IGenericErrorMessage;
 };
 
 export type IGenericErrorMessage = {
-  path: string | number;
+  path ?: string | number;
   message: string;
 };
 

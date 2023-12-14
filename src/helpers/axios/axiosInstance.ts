@@ -32,9 +32,6 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   //@ts-ignore
   async function (response) {
-    if (response?.status === 401 || response?.status === 403) {
-      await signOut();
-    }
     const responseObject: ResponseSuccessType = {
       data: response?.data?.data,
       meta: response?.data?.meta,
@@ -42,10 +39,13 @@ axiosInstance.interceptors.response.use(
     return responseObject;
   },
   async function (error) {
+    if (error?.response?.status === 401 || error?.response?.status === 403) {
+      await signOut();
+    }
     const responseObject: IGenericErrorResponse = {
-      statusCode: error?.response?.data?.statusCode || 500,
-      message: error?.response?.data?.message || "Something went wrong",
-      error: error?.response?.data?.message,
+      error: {
+        message: error?.response?.data?.message || "Something went wrong",
+      },
     };
     return responseObject;
   }

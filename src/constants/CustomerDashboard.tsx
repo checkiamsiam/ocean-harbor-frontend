@@ -3,8 +3,6 @@ import { OrderStatus } from "@/types/ApiResponse";
 import { MenuProps } from "antd";
 import { BiSolidUser } from "react-icons/bi";
 import { IoBagCheckOutline } from "react-icons/io5";
-import { MdOutlineManageHistory } from "react-icons/md";
-
 
 export type MenuItem = Required<MenuProps>["items"][number];
 
@@ -26,8 +24,8 @@ export const customerDashboardItems: MenuItem[] = [
     icon: <IoBagCheckOutline />,
     children: [
       {
-        label: <Link href={`/admin/quotation?status=${OrderStatus.requestQuotation}`}>Quotation Requests</Link>,
-        key: `/admin/quotation?status=${OrderStatus.requestQuotation}`,
+        label: <Link href={`/dashboard/quotation-requests`}>Quotation Requests</Link>,
+        key: `/dashboard/quotation-requests`,
       },
       {
         label: <Link href={`/admin/quotation?status=${OrderStatus.quotationApproved}`}>Quotation Approved</Link>,
@@ -43,5 +41,4 @@ export const customerDashboardItems: MenuItem[] = [
       },
     ],
   },
-  
 ];
