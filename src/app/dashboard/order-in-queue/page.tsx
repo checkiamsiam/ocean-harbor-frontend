@@ -6,7 +6,6 @@ import { useGetMyOrdersQuery } from "@/redux/features/order/orderApi";
 import { OrderStatus } from "@/types/ApiResponse";
 import { convertStatusText } from "@/utils/convertStatusText";
 import { Input, TableColumnProps } from "antd";
-import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
@@ -32,8 +31,9 @@ const QuotationRequestsPage = () => {
   if (!!debouncedTerm) {
     query["searchKey"] = debouncedTerm;
   }
+
   const { data, isLoading } = useGetMyOrdersQuery(
-    { params: { ...query }, status: [OrderStatus.requestQuotation] },
+    { params: { ...query }, status: [OrderStatus.ordered, OrderStatus.orderInProcess] },
     {
       refetchOnMountOrArgChange: true,
       skip: !session?.accessToken,
@@ -51,17 +51,16 @@ const QuotationRequestsPage = () => {
     {
       title: "Status",
       dataIndex: "status",
-      render: function (data: any) {
-        return <>{convertStatusText(data)}</>;
+      render: function (data: OrderStatus) {
+        return <div className="flex justify-center items-center">{convertStatusText(data)}</div>;
       },
     },
     {
-      title: "Requested At",
-      dataIndex: "createdAt",
-      render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+      title: "Invoice",
+      dataIndex: "invoice",
+      render: function (data) {
+        return <div className="flex justify-center items-center">{data ? <a href={data}>download</a> : <span>N/A</span>}</div>;
       },
-      sorter: true,
     },
   ];
 
@@ -78,7 +77,7 @@ const QuotationRequestsPage = () => {
 
   return (
     <div>
-      <GAActionBar title="Quotation Requests">
+      <GAActionBar title="Order in Queue">
         <div className="w-full md:w-1/4">
           <Input
             type="text"

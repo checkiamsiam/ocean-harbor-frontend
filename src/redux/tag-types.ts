@@ -1,4 +1,7 @@
-// user = "user",
-export enum tagTypes {}
+export enum tagTypes {
+  order = "order",
+}
 
-export const tagTypesList = [];
+export const tagTypesList = [
+  tagTypes.order,
+];

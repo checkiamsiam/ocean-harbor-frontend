@@ -1,5 +1,4 @@
 import { Link } from "@/lib/router-events";
-import { OrderStatus } from "@/types/ApiResponse";
 import { MenuProps } from "antd";
 import { BiSolidUser } from "react-icons/bi";
 import { IoBagCheckOutline } from "react-icons/io5";
@@ -28,16 +27,16 @@ export const customerDashboardItems: MenuItem[] = [
         key: `/dashboard/quotation-requests`,
       },
       {
-        label: <Link href={`/admin/quotation?status=${OrderStatus.quotationApproved}`}>Quotation Approved</Link>,
-        key: `/admin/quotation?status=${OrderStatus.quotationApproved}`,
+        label: <Link href={`/dashboard/quotation-approved`}>Quotation Approved</Link>,
+        key: `/dashboard/quotation-approved`,
       },
       {
-        label: <Link href={`/admin/order?status=${OrderStatus.orderInProcess}`}>Order In Queue</Link>,
-        key: `/admin/order?status=${OrderStatus.orderInProcess}`,
+        label: <Link href={`/dashboard/order-in-queue`}>Order In Queue</Link>,
+        key: `/dashboard/order-in-queue`,
       },
       {
-        label: <Link href={`/admin/order?status=${OrderStatus.delivered}`}>History</Link>,
-        key: `/admin/order?status=${OrderStatus.delivered}`,
+        label: <Link href={`/dashboard/order-history`}>History</Link>,
+        key: `/dashboard/order-history`,
       },
     ],
   },
