@@ -1,11 +1,11 @@
 "use client";
 import GAActionBar from "@/components/ui/GAActionBar";
+import GABreadCrumb from "@/components/ui/GABreadcrumb";
 import GATable from "@/components/ui/GATable";
-import { useDebounced } from "@/hooks/useDebounced";
 import { useGetMyOrdersQuery } from "@/redux/features/order/orderApi";
 import { OrderStatus } from "@/types/ApiResponse";
 import { convertStatusText } from "@/utils/convertStatusText";
-import { Input, TableColumnProps } from "antd";
+import { TableColumnProps } from "antd";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -18,20 +18,20 @@ const QuotationRequestsPage = () => {
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  // const [searchTerm, setSearchTerm] = useState<string>("");
 
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;
 
-  const debouncedTerm = useDebounced({
-    searchQuery: searchTerm,
-    delay: 600,
-  });
+  // const debouncedTerm = useDebounced({
+  //   searchQuery: searchTerm,
+  //   delay: 600,
+  // });
 
-  if (!!debouncedTerm) {
-    query["searchKey"] = debouncedTerm;
-  }
+  // if (!!debouncedTerm) {
+  //   query["searchKey"] = debouncedTerm;
+  // }
   const { data, isLoading } = useGetMyOrdersQuery(
     { params: { ...query }, status: [OrderStatus.requestQuotation] },
     {
@@ -79,7 +79,7 @@ const QuotationRequestsPage = () => {
   return (
     <div>
       <GAActionBar title="Quotation Requests">
-        <div className="w-full md:w-1/4">
+        {/* <div className="w-full md:w-1/4">
           <Input
             type="text"
             size="middle"
@@ -88,7 +88,8 @@ const QuotationRequestsPage = () => {
               setSearchTerm(e.target.value);
             }}
           />
-        </div>
+        </div> */}
+        <GABreadCrumb items={[{ label: "Order" }, { label: "Quotation"} , { label: "Requests"}]} />
       </GAActionBar>
 
       <GATable

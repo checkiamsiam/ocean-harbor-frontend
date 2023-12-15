@@ -9,7 +9,7 @@ import { TableColumnProps } from "antd";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
-const OrderInQueuePage = () => {
+const OrderHistoryPage = () => {
   const { data: session } = useSession();
   const query: Record<string, any> = {};
 
@@ -23,7 +23,7 @@ const OrderInQueuePage = () => {
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;
 
   const { data, isLoading } = useGetMyOrdersQuery(
-    { params: { ...query }, status: [OrderStatus.ordered, OrderStatus.orderInProcess] },
+    { params: { ...query }, status: [OrderStatus.delivered, OrderStatus.declined, OrderStatus.spam] },
     {
       refetchOnMountOrArgChange: true,
       skip: !session?.accessToken,
@@ -67,8 +67,8 @@ const OrderInQueuePage = () => {
 
   return (
     <div>
-      <GAActionBar title="Order in Queue">
-        <GABreadCrumb items={[{ label: "Order" }, { label: "Queue"}]} />
+      <GAActionBar title="Order History">
+        <GABreadCrumb items={[{ label: "Order" }, { label: "History" }]} />
       </GAActionBar>
 
       <GATable
@@ -86,4 +86,4 @@ const OrderInQueuePage = () => {
   );
 };
 
-export default OrderInQueuePage;
+export default OrderHistoryPage;

@@ -1,7 +1,12 @@
+import GAActionBar from "@/components/ui/GAActionBar";
+import GABreadCrumb from "@/components/ui/GABreadcrumb";
+
 const Profile = async () => {
   return (
     <div>
-      <h1>customer dashbord</h1>
+      <GAActionBar title="Account Profile">
+        <GABreadCrumb items={[{ label: "Account" }, { label: "Profile"} ]} />
+      </GAActionBar>
     </div>
   );
 };

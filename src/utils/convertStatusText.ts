@@ -9,13 +9,13 @@ export const convertStatusText = (status: OrderStatus) => {
     case OrderStatus.spam:
       return "Spam";
     case OrderStatus.ordered:
-      return "Ordered";
+      return "Pending";
     case OrderStatus.orderInProcess:
-      return "Order In Process";
+      return "In Process";
     case OrderStatus.delivered:
       return "Delivered";
     case OrderStatus.declined:
-      return "Order Declined";
+      return "Declined";
     default:
       return "Spam";
   }

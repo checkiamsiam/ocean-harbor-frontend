@@ -1,17 +1,17 @@
 "use client";
 import GAActionBar from "@/components/ui/GAActionBar";
+import GABreadCrumb from "@/components/ui/GABreadcrumb";
 import GATable from "@/components/ui/GATable";
-import { useDebounced } from "@/hooks/useDebounced";
 import { useConfirmOrderMutation, useDeclineOrderMutation, useGetMyOrdersQuery } from "@/redux/features/order/orderApi";
 import { OrderStatus } from "@/types/ApiResponse";
 import { convertStatusText } from "@/utils/convertStatusText";
-import { Input, TableColumnProps, Tooltip, message } from "antd";
+import { TableColumnProps, Tooltip, message } from "antd";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { GiCheckMark } from "react-icons/gi";
 import { RxCross2 } from "react-icons/rx";
 
-const QuotationRequestsPage = () => {
+const QuotationApprovedPage = () => {
   const { data: session } = useSession();
   const query: Record<string, any> = {};
 
@@ -19,20 +19,10 @@ const QuotationRequestsPage = () => {
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
-  const [searchTerm, setSearchTerm] = useState<string>("");
 
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;
-
-  const debouncedTerm = useDebounced({
-    searchQuery: searchTerm,
-    delay: 600,
-  });
-
-  if (!!debouncedTerm) {
-    query["searchKey"] = debouncedTerm;
-  }
 
   const { data, isLoading } = useGetMyOrdersQuery(
     { params: { ...query }, status: [OrderStatus.quotationApproved] },
@@ -133,16 +123,7 @@ const QuotationRequestsPage = () => {
   return (
     <div>
       <GAActionBar title="Quotation Approved">
-        <div className="w-full md:w-1/4">
-          <Input
-            type="text"
-            size="middle"
-            placeholder="Search..."
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-            }}
-          />
-        </div>
+        <GABreadCrumb items={[{ label: "Order" },{ label: "Quotation"}, { label: "Approved"}]} />
       </GAActionBar>
 
       <GATable
@@ -160,4 +141,4 @@ const QuotationRequestsPage = () => {
   );
 };
 
-export default QuotationRequestsPage;
+export default QuotationApprovedPage;

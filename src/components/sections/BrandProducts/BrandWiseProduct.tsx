@@ -1,6 +1,7 @@
 import ProductCard from "@/components/common/ProductCard";
 import { getProducts } from "@/redux/features/product/productApi";
 import { IQuery } from "@/types";
+import { Empty } from "antd";
 
 const BrandWiseProducts = async ({ searchQuery, brandId }: { searchQuery: IQuery; brandId: string }) => {
   const queryParamsForProductQuery = { ...searchQuery, brandId, limit: searchQuery.limit || 12, page: searchQuery.page || 1 };
@@ -9,9 +10,15 @@ const BrandWiseProducts = async ({ searchQuery, brandId }: { searchQuery: IQuery
     <div>
       <div className="ga-container">
         <div className="pb-5">
-          <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
-            {data && data?.products?.map((product) => <ProductCard key={product.id} product={product} />)}
-          </div>
+          {data && data.products.length > 0 ? (
+            <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
+              {data?.products?.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <Empty description="There is no product" />
+          )}
         </div>
       </div>
     </div>
