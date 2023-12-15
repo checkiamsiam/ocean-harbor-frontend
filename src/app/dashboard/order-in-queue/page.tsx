@@ -67,7 +67,7 @@ const OrderInQueuePage = () => {
 
   return (
     <div>
-      <GAActionBar title="Order in Queue">
+      <GAActionBar title="Order in Queue" customer>
         <GABreadCrumb items={[{ label: "Order" }, { label: "Queue"}]} />
       </GAActionBar>
 

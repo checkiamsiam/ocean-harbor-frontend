@@ -122,7 +122,7 @@ const QuotationApprovedPage = () => {
 
   return (
     <div>
-      <GAActionBar title="Quotation Approved">
+      <GAActionBar title="Quotation Approved" customer>
         <GABreadCrumb items={[{ label: "Order" },{ label: "Quotation"}, { label: "Approved"}]} />
       </GAActionBar>
 

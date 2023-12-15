@@ -37,7 +37,7 @@ const GATable = ({
       }
     : false;
 
-  return <Table loading={loading} columns={columns} dataSource={dataSource} pagination={paginationConfig as any} onChange={onTableChange} />;
+  return <Table loading={loading} columns={columns} dataSource={dataSource} pagination={paginationConfig as any} onChange={onTableChange} scroll={{x: true}}/>;
 };
 
 export default GATable;

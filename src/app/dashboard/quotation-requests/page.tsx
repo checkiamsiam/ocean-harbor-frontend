@@ -78,7 +78,7 @@ const QuotationRequestsPage = () => {
 
   return (
     <div>
-      <GAActionBar title="Quotation Requests">
+      <GAActionBar title="Quotation Requests" customer>
         {/* <div className="w-full md:w-1/4">
           <Input
             type="text"

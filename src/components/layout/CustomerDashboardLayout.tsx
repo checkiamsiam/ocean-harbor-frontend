@@ -12,7 +12,7 @@ const CustomerDashboardLayout = ({ children }: { children: React.ReactNode }) =>
         <div className="">
           <Layout hasSider style={{ padding: "24px 0", backgroundColor: "white", minHeight: "100vh" }}>
             <CustomerDashboardSidebar />
-            <Content style={{ padding: "0 24px" }}>{children}</Content>
+            <Content className="md:ml-5">{children}</Content>
           </Layout>
         </div>
       </div>

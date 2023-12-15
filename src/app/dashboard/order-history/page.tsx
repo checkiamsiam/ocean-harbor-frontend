@@ -67,7 +67,7 @@ const OrderHistoryPage = () => {
 
   return (
     <div>
-      <GAActionBar title="Order History">
+      <GAActionBar title="Order History" customer>
         <GABreadCrumb items={[{ label: "Order" }, { label: "History" }]} />
       </GAActionBar>
 
