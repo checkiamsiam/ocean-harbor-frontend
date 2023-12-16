@@ -19,7 +19,7 @@ const Cart = () => {
   }, []);
   const handleRequestPriceQuotation = async () => {
     if (!session && status === "unauthenticated") {
-      message.error("You need to login first");
+      message.warning("You need to login first");
       router.push("/login");
       return;
     }
@@ -39,7 +39,7 @@ const Cart = () => {
       }
     } catch (error) {
       message.destroy();
-      message.error("Request failed! try again");
+      message.warning("Request failed! try again");
     }
   };
   return (

@@ -25,7 +25,7 @@ const RegistrationRequestForm = () => {
       }
     } catch (err: any) {
       message.destroy();
-      message.error("Account request failed! try again");
+      message.warning("Account request failed! try again");
     }
   };
 

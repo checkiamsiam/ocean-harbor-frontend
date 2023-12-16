@@ -21,7 +21,7 @@ export const OrderApi = baseApi.injectEndpoints({
           meta,
         };
       },
-      providesTags: [tagTypes.order]
+      providesTags: [tagTypes.order],
     }),
     requestQuotation: builder.mutation({
       query: (arg: { productId: string; quantity: number }[]) => ({
@@ -33,15 +33,27 @@ export const OrderApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.order],
     }),
+    getSingleOrder: builder.query<{ order: Order }, { id: string; params?: IQuery }>({
+      query: (arg) => ({
+        url: order_url + "/get-single-order" + "/" + arg?.id,
+        method: "GET",
+        params: arg?.params,
+      }),
+      transformResponse: (response: Order) => {
+        return {
+          order: response,
+        };
+      },
+    }),
     declineOrder: builder.mutation({
-      query: (arg: { id : string; }) => ({
+      query: (arg: { id: string }) => ({
         url: order_url + "/decline-order" + "/" + arg.id,
         method: "PATCH",
       }),
       invalidatesTags: [tagTypes.order],
     }),
     confirmOrder: builder.mutation({
-      query: (arg: { id : string; }) => ({
+      query: (arg: { id: string }) => ({
         url: order_url + "/confirm-order" + "/" + arg.id,
         method: "PATCH",
       }),
@@ -50,4 +62,5 @@ export const OrderApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useRequestQuotationMutation, useGetMyOrdersQuery , useDeclineOrderMutation , useConfirmOrderMutation } = OrderApi;
+export const { useRequestQuotationMutation, useGetMyOrdersQuery, useDeclineOrderMutation, useConfirmOrderMutation, useGetSingleOrderQuery } =
+  OrderApi;

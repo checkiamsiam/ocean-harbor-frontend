@@ -2,7 +2,9 @@
 import GAActionBar from "@/components/ui/GAActionBar";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
 import GATable from "@/components/ui/GATable";
+import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/CustomerDashboard/CustomerDashboardSlice";
 import { useConfirmOrderMutation, useDeclineOrderMutation, useGetMyOrdersQuery } from "@/redux/features/order/orderApi";
+import { useAppDispatch } from "@/redux/hooks";
 import { OrderStatus } from "@/types/ApiResponse";
 import { convertStatusText } from "@/utils/convertStatusText";
 import { TableColumnProps, Tooltip, message } from "antd";
@@ -13,6 +15,7 @@ import { RxCross2 } from "react-icons/rx";
 
 const QuotationApprovedPage = () => {
   const { data: session } = useSession();
+  const dispatch = useAppDispatch();
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);
@@ -40,7 +43,7 @@ const QuotationApprovedPage = () => {
 
   const columns: TableColumnProps<any>[] = [
     {
-      title: "id",
+      title: "ID",
       dataIndex: "id",
     },
     {
@@ -102,7 +105,7 @@ const QuotationApprovedPage = () => {
       }
     } catch (err: any) {
       message.destroy();
-      message.error("Failed to Decline! try again");
+      message.warning("Failed to Decline! try again");
     }
   };
 
@@ -116,8 +119,13 @@ const QuotationApprovedPage = () => {
       }
     } catch (err: any) {
       message.destroy();
-      message.error("Failed to confirm! try again");
+      message.warning("Failed to confirm! try again");
     }
+  };
+
+  const handleOnRowClick = (id: string) => {
+    dispatch(setCurrentOrderId(id));
+    dispatch(toggleOrderItemDrawer());
   };
 
   return (
@@ -136,6 +144,7 @@ const QuotationApprovedPage = () => {
         onPaginationChange={onPaginationChange}
         onTableChange={onTableChange}
         showPagination={true}
+        onRowClick={handleOnRowClick}
       />
     </div>
   );

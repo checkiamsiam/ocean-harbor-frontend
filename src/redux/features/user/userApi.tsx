@@ -1,5 +1,5 @@
 import { baseApi } from "@/redux/baseApi";
-import { Customer } from "@/types/ApiResponse";
+import { User } from "@/types/ApiResponse";
 
 const account_profile = "/users";
 
@@ -10,9 +10,9 @@ export const userApi = baseApi.injectEndpoints({
         url: account_profile + "/profile",
         method: "GET",
       }),
-      transformResponse: (response: Customer): { customer: Customer } => {
+      transformResponse: (response: User): { user: User } => {
         return {
-          customer: response,
+          user: response,
         };
       },
     }),

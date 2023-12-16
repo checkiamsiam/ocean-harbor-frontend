@@ -1,6 +1,7 @@
 "use client";
 import { Layout } from "antd";
 import React from "react";
+import OrderItemsDrawer from "../common/OrderItemsDrawer";
 import CustomerDashboardSidebar from "../sections/Layout/CustomerDashboardSidebar";
 
 const { Content } = Layout;
@@ -16,6 +17,7 @@ const CustomerDashboardLayout = ({ children }: { children: React.ReactNode }) =>
           </Layout>
         </div>
       </div>
+      <OrderItemsDrawer />
     </div>
   );
 };

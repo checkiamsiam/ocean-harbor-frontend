@@ -2,7 +2,9 @@
 import GAActionBar from "@/components/ui/GAActionBar";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
 import GATable from "@/components/ui/GATable";
+import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/CustomerDashboard/CustomerDashboardSlice";
 import { useGetMyOrdersQuery } from "@/redux/features/order/orderApi";
+import { useAppDispatch } from "@/redux/hooks";
 import { OrderStatus } from "@/types/ApiResponse";
 import { convertStatusText } from "@/utils/convertStatusText";
 import { TableColumnProps } from "antd";
@@ -10,6 +12,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 const OrderHistoryPage = () => {
+  const dispatch = useAppDispatch();
   const { data: session } = useSession();
   const query: Record<string, any> = {};
 
@@ -35,7 +38,7 @@ const OrderHistoryPage = () => {
 
   const columns: TableColumnProps<any>[] = [
     {
-      title: "id",
+      title: "ID",
       dataIndex: "id",
     },
     {
@@ -65,6 +68,11 @@ const OrderHistoryPage = () => {
     setSortOrder(order === "ascend" ? "asc" : "desc");
   };
 
+  const handleOnRowClick = (id: string) => {
+    dispatch(setCurrentOrderId(id));
+    dispatch(toggleOrderItemDrawer());
+  };
+
   return (
     <div>
       <GAActionBar title="Order History" customer>
@@ -81,6 +89,7 @@ const OrderHistoryPage = () => {
         onPaginationChange={onPaginationChange}
         onTableChange={onTableChange}
         showPagination={true}
+        onRowClick={handleOnRowClick}
       />
     </div>
   );

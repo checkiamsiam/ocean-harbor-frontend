@@ -12,6 +12,7 @@ type GATableProps = {
   onPaginationChange?: (page: number, pageSize: number) => void;
   onTableChange?: (pagination: any, filter: any, sorter: any) => void;
   showPagination?: boolean;
+  onRowClick?: (id: string) => void;
 };
 
 const GATable = ({
@@ -24,6 +25,7 @@ const GATable = ({
   onPaginationChange,
   onTableChange,
   showPagination = true,
+  onRowClick,
 }: GATableProps) => {
   const paginationConfig = showPagination
     ? {
@@ -37,7 +39,22 @@ const GATable = ({
       }
     : false;
 
-  return <Table loading={loading} columns={columns} dataSource={dataSource} pagination={paginationConfig as any} onChange={onTableChange} scroll={{x: true}}/>;
+  return (
+    <Table
+      loading={loading}
+      columns={columns}
+      dataSource={dataSource}
+      pagination={paginationConfig as any}
+      onChange={onTableChange}
+      scroll={{ x: true }}
+      rowClassName="cursor-pointer"
+      onRow={({ id }) => {
+        return {
+          onClick: () => onRowClick && onRowClick(id),
+        };
+      }}
+    />
+  );
 };
 
 export default GATable;

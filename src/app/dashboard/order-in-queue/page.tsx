@@ -2,7 +2,9 @@
 import GAActionBar from "@/components/ui/GAActionBar";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
 import GATable from "@/components/ui/GATable";
+import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/CustomerDashboard/CustomerDashboardSlice";
 import { useGetMyOrdersQuery } from "@/redux/features/order/orderApi";
+import { useAppDispatch } from "@/redux/hooks";
 import { OrderStatus } from "@/types/ApiResponse";
 import { convertStatusText } from "@/utils/convertStatusText";
 import { TableColumnProps } from "antd";
@@ -10,6 +12,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 const OrderInQueuePage = () => {
+  const dispatch = useAppDispatch();
   const { data: session } = useSession();
   const query: Record<string, any> = {};
 
@@ -35,11 +38,11 @@ const OrderInQueuePage = () => {
 
   const columns: TableColumnProps<any>[] = [
     {
-      title: "id",
+      title: "ID",
       dataIndex: "id",
     },
     {
-      title: "Status",
+      title: "Delivery Status",
       dataIndex: "status",
       render: function (data: OrderStatus) {
         return <div className="flex justify-center items-center">{convertStatusText(data)}</div>;
@@ -65,6 +68,11 @@ const OrderInQueuePage = () => {
     setSortOrder(order === "ascend" ? "asc" : "desc");
   };
 
+  const handleOnRowClick = (id: string) => {
+    dispatch(setCurrentOrderId(id));
+    dispatch(toggleOrderItemDrawer());
+  };
+
   return (
     <div>
       <GAActionBar title="Order in Queue" customer>
@@ -81,6 +89,7 @@ const OrderInQueuePage = () => {
         onPaginationChange={onPaginationChange}
         onTableChange={onTableChange}
         showPagination={true}
+        onRowClick={handleOnRowClick}
       />
     </div>
   );

@@ -2,7 +2,9 @@
 import GAActionBar from "@/components/ui/GAActionBar";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
 import GATable from "@/components/ui/GATable";
+import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/CustomerDashboard/CustomerDashboardSlice";
 import { useGetMyOrdersQuery } from "@/redux/features/order/orderApi";
+import { useAppDispatch } from "@/redux/hooks";
 import { OrderStatus } from "@/types/ApiResponse";
 import { convertStatusText } from "@/utils/convertStatusText";
 import { TableColumnProps } from "antd";
@@ -12,6 +14,7 @@ import { useState } from "react";
 
 const QuotationRequestsPage = () => {
   const { data: session } = useSession();
+  const dispatch = useAppDispatch();
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);
@@ -45,7 +48,7 @@ const QuotationRequestsPage = () => {
 
   const columns: TableColumnProps<any>[] = [
     {
-      title: "id",
+      title: "ID",
       dataIndex: "id",
     },
     {
@@ -76,6 +79,11 @@ const QuotationRequestsPage = () => {
     setSortOrder(order === "ascend" ? "asc" : "desc");
   };
 
+  const handleOnRowClick = (id: string) => {
+    dispatch(setCurrentOrderId(id));
+    dispatch(toggleOrderItemDrawer());
+  };
+
   return (
     <div>
       <GAActionBar title="Quotation Requests" customer>
@@ -89,7 +97,7 @@ const QuotationRequestsPage = () => {
             }}
           />
         </div> */}
-        <GABreadCrumb items={[{ label: "Order" }, { label: "Quotation"} , { label: "Requests"}]} />
+        <GABreadCrumb items={[{ label: "Order" }, { label: "Quotation" }, { label: "Requests" }]} />
       </GAActionBar>
 
       <GATable
@@ -102,6 +110,7 @@ const QuotationRequestsPage = () => {
         onPaginationChange={onPaginationChange}
         onTableChange={onTableChange}
         showPagination={true}
+        onRowClick={handleOnRowClick}
       />
     </div>
   );

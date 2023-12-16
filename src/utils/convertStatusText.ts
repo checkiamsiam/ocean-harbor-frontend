@@ -7,7 +7,7 @@ export const convertStatusText = (status: OrderStatus) => {
     case OrderStatus.quotationApproved:
       return "Quotation Approved";
     case OrderStatus.spam:
-      return "Spam";
+      return "Ignored";
     case OrderStatus.ordered:
       return "Pending";
     case OrderStatus.orderInProcess:

@@ -20,44 +20,56 @@ const Profile = () => {
         <List>
           <List.Item>
             <Typography.Text strong>Name: </Typography.Text>
-            <Typography.Text className="w-3/5">{data?.customer?.name}</Typography.Text>
+            <Typography.Text className="w-3/5">{data?.user?.customer?.name}</Typography.Text>
+          </List.Item>
+          <List.Item>
+            <Typography.Text strong>Email: </Typography.Text>
+            <Typography.Text className="w-3/5">{data?.user?.email}</Typography.Text>
+          </List.Item>
+          <List.Item>
+            <Typography.Text strong>Username: </Typography.Text>
+            <Typography.Text className="w-3/5">{data?.user?.username}</Typography.Text>
+          </List.Item>
+          <List.Item>
+            <Typography.Text strong>Phone: </Typography.Text>
+            <Typography.Text className="w-3/5">{data?.user?.customer?.phone}</Typography.Text>
           </List.Item>
           <List.Item>
             <Typography.Text strong>Company Name:</Typography.Text>
-            <Typography.Text className="w-3/5">{data?.customer?.companyName}</Typography.Text>
+            <Typography.Text className="w-3/5">{data?.user?.customer?.companyName}</Typography.Text>
           </List.Item>
           <List.Item>
             <Typography.Text strong>Company Type:</Typography.Text>
-            <Typography.Text className="w-3/5">{data?.customer?.companyType}</Typography.Text>
+            <Typography.Text className="w-3/5">{data?.user?.customer?.companyType}</Typography.Text>
           </List.Item>
           <List.Item>
             <Typography.Text strong>Company Registration Number:</Typography.Text>
-            <Typography.Text className="w-3/5">{data?.customer?.companyRegNo}</Typography.Text>
+            <Typography.Text className="w-3/5">{data?.user?.customer?.companyRegNo}</Typography.Text>
           </List.Item>
           <List.Item>
             <Typography.Text strong>Company Details:</Typography.Text>
             <Typography.Paragraph className="w-3/5">
-              {data?.customer?.companyDetails}
-              {data?.customer?.companyDetails}
-              {data?.customer?.companyDetails}
-              {data?.customer?.companyDetails}
+              {data?.user?.customer?.companyDetails}
+              {data?.user?.customer?.companyDetails}
+              {data?.user?.customer?.companyDetails}
+              {data?.user?.customer?.companyDetails}
             </Typography.Paragraph>
           </List.Item>
           <List.Item>
             <Typography.Text strong>Tax Number:</Typography.Text>
-            <Typography.Text className="w-3/5">{data?.customer?.taxNumber}</Typography.Text>
+            <Typography.Text className="w-3/5">{data?.user?.customer?.taxNumber}</Typography.Text>
           </List.Item>
           <List.Item>
             <Typography.Text strong>Address:</Typography.Text>
-            <Typography.Paragraph className="w-3/5">{data?.customer?.address}</Typography.Paragraph>
+            <Typography.Paragraph className="w-3/5">{data?.user?.customer?.address}</Typography.Paragraph>
           </List.Item>
           <List.Item>
             <Typography.Text strong>City:</Typography.Text>
-            <Typography.Text className="w-3/5">{data?.customer?.city}</Typography.Text>
+            <Typography.Text className="w-3/5">{data?.user?.customer?.city}</Typography.Text>
           </List.Item>
           <List.Item>
             <Typography.Text strong>Country:</Typography.Text>
-            <Typography.Text className="w-3/5">{data?.customer?.country}</Typography.Text>
+            <Typography.Text className="w-3/5">{data?.user?.customer?.country}</Typography.Text>
           </List.Item>
         </List>
       </Card>
