@@ -40,6 +40,13 @@ const OrderHistoryPage = () => {
     {
       title: "ID",
       dataIndex: "id",
+      render: function (id: string) {
+        return (
+          <span className="cursor-pointer" onClick={() => handleOnRowClick(id)}>
+            {id}
+          </span>
+        );
+      },
     },
     {
       title: "Status",
@@ -89,7 +96,6 @@ const OrderHistoryPage = () => {
         onPaginationChange={onPaginationChange}
         onTableChange={onTableChange}
         showPagination={true}
-        onRowClick={handleOnRowClick}
       />
     </div>
   );

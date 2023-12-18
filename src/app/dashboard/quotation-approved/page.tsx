@@ -7,11 +7,12 @@ import { useConfirmOrderMutation, useDeclineOrderMutation, useGetMyOrdersQuery }
 import { useAppDispatch } from "@/redux/hooks";
 import { OrderStatus } from "@/types/ApiResponse";
 import { convertStatusText } from "@/utils/convertStatusText";
-import { TableColumnProps, Tooltip, message } from "antd";
+import { Modal, TableColumnProps, Tooltip, message } from "antd";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { GiCheckMark } from "react-icons/gi";
 import { RxCross2 } from "react-icons/rx";
+const { confirm } = Modal;
 
 const QuotationApprovedPage = () => {
   const { data: session } = useSession();
@@ -45,6 +46,13 @@ const QuotationApprovedPage = () => {
     {
       title: "ID",
       dataIndex: "id",
+      render: function (id: string) {
+        return (
+          <span className="cursor-pointer" onClick={() => handleOnRowClick(id)}>
+            {id}
+          </span>
+        );
+      },
     },
     {
       title: "Status",
@@ -68,13 +76,13 @@ const QuotationApprovedPage = () => {
           <div className="flex justify-center items-center gap-2">
             <Tooltip title="Decline Order" color="red" key={`decline-${data}`}>
               <RxCross2
-                onClick={() => handleDeclineOrder(data)}
+                onClick={() => showDeclineConfirm(data)}
                 className="text-icon text-red-400 cursor-pointer hover:bg-primary p-1 rounded-full transition duration-300 ease-in-out"
               />
             </Tooltip>
             <Tooltip title="Accept Order" color="green" key={`accept-${data}`}>
               <GiCheckMark
-                onClick={() => handleConfirmOrder(data)}
+                onClick={() => showConfirmOrderConfirm(data)}
                 className="text-icon text-green-400 cursor-pointer hover:bg-primary p-1 rounded-full transition duration-300 ease-in-out"
               />
             </Tooltip>
@@ -128,10 +136,35 @@ const QuotationApprovedPage = () => {
     dispatch(toggleOrderItemDrawer());
   };
 
+  const showDeclineConfirm = (data: string) => {
+    confirm({
+      title: "Are you sure decline this order?",
+      content: "Press 'Ok' to decline this order or 'Cancel' to back to previous page",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        handleDeclineOrder(data);
+      },
+    });
+  };
+  const showConfirmOrderConfirm = (data: string) => {
+    confirm({
+      title: "Are you sure confirm this order?",
+      content: "Press 'Ok' to confirm this order or 'Cancel' to back to previous page",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        handleConfirmOrder(data);
+      },
+    });
+  };
+
   return (
     <div>
       <GAActionBar title="Quotation Approved" customer>
-        <GABreadCrumb items={[{ label: "Order" },{ label: "Quotation"}, { label: "Approved"}]} />
+        <GABreadCrumb items={[{ label: "Order" }, { label: "Quotation" }, { label: "Approved" }]} />
       </GAActionBar>
 
       <GATable
@@ -144,7 +177,6 @@ const QuotationApprovedPage = () => {
         onPaginationChange={onPaginationChange}
         onTableChange={onTableChange}
         showPagination={true}
-        onRowClick={handleOnRowClick}
       />
     </div>
   );

@@ -50,6 +50,13 @@ const QuotationRequestsPage = () => {
     {
       title: "ID",
       dataIndex: "id",
+      render: function (id: string) {
+        return (
+          <span className="cursor-pointer" onClick={() => handleOnRowClick(id)}>
+            {id}
+          </span>
+        );
+      },
     },
     {
       title: "Status",
@@ -110,7 +117,6 @@ const QuotationRequestsPage = () => {
         onPaginationChange={onPaginationChange}
         onTableChange={onTableChange}
         showPagination={true}
-        onRowClick={handleOnRowClick}
       />
     </div>
   );

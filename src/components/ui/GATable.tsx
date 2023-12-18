@@ -47,7 +47,6 @@ const GATable = ({
       pagination={paginationConfig as any}
       onChange={onTableChange}
       scroll={{ x: true }}
-      rowClassName="cursor-pointer"
       onRow={({ id }) => {
         return {
           onClick: () => onRowClick && onRowClick(id),
