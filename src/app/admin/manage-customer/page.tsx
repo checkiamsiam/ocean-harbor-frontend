@@ -24,10 +24,12 @@ const ManageCustomerPage = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [statusFilter, setStatusFilter] = useState<string[] | null>(null);
 
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;
+  query["status"] = statusFilter ? statusFilter.join(",") : undefined;
 
   const debouncedTerm = useDebounced({
     searchQuery: searchTerm,
@@ -63,6 +65,11 @@ const ManageCustomerPage = () => {
     {
       title: "Status",
       dataIndex: "status",
+      filters: [
+        { text: "Active", value: "active" },
+        { text: "Disabled", value: "disabled" },
+      ],
+      filterMultiple: false,
     },
     {
       title: "Joined At",
@@ -79,10 +86,12 @@ const ManageCustomerPage = () => {
     setSize(pageSize);
   };
   const onTableChange = (pagination: any, filter: any, sorter: any) => {
+    setStatusFilter(filter.status);
     const { order, field } = sorter;
-    if (order === undefined || field === undefined) return;
-    setSortBy(field as string);
-    setSortOrder(order === "ascend" ? "asc" : "desc");
+    if (!(order === undefined || field === undefined)) {
+      setSortBy(field as string);
+      setSortOrder(order === "ascend" ? "asc" : "desc");
+    }
   };
 
   const handleOnRowClick = (id: string) => {
@@ -94,6 +103,7 @@ const ManageCustomerPage = () => {
     setSortBy("");
     setSortOrder("");
     setSearchTerm("");
+    setStatusFilter(null);
   };
 
   return (
