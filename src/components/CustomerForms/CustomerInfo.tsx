@@ -31,7 +31,7 @@ const CustomerInfo = () => {
             marginBottom: "10px",
           }}
         >
-          <FormInput type="text" name="email" size="large" label="Email Address" />
+          <FormInput type="email" name="email" size="large" label="Email Address" />
         </Col>
         <Col
           className="gutter-row"

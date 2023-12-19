@@ -93,7 +93,9 @@ const ManageCustomerPage = () => {
               </Link>
             </Tooltip>
             <Tooltip title="Edit Customer" key={`vdc-${data}`}>
-              <span className="cursor-pointer text-blue-400 underline">Edit</span>
+              <Link href={`/admin/manage-customer/edit/${data}`} className="cursor-pointer text-blue-400 underline">
+                edit
+              </Link>
             </Tooltip>
           </div>
         );
