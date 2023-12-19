@@ -7,22 +7,29 @@ import loginValidation from "@/schema/login.schema";
 import { signIn } from "@/service/auth/signIn";
 import { ILoginCredentials } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Card } from "antd";
+import { Card, message } from "antd";
 import { useState } from "react";
 
 const LoginForm = () => {
   const router = useRouter();
   const [error, setError] = useState<boolean>(false);
   const submitHandler = async (data: ILoginCredentials) => {
-    const res = await signIn({
-      email: data.email,
-      password: data.password,
-    });
-    if (res?.ok && !res?.error) {
-      router.push("/");
-      setError(false);
-    } else {
+    message.loading("Declining Order.....");
+    try {
+      const res = await signIn({
+        email: data.email,
+        password: data.password,
+      });
+      if (res?.ok && !res?.error) {
+        message.destroy();
+        message.success("Your request to login has been sent successful");
+        router.push("/");
+        setError(false);
+      }
+    } catch (err: any) {
       setError(true);
+      message.destroy();
+      message.warning("Failed to Login! try again");
     }
   };
 

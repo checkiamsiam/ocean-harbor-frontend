@@ -44,6 +44,7 @@ export const OrderApi = baseApi.injectEndpoints({
           order: response,
         };
       },
+      providesTags: [tagTypes.order],
     }),
     declineOrder: builder.mutation({
       query: (arg: { id: string }) => ({

@@ -15,11 +15,15 @@ export const adminMenuItems: MenuItem[] = [
     icon: <BiSolidUser />,
     children: [
       {
-        label: <Link href={`/admin/account-requests`}>Requests</Link>,
+        label: <Link href={`/admin/profile`}>My Profile</Link>,
+        key: `/admin/profile`,
+      },
+      {
+        label: <Link href={`/admin/account-requests`}>Account Requests</Link>,
         key: `/admin/account-requests`,
       },
       {
-        label: <Link href={`/admin/manage-customer`}>Manage Customer</Link>,
+        label: <Link href={`/admin/manage-customer`}>Manage Customers</Link>,
         key: `/admin/manage-customer`,
       },
     ],

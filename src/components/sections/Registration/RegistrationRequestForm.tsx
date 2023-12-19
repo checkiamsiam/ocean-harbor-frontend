@@ -4,12 +4,11 @@ import FormInput from "@/components/form/FormInput";
 import FormSelectField from "@/components/form/FormSelectField";
 import FormTextArea from "@/components/form/FormTextArea";
 import GAButton from "@/components/ui/GAButton";
-import { Link } from "@/lib/router-events";
+import { Link, useRouter } from "@/lib/router-events";
 import { IAccReq, useAccountRequestMutation } from "@/redux/features/accountRequest/accoutRequestApi";
 import accountRequestValidation from "@/schema/accountRequest.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, message } from "antd";
-import { useRouter } from "next/navigation";
 
 const RegistrationRequestForm = () => {
   const router = useRouter();

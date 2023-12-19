@@ -1,39 +1,51 @@
 "use client";
 import GAActionBar from "@/components/ui/GAActionBar";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
+import GAButton from "@/components/ui/GAButton";
 import GATable from "@/components/ui/GATable";
+import { useDebounced } from "@/hooks/useDebounced";
+import { Link } from "@/lib/router-events";
 import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/CustomerDashboard/CustomerDashboardSlice";
-import { useGetMyOrdersQuery } from "@/redux/features/order/orderApi";
+import { useGetCustomersQuery } from "@/redux/features/user/userApi";
 import { useAppDispatch } from "@/redux/hooks";
-import { OrderStatus } from "@/types/ApiResponse";
-import { convertStatusText } from "@/utils/convertStatusText";
-import { TableColumnProps } from "antd";
+import { Button, Input, TableColumnProps } from "antd";
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { AiOutlineReload } from "react-icons/ai";
 
-const OrderInQueuePage = () => {
-  const dispatch = useAppDispatch();
+const ManageCustomerPage = () => {
   const { data: session } = useSession();
+  const dispatch = useAppDispatch();
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;
 
-  const { data, isLoading } = useGetMyOrdersQuery(
-    { params: { ...query }, status: [OrderStatus.ordered, OrderStatus.orderInProcess] },
+  const debouncedTerm = useDebounced({
+    searchQuery: searchTerm,
+    delay: 600,
+  });
+
+  if (!!debouncedTerm) {
+    query["searchKey"] = debouncedTerm;
+  }
+  const { data, isLoading } = useGetCustomersQuery(
+    { params: { ...query, populate: "user" } },
     {
       refetchOnMountOrArgChange: true,
       skip: !session?.accessToken,
     }
   );
 
-  const orders = data?.orders;
+  const customers = data?.customers;
   const meta = data?.meta;
 
   const columns: TableColumnProps<any>[] = [
@@ -49,29 +61,16 @@ const OrderInQueuePage = () => {
       },
     },
     {
-      title: "Items",
-      dataIndex: "id",
-      render: function (id: string) {
-        return (
-          <div className="flex justify-center items-center">
-            <span onClick={() => handleOnRowClick(id)}>view</span>
-          </div>
-        );
-      },
-    },
-    {
-      title: "Delivery Status",
+      title: "Status",
       dataIndex: "status",
-      render: function (data: OrderStatus) {
-        return <div className="flex justify-center items-center">{convertStatusText(data)}</div>;
-      },
     },
     {
-      title: "Invoice",
-      dataIndex: "invoice",
-      render: function (data) {
-        return <div className="flex justify-center items-center">{data ? <a href={data}>download</a> : <span>N/A</span>}</div>;
+      title: "Joined At",
+      dataIndex: "createdAt",
+      render: function (data: any) {
+        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
       },
+      sorter: true,
     },
   ];
 
@@ -91,16 +90,45 @@ const OrderInQueuePage = () => {
     dispatch(toggleOrderItemDrawer());
   };
 
+  const resetFilters = () => {
+    setSortBy("");
+    setSortOrder("");
+    setSearchTerm("");
+  };
+
   return (
     <div>
-      <GAActionBar title="Order in Queue" customer>
-        <GABreadCrumb items={[{ label: "Order" }, { label: "Queue"}]} />
+      <GAActionBar title="Quotation Requests">
+        <div className="flex md:flex-row flex-col gap-5  justify-between items-center">
+          <GABreadCrumb items={[{ label: "Accounts" }, { label: "Manage Customer" }]} />
+          <div className="w-full md:w-1/4">
+            <Input
+              type="text"
+              size="middle"
+              value={searchTerm}
+              placeholder="Search..."
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+              }}
+            />
+          </div>
+        </div>
+        <div>
+          <Link href="/admin/manage-customer/create">
+            <GAButton type="primary">Add Customer</GAButton>
+          </Link>
+          {(!!sortBy || !!sortOrder || !!searchTerm) && (
+            <Button style={{ margin: "0px 5px" }} type="primary" onClick={resetFilters}>
+              <AiOutlineReload />
+            </Button>
+          )}
+        </div>
       </GAActionBar>
 
       <GATable
         loading={isLoading}
         columns={columns}
-        dataSource={orders}
+        dataSource={customers}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -112,4 +140,4 @@ const OrderInQueuePage = () => {
   );
 };
 
-export default OrderInQueuePage;
+export default ManageCustomerPage;

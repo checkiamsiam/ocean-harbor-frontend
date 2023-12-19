@@ -1,13 +1,15 @@
 import { baseApi } from "@/redux/baseApi";
-import { User } from "@/types/ApiResponse";
+import { tagTypes } from "@/redux/tag-types";
+import { IMeta, IQuery } from "@/types";
+import { Customer, User } from "@/types/ApiResponse";
 
-const account_profile = "/users";
+const users_url = "/users";
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     profile: builder.query({
       query: () => ({
-        url: account_profile + "/profile",
+        url: users_url + "/profile",
         method: "GET",
       }),
       transformResponse: (response: User): { user: User } => {
@@ -15,8 +17,31 @@ export const userApi = baseApi.injectEndpoints({
           user: response,
         };
       },
+      providesTags: [tagTypes.user],
+    }),
+    getCustomers: builder.query<{ customers: Customer[]; meta: IMeta }, { params?: IQuery }>({
+      query: (arg) => ({
+        url: users_url + "/get-customers",
+        method: "GET",
+        params: arg?.params,
+      }),
+      transformResponse: (response: Customer[], meta: IMeta) => {
+        return {
+          customers: response,
+          meta,
+        };
+      },
+      providesTags: [tagTypes.user],
+    }),
+    addCustomer: builder.mutation({
+      query: (arg: Partial<Customer & User>) => ({
+        url: users_url + "/create-customer",
+        method: "POST",
+        data: arg,
+      }),
+      invalidatesTags: [tagTypes.user],
     }),
   }),
 });
 
-export const { useProfileQuery } = userApi;
+export const { useProfileQuery, useGetCustomersQuery, useAddCustomerMutation } = userApi;

@@ -59,6 +59,17 @@ const QuotationRequestsPage = () => {
       },
     },
     {
+      title: "Items",
+      dataIndex: "id",
+      render: function (id: string) {
+        return (
+          <div className="flex justify-center items-center">
+            <span onClick={() => handleOnRowClick(id)}>view</span>
+          </div>
+        );
+      },
+    },
+    {
       title: "Status",
       dataIndex: "status",
       render: function (data: any) {

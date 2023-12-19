@@ -1,12 +1,12 @@
 "use client";
 import CartCard from "@/components/sectionComponents/Cart/CartCard";
 import GAButton from "@/components/ui/GAButton";
+import { useRouter } from "@/lib/router-events";
 import { useRequestQuotationMutation } from "@/redux/features/order/orderApi";
 import { clearCart, getCart } from "@/service/cart/cart.service";
 import { ICart } from "@/types";
 import { Empty, message } from "antd";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const Cart = () => {

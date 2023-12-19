@@ -40,11 +40,15 @@ const OrderHistoryPage = () => {
     {
       title: "ID",
       dataIndex: "id",
+    },
+    {
+      title: "Items",
+      dataIndex: "id",
       render: function (id: string) {
         return (
-          <span className="cursor-pointer" onClick={() => handleOnRowClick(id)}>
-            {id}
-          </span>
+          <div className="flex justify-center items-center">
+            <span onClick={() => handleOnRowClick(id)}>view</span>
+          </div>
         );
       },
     },

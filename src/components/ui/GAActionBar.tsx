@@ -9,7 +9,7 @@ type ActionBarProps = {
   customer?: boolean;
 };
 
-const  GAActionBar = ({ title, children, customer }: ActionBarProps) => {
+const GAActionBar = ({ title, children, customer }: ActionBarProps) => {
   const dispatch = useAppDispatch();
   return (
     <div>
@@ -18,13 +18,16 @@ const  GAActionBar = ({ title, children, customer }: ActionBarProps) => {
 
         <div className="lg:hidden block">
           {customer && (
-            <span onClick={() => dispatch(toggleDashboardCollapsed())} className="flex underline justify-center gap-2 items-center cursor-pointer text-primary">
+            <span
+              onClick={() => dispatch(toggleDashboardCollapsed())}
+              className="flex underline justify-center gap-2 items-center cursor-pointer text-primary"
+            >
               <BiSolidDashboard className="text-icon" /> <span>Dashboard</span>
             </span>
           )}
         </div>
       </div>
-      <div className="flex justify-between items-center my-5">{children}</div>
+      <div className="mb-5 flex flex-col gap-3">{children}</div>
     </div>
   );
 };
