@@ -5,10 +5,9 @@ import GAButton from "@/components/ui/GAButton";
 import GATable from "@/components/ui/GATable";
 import { useDebounced } from "@/hooks/useDebounced";
 import { Link } from "@/lib/router-events";
-import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/CustomerDashboard/CustomerDashboardSlice";
-import { useGetCustomersQuery } from "@/redux/features/user/userApi";
-import { useAppDispatch } from "@/redux/hooks";
-import { Button, Input, TableColumnProps } from "antd";
+import { useGetCustomersQuery, useUpdateCustomerMutation } from "@/redux/features/user/userApi";
+import { CustomerStatus } from "@/types/ApiResponse";
+import { Button, Input, Switch, TableColumnProps, message } from "antd";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -16,7 +15,6 @@ import { AiOutlineReload } from "react-icons/ai";
 
 const ManageCustomerPage = () => {
   const { data: session } = useSession();
-  const dispatch = useAppDispatch();
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);
@@ -39,8 +37,10 @@ const ManageCustomerPage = () => {
   if (!!debouncedTerm) {
     query["searchKey"] = debouncedTerm;
   }
+
+  const [updateCustomer] = useUpdateCustomerMutation();
   const { data, isLoading } = useGetCustomersQuery(
-    { params: { ...query, populate: "user" } },
+    { params: { ...query } },
     {
       refetchOnMountOrArgChange: true,
       skip: !session?.accessToken,
@@ -54,22 +54,33 @@ const ManageCustomerPage = () => {
     {
       title: "ID",
       dataIndex: "id",
-      render: function (id: string) {
-        return (
-          <span className="cursor-pointer" onClick={() => handleOnRowClick(id)}>
-            {id}
-          </span>
-        );
-      },
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+    },
+    {
+      title: "Company Name",
+      dataIndex: "companyName",
+    },
+    {
+      title: "Phone Number",
+      dataIndex: "phone",
     },
     {
       title: "Status",
-      dataIndex: "status",
       filters: [
-        { text: "Active", value: "active" },
-        { text: "Disabled", value: "disabled" },
+        { text: "Active", value: CustomerStatus.active },
+        { text: "Disabled", value: CustomerStatus.disabled },
       ],
       filterMultiple: false,
+      render: function (data) {
+        return (
+          <div className="flex justify-center">
+            <Switch size="small" defaultChecked={data.status === CustomerStatus.active} onChange={(e) => handleSwitchStatus(e, data.id)} />
+          </div>
+        );
+      },
     },
     {
       title: "Joined At",
@@ -94,9 +105,23 @@ const ManageCustomerPage = () => {
     }
   };
 
-  const handleOnRowClick = (id: string) => {
-    dispatch(setCurrentOrderId(id));
-    dispatch(toggleOrderItemDrawer());
+  const handleSwitchStatus = async (checked: boolean, id: string) => {
+    message.loading(checked ? "Making Active..." : "Making Disable...");
+    try {
+      const res = await updateCustomer({
+        id,
+        data: {
+          status: checked ? CustomerStatus.active : CustomerStatus.disabled,
+        },
+      }).unwrap();
+      if (!!res) {
+        message.destroy();
+        message.success(`Your request to ${checked ? "active" : "disable"} customer has been sent successful`);
+      }
+    } catch (err: any) {
+      message.destroy();
+      message.warning(`Failed to ${checked ? "active" : "disable"} customer! try again`);
+    }
   };
 
   const resetFilters = () => {

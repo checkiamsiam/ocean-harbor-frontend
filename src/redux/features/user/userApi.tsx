@@ -41,7 +41,15 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
+    updateCustomer: builder.mutation({
+      query: (arg: { id: string; data: Partial<Customer & User> }) => ({
+        url: users_url + "/update-customer" + "/" + arg.id,
+        method: "PATCH",
+        data: arg.data,
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
   }),
 });
 
-export const { useProfileQuery, useGetCustomersQuery, useAddCustomerMutation } = userApi;
+export const { useProfileQuery, useGetCustomersQuery, useAddCustomerMutation, useUpdateCustomerMutation } = userApi;
