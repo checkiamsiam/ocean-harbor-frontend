@@ -13,7 +13,7 @@ const Profile = () => {
   });
   return (
     <div>
-      <GAActionBar title="Account Profile" customer>
+      <GAActionBar title="Account Profile" >
         <GABreadCrumb items={[{ label: "Account" }, { label: "Profile" }]} />
       </GAActionBar>
       <Card bordered loading={isLoading}>
@@ -49,9 +49,6 @@ const Profile = () => {
           <List.Item>
             <Typography.Text strong>Company Details:</Typography.Text>
             <Typography.Paragraph className="w-3/5">
-              {data?.user?.customer?.companyDetails}
-              {data?.user?.customer?.companyDetails}
-              {data?.user?.customer?.companyDetails}
               {data?.user?.customer?.companyDetails}
             </Typography.Paragraph>
           </List.Item>

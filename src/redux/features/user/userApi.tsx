@@ -33,6 +33,19 @@ export const userApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.user],
     }),
+    getSingleCustomers: builder.query<{ customer: Customer }, { id: string; params?: IQuery }>({
+      query: (arg) => ({
+        url: users_url + "/get-single-customer" + "/" + arg.id,
+        method: "GET",
+        params: arg?.params,
+      }),
+      transformResponse: (response: Customer) => {
+        return {
+          customer: response,
+        };
+      },
+      providesTags: [tagTypes.user],
+    }),
     addCustomer: builder.mutation({
       query: (arg: Partial<Customer & User>) => ({
         url: users_url + "/create-customer",
@@ -52,4 +65,4 @@ export const userApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useProfileQuery, useGetCustomersQuery, useAddCustomerMutation, useUpdateCustomerMutation } = userApi;
+export const { useProfileQuery, useGetCustomersQuery, useAddCustomerMutation, useUpdateCustomerMutation, useGetSingleCustomersQuery } = userApi;

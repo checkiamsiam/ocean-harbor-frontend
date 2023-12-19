@@ -7,8 +7,7 @@ import { useDebounced } from "@/hooks/useDebounced";
 import { Link } from "@/lib/router-events";
 import { useGetCustomersQuery, useUpdateCustomerMutation } from "@/redux/features/user/userApi";
 import { CustomerStatus } from "@/types/ApiResponse";
-import { Button, Input, Switch, TableColumnProps, message } from "antd";
-import dayjs from "dayjs";
+import { Button, Input, Switch, TableColumnProps, Tooltip, message } from "antd";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { AiOutlineReload } from "react-icons/ai";
@@ -83,12 +82,22 @@ const ManageCustomerPage = () => {
       },
     },
     {
-      title: "Joined At",
-      dataIndex: "createdAt",
-      render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+      title: "Action",
+      dataIndex: "id",
+      render: function (data: string) {
+        return (
+          <div className="flex justify-center items-center gap-5">
+            <Tooltip title="View Details" key={`ec-${data}`}>
+              <Link href={`/admin/manage-customer/details/${data}`} className="cursor-pointer text-blue-400 underline">
+                view
+              </Link>
+            </Tooltip>
+            <Tooltip title="Edit Customer" key={`vdc-${data}`}>
+              <span className="cursor-pointer text-blue-400 underline">Edit</span>
+            </Tooltip>
+          </div>
+        );
       },
-      sorter: true,
     },
   ];
 
@@ -134,7 +143,7 @@ const ManageCustomerPage = () => {
   return (
     <div>
       <GAActionBar title="Quotation Requests">
-        <div className="flex md:flex-row flex-col gap-5  justify-between items-center">
+        <div className="flex md:flex-row flex-col gap-5 md:gap-0  justify-between items-center">
           <GABreadCrumb items={[{ label: "Accounts" }, { label: "Manage Customer" }]} />
           <div className="w-full md:w-1/4">
             <Input

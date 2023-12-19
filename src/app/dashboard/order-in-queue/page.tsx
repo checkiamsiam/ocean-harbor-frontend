@@ -2,7 +2,7 @@
 import GAActionBar from "@/components/ui/GAActionBar";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
 import GATable from "@/components/ui/GATable";
-import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/CustomerDashboard/CustomerDashboardSlice";
+import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/customerDashboard/customerDashboardSlice";
 import { useGetMyOrdersQuery } from "@/redux/features/order/orderApi";
 import { useAppDispatch } from "@/redux/hooks";
 import { OrderStatus } from "@/types/ApiResponse";
@@ -54,7 +54,9 @@ const OrderInQueuePage = () => {
       render: function (id: string) {
         return (
           <div className="flex justify-center items-center">
-            <span onClick={() => handleOnRowClick(id)}>view</span>
+            <span className="cursor-pointer text-blue-400 underline" onClick={() => handleOnRowClick(id)}>
+              view
+            </span>
           </div>
         );
       },
@@ -93,8 +95,8 @@ const OrderInQueuePage = () => {
 
   return (
     <div>
-      <GAActionBar title="Order in Queue" customer>
-        <GABreadCrumb items={[{ label: "Order" }, { label: "Queue"}]} />
+      <GAActionBar title="Order in Queue" >
+        <GABreadCrumb items={[{ label: "Order" }, { label: "Queue" }]} />
       </GAActionBar>
 
       <GATable

@@ -11,7 +11,7 @@ const GABreadCrumb = ({
   return (
     <>
       <nav className="flex">
-        <ul className="inline-flex list-none items-center space-x-1 md:space-x-2">
+        <ul className="flex flex-wrap list-none items-center space-x-1 md:space-x-2">
           <li className="inline-flex items-center">
             {items[0].link ? (
               <Link

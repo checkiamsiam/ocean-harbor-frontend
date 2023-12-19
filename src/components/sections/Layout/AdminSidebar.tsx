@@ -1,23 +1,21 @@
 "use client";
 import GALogo from "@/components/common/GALogo";
+import { adminMenuItems } from "@/constants/AdminDashboardItems";
+import { useAppSelector } from "@/redux/hooks";
 import { Layout, Menu, SiderProps } from "antd";
 import { useState } from "react";
-import { adminMenuItems } from "@/constants/AdminDashboardItems";
 const { Sider } = Layout;
 
 const AdminSideBar = () => {
+  const { dashboardCollapsed } = useAppSelector((state) => state.adminDashboard);
   const [collapsed, setCollapsed] = useState(false);
-  const [brCollapsed, setBrCollapsed] = useState(true);
   const [broken, setBroken] = useState(false);
 
   const siderProps: SiderProps = broken
     ? {
         collapsedWidth: "0",
-        collapsed: brCollapsed,
-        onCollapse: (value) => setBrCollapsed(value),
-        zeroWidthTriggerStyle: {
-          marginTop: "3rem",
-        },
+        trigger: null,
+        collapsed: dashboardCollapsed,
       }
     : {
         width: 250,
@@ -35,7 +33,7 @@ const AdminSideBar = () => {
       };
 
   return (
-    <Sider breakpoint="md" onBreakpoint={(broken) => setBroken(broken)} {...siderProps}>
+    <Sider breakpoint="lg" onBreakpoint={(broken) => setBroken(broken)} {...siderProps}>
       <div
         style={{
           color: "white",

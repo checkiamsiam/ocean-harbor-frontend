@@ -14,7 +14,7 @@ const LoginForm = () => {
   const router = useRouter();
   const [error, setError] = useState<boolean>(false);
   const submitHandler = async (data: ILoginCredentials) => {
-    message.loading("Declining Order.....");
+    message.loading("Login.....");
     try {
       const res = await signIn({
         email: data.email,

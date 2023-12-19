@@ -2,7 +2,7 @@
 import GAActionBar from "@/components/ui/GAActionBar";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
 import GATable from "@/components/ui/GATable";
-import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/CustomerDashboard/CustomerDashboardSlice";
+import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/customerDashboard/customerDashboardSlice";
 import { useGetMyOrdersQuery } from "@/redux/features/order/orderApi";
 import { useAppDispatch } from "@/redux/hooks";
 import { OrderStatus } from "@/types/ApiResponse";
@@ -21,20 +21,10 @@ const QuotationRequestsPage = () => {
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
-  // const [searchTerm, setSearchTerm] = useState<string>("");
 
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;
-
-  // const debouncedTerm = useDebounced({
-  //   searchQuery: searchTerm,
-  //   delay: 600,
-  // });
-
-  // if (!!debouncedTerm) {
-  //   query["searchKey"] = debouncedTerm;
-  // }
   const { data, isLoading } = useGetMyOrdersQuery(
     { params: { ...query }, status: [OrderStatus.requestQuotation] },
     {
@@ -64,7 +54,9 @@ const QuotationRequestsPage = () => {
       render: function (id: string) {
         return (
           <div className="flex justify-center items-center">
-            <span onClick={() => handleOnRowClick(id)}>view</span>
+            <span className="cursor-pointer text-blue-400 underline" onClick={() => handleOnRowClick(id)}>
+              view
+            </span>
           </div>
         );
       },
@@ -104,17 +96,7 @@ const QuotationRequestsPage = () => {
 
   return (
     <div>
-      <GAActionBar title="Quotation Requests" customer>
-        {/* <div className="w-full md:w-1/4">
-          <Input
-            type="text"
-            size="middle"
-            placeholder="Search..."
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-            }}
-          />
-        </div> */}
+      <GAActionBar title="Quotation Requests" >
         <GABreadCrumb items={[{ label: "Order" }, { label: "Quotation" }, { label: "Requests" }]} />
       </GAActionBar>
 

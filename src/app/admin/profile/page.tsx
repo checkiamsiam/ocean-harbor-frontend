@@ -14,7 +14,7 @@ const Profile = () => {
 
   return (
     <div>
-      <GAActionBar title="Account Profile" customer>
+      <GAActionBar title="Account Profile" >
         <GABreadCrumb items={[{ label: "Account" }, { label: "Profile" }]} />
       </GAActionBar>
       <Card bordered loading={isLoading}>
