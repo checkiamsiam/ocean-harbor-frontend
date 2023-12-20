@@ -2,13 +2,37 @@
 import Form from "@/components/form/Form";
 import FormInput from "@/components/form/FormInput";
 import GAButton from "@/components/ui/GAButton";
-import { Link } from "@/lib/router-events";
-import { Card } from "antd";
+import { Link, useRouter } from "@/lib/router-events";
+import loginValidation from "@/schema/login.schema";
+import { signIn } from "@/service/auth/signIn";
+import { ILoginCredentials } from "@/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Card, message } from "antd";
+import { useState } from "react";
 
 const LoginForm = () => {
-  const submitHandler = (data: any) => {
-    console.log("submited");
+  const router = useRouter();
+  const [error, setError] = useState<boolean>(false);
+  const submitHandler = async (data: ILoginCredentials) => {
+    message.loading("Login.....");
+    try {
+      const res = await signIn({
+        email: data.email,
+        password: data.password,
+      });
+      if (res?.ok && !res?.error) {
+        message.destroy();
+        message.success("Your request to login has been sent successful");
+        router.push("/");
+        setError(false);
+      }
+    } catch (err: any) {
+      setError(true);
+      message.destroy();
+      message.warning("Failed to Login! try again");
+    }
   };
+
   return (
     <div className="ga-container">
       <div className="py-10">
@@ -16,7 +40,7 @@ const LoginForm = () => {
           <Card>
             <h1 className="text-[2rem] mb-5 text-primary">Login</h1>
 
-            <Form submitHandler={submitHandler}>
+            <Form submitHandler={submitHandler} resolver={zodResolver(loginValidation)}>
               <div className="flex flex-col gap-4">
                 <div>
                   <FormInput name="email" required label="Email" size="large" />
@@ -30,6 +54,12 @@ const LoginForm = () => {
                     No account? Request a registration
                   </Link>
                 </p>
+
+                {error && (
+                  <p className="text-center">
+                    <span className="text-red-500 underline ">Login failed !. Try with different credentials.</span>
+                  </p>
+                )}
 
                 <div className="flex justify-end">
                   <GAButton htmlType="submit" size="large" arrow>

@@ -1,4 +1,7 @@
+import { accessToken_key } from "@/constants/localstorageKeys";
+import { signOut } from "@/service/auth/signOut";
 import { IGenericErrorResponse, ResponseSuccessType } from "@/types";
+import { getFromCookie } from "@/utils/browserStorage/cookiestorage";
 import axios from "axios";
 import { envConfig } from "../config/envConfig";
 
@@ -11,12 +14,12 @@ axiosInstance.defaults.timeout = 60000;
 
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
-  async function (config) {
+  function (config) {
     // Do something before request is sent
-    // const accessToken = getFromLocalStorage(AUTH_KEY);
-    // if (accessToken) {
-    //   config.headers.Authorization = accessToken;
-    // }
+    const accessToken = getFromCookie(accessToken_key);
+    if (accessToken) {
+      config.headers.Authorization = accessToken;
+    }
     return config;
   },
   function (error) {
@@ -28,7 +31,7 @@ axiosInstance.interceptors.request.use(
 // Add a response interceptor
 axiosInstance.interceptors.response.use(
   //@ts-ignore
-  function (response) {
+  async function (response) {
     const responseObject: ResponseSuccessType = {
       data: response?.data?.data,
       meta: response?.data?.meta,
@@ -36,10 +39,13 @@ axiosInstance.interceptors.response.use(
     return responseObject;
   },
   async function (error) {
+    if (error?.response?.status === 401 || error?.response?.status === 403) {
+      await signOut();
+    }
     const responseObject: IGenericErrorResponse = {
-      statusCode: error?.response?.data?.statusCode || 500,
-      message: error?.response?.data?.message || "Something went wrong",
-      errorMessages: error?.response?.data?.message,
+      error: {
+        message: error?.response?.data?.message || "Something went wrong",
+      },
     };
     return responseObject;
   }

@@ -195,8 +195,8 @@ export enum ProductType {
 }
 
 export enum CustomerStatus {
-  active,
-  disabled,
+  active = "active",
+  disabled = "disabled",
 }
 
 export enum UserRole {

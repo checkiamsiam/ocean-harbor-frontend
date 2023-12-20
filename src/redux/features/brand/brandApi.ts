@@ -45,7 +45,7 @@ export const getBrands = async ({ params }: { params?: IQuery }): Promise<{ bran
   return {
     brands: result.data,
     //@ts-ignore
-    meta: result.meta,
+    meta: result.meta
   };
 };
 

@@ -1,7 +1,7 @@
 import { cart_key } from "@/constants/localstorageKeys";
 import { ICart } from "@/types";
 import { Product } from "@/types/ApiResponse";
-import { getFromLocalStorage, setToLocalStorage } from "@/utils/browserStorage/localstorage";
+import { getFromLocalStorage, removeFromLocalStorage, setToLocalStorage } from "@/utils/browserStorage/localstorage";
 
 export const getCart = (): ICart => {
   const cart: ICart = JSON.parse(getFromLocalStorage(cart_key) || "[]");
@@ -41,4 +41,8 @@ export const removeQntFromCart = (product: Product): void => {
     return;
   }
   setToLocalStorage(cart_key, JSON.stringify(cart));
+};
+
+export const clearCart = (): void => {
+  removeFromLocalStorage(cart_key);
 };

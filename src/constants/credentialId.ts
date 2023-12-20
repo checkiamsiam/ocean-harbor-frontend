@@ -1,0 +1,1 @@
+export const login_credential : string = "GA-Login-With-Credentials"
