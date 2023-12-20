@@ -6,11 +6,14 @@ import { Link, useRouter } from "@/lib/router-events";
 import loginValidation from "@/schema/login.schema";
 import { signIn } from "@/service/auth/signIn";
 import { ILoginCredentials } from "@/types";
+import { UserRole } from "@/types/ApiResponse";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, message } from "antd";
-import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 const LoginForm = () => {
+  const { data: session } = useSession();
   const router = useRouter();
   const [error, setError] = useState<boolean>(false);
   const submitHandler = async (data: ILoginCredentials) => {
@@ -23,7 +26,6 @@ const LoginForm = () => {
       if (res?.ok && !res?.error) {
         message.destroy();
         message.success("Your request to login has been sent successful");
-        router.push("/");
         setError(false);
       }
     } catch (err: any) {
@@ -32,6 +34,15 @@ const LoginForm = () => {
       message.warning("Failed to Login! try again");
     }
   };
+
+  useEffect(() => {
+    if (session?.user?.role === UserRole.admin) {
+      router.push("/admin/profile");
+    }
+    if (session?.user?.role === UserRole.customer) {
+      router.push("/dashboard/profile");
+    }
+  }, [session, router]);
 
   return (
     <div className="ga-container">
