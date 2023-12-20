@@ -1,3 +1,4 @@
+"use client";
 import CustomerDashboardLayout from "@/components/layout/CustomerDashboardLayout";
 import PublicLayout from "@/components/layout/PublicLayout";
 import React from "react";
