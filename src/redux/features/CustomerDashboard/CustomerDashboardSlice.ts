@@ -30,6 +30,7 @@ const customerDashboardSlice = createSlice({
 
 const customerReducer = customerDashboardSlice.reducer;
 
+export default customerReducer;
+
 export const { toggleDashboardCollapsed, toggleOrderItemDrawer, setCurrentOrderId } = customerDashboardSlice.actions;
 
-export default customerReducer;
