@@ -3,7 +3,7 @@ import { removeFromCookie } from "@/utils/browserStorage/cookiestorage";
 import { signOut } from "next-auth/react";
 
 const gaSignOut = async (): Promise<void> => {
-  const res = await signOut();
+  await signOut({ redirect: false });
   removeFromCookie(accessToken_key);
 };
 
