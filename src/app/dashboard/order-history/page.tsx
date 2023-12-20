@@ -2,7 +2,7 @@
 import GAActionBar from "@/components/ui/GAActionBar";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
 import GATable from "@/components/ui/GATable";
-import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/customerDashboard/customerDashboardSlice";
+import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/customerDashboard/CustomerDashboardSlice";
 import { useGetMyOrdersQuery } from "@/redux/features/order/orderApi";
 import { useAppDispatch } from "@/redux/hooks";
 import { OrderStatus } from "@/types/ApiResponse";
@@ -88,7 +88,7 @@ const OrderHistoryPage = () => {
 
   return (
     <div>
-      <GAActionBar title="Order History" >
+      <GAActionBar title="Order History">
         <GABreadCrumb items={[{ label: "Order" }, { label: "History" }]} />
       </GAActionBar>
 
