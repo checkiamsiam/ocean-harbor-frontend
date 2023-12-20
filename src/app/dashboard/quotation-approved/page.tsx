@@ -2,7 +2,7 @@
 import GAActionBar from "@/components/ui/GAActionBar";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
 import GATable from "@/components/ui/GATable";
-import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/customerDashboard/customerDashboardSlice";
+import { setCurrentOrderId, toggleOrderItemDrawer } from "../../../redux/features/customerDashboard/customerDashboardSlice";
 import { useConfirmOrderMutation, useDeclineOrderMutation, useGetMyOrdersQuery } from "@/redux/features/order/orderApi";
 import { useAppDispatch } from "@/redux/hooks";
 import { OrderStatus } from "@/types/ApiResponse";
