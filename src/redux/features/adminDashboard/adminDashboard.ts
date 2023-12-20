@@ -18,9 +18,7 @@ const adminDashboardSlice = createSlice({
   },
 });
 
-const adminReducer = adminDashboardSlice.reducer;
-
-export default adminReducer;
+export const adminReducer = adminDashboardSlice.reducer;
 
 export const { toggleAdminDashboardCollapsed } = adminDashboardSlice.actions;
 
