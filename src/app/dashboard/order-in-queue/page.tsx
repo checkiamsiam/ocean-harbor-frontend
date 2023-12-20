@@ -2,6 +2,7 @@
 import GAActionBar from "@/components/ui/GAActionBar";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
 import GATable from "@/components/ui/GATable";
+import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/dashboard/dashboardSlice";
 
 
 import { useGetMyOrdersQuery } from "@/redux/features/order/orderApi";
@@ -90,6 +91,8 @@ const OrderInQueuePage = () => {
   };
 
   const handleOnRowClick = (id: string) => {
+    dispatch(setCurrentOrderId(id));
+    dispatch(toggleOrderItemDrawer());
   };
 
   return (

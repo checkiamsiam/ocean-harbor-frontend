@@ -1,6 +1,6 @@
 "use client";
 import { toggleAdminDashboardCollapsed } from "@/redux/features/adminDashboard/adminDashboard";
-import { toggleDashboardCollapsed } from "@/redux/features/customerDashboard/CustomerDashboardSlice";
+import { toggleDashboardCollapsed } from "@/redux/features/dashboard/dashboardSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { UserRole } from "@/types/ApiResponse";
 import { useSession } from "next-auth/react";

@@ -1,5 +1,5 @@
 "use client";
-import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/customerDashboard/CustomerDashboardSlice";
+import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/dashboard/dashboardSlice";
 import { useGetSingleOrderQuery } from "@/redux/features/order/orderApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Drawer, List } from "antd";
