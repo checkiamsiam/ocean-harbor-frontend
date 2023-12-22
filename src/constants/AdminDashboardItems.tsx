@@ -34,8 +34,8 @@ export const adminMenuItems: MenuItem[] = [
     icon: <IoBagCheckOutline />,
     children: [
       {
-        label: <Link href={`/admin/quotation?status=${OrderStatus.requestQuotation}`}>Quotation Requests</Link>,
-        key: `/admin/quotation?status=${OrderStatus.requestQuotation}`,
+        label: <Link href={`/admin/quotation-requests`}>Quotation Requests</Link>,
+        key: `/admin/quotation-requests`,
       },
       {
         label: <Link href={`/admin/quotation?status=${OrderStatus.quotationApproved}`}>Quotation Given</Link>,

@@ -68,6 +68,7 @@ const ManageCustomerPage = () => {
     },
     {
       title: "Status",
+      key: "status",
       filters: [
         { text: "Active", value: CustomerStatus.active },
         { text: "Disabled", value: CustomerStatus.disabled },
@@ -76,7 +77,7 @@ const ManageCustomerPage = () => {
       render: function (data) {
         return (
           <div className="flex justify-center">
-            <Switch size="small" defaultChecked={data.status === CustomerStatus.active} onChange={(e) => handleSwitchStatus(e, data.id)} />
+            <Switch size="small" checked={data.status === CustomerStatus.active} onChange={(e) => handleSwitchStatus(e, data.id)} />
           </div>
         );
       },
@@ -102,6 +103,8 @@ const ManageCustomerPage = () => {
       },
     },
   ];
+
+ 
 
   const onPaginationChange = (page: number, pageSize: number) => {
     setPage(page);

@@ -3,6 +3,7 @@ import { Layout } from "antd";
 import React from "react";
 import AdminHeader from "../sections/Layout/AdminHeader";
 import AdminSideBar from "../sections/Layout/AdminSidebar";
+import OrderItemsDrawer from "../common/OrderItemsDrawer";
 
 const { Content, Footer } = Layout;
 
@@ -17,6 +18,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
         </Content>
         <Footer style={{ textAlign: "center" }}>© 2020 - 2023 Golden Anchor | General terms and conditions | Disclaimer | Privacy</Footer>
       </Layout>
+      <OrderItemsDrawer />
     </Layout>
   );
 };
