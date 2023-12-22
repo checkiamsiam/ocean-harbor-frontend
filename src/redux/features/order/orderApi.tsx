@@ -83,6 +83,24 @@ export const OrderApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.order],
     }),
+    giveQuotation: builder.mutation({
+      query: (arg: { id: string; data: Partial<Order> }) => ({
+        url: order_url + "/quotation-approve" + "/" + arg.id,
+        method: "PATCH",
+        data: arg.data,
+        contentType: "multipart/form-data",
+      }),
+      invalidatesTags: [tagTypes.order],
+    }),
+    addInvoice: builder.mutation({
+      query: (arg: { id: string; data: Partial<Order> }) => ({
+        url: order_url + "/add-invoice" + "/" + arg.id,
+        method: "PATCH",
+        data: arg.data,
+        contentType: "multipart/form-data",
+      }),
+      invalidatesTags: [tagTypes.order],
+    }),
   }),
 });
 
@@ -94,4 +112,6 @@ export const {
   useGetSingleOrderQuery,
   useGetAllOrdersQuery,
   useUpdateOrderMutation,
+  useGiveQuotationMutation,
+  useAddInvoiceMutation,
 } = OrderApi;

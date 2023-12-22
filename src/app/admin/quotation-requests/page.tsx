@@ -7,10 +7,12 @@ import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/dashb
 import { useGetAllOrdersQuery } from "@/redux/features/order/orderApi";
 import { useAppDispatch } from "@/redux/hooks";
 import { OrderStatus } from "@/types/ApiResponse";
-import { TableColumnProps, Tooltip } from "antd";
+import { Modal, TableColumnProps, Tooltip } from "antd";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+
+const { confirm } = Modal;
 
 const QuotationRequestsPage = () => {
   const { data: session } = useSession();
@@ -92,12 +94,12 @@ const QuotationRequestsPage = () => {
       render: function (data: string) {
         return (
           <div className="flex justify-center items-center gap-5">
-            <Tooltip title="Decline Request" key={`dar-${data}`}>
-              <span  className="cursor-pointer text-blue-400 underline">
+            <Tooltip title="Decline Request" key={`dart-${data}`}>
+              <span  onClick={() => showIgnoreQuotationRequestConfirm(data)} className="cursor-pointer text-blue-400 underline">
                 ignore
               </span>
             </Tooltip>
-            <Tooltip title="Give Quotation" key={`aar-${data}`}>
+            <Tooltip title="Give Quotation" key={`aart-${data}`}>
               <Link href={`/admin/account-requests/accept/${data}`} className="cursor-pointer text-blue-400 underline">
                 give
               </Link>
@@ -107,6 +109,9 @@ const QuotationRequestsPage = () => {
       },
     },
   ];
+
+
+
 
   const onPaginationChange = (page: number, pageSize: number) => {
     setPage(page);
@@ -122,6 +127,20 @@ const QuotationRequestsPage = () => {
   const handleOnRowClick = (id: string) => {
     dispatch(setCurrentOrderId(id));
     dispatch(toggleOrderItemDrawer());
+  };
+
+
+  const showIgnoreQuotationRequestConfirm = (data: string) => {
+    confirm({
+      title: "Are you sure you want to ignore this quotation request?",
+      content: "This action cannot be undone.",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        // handleDeclineOrder(data);
+      },
+    });
   };
 
   return (

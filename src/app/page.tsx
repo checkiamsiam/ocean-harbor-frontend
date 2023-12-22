@@ -6,7 +6,7 @@ import HomeBrands from "@/components/sections/Home/HomeBrands";
 import HomeCategories from "@/components/sections/Home/HomeCategories";
 import styles from "@/styles/home.module.css";
 
-const HomePage = async () => {
+const HomePage = () => {
   return (
     <>
       <CustomerLayout>
