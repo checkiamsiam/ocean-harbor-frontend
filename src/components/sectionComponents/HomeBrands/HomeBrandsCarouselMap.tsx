@@ -1,14 +1,23 @@
+"use client";
 import BrandItems from "@/components/common/BrandItems";
-import { getBrands } from "@/redux/features/brand/brandApi";
-import { Carousel } from "antd";
+import { useGetBrandsQuery } from "@/redux/features/brand/brandApi";
+import { Carousel, Skeleton } from "antd";
 import { settings } from "./HomeBrandsCarouselSettings";
 
-const HomeBrandsCarouselMap = async () => {
-  const data = await getBrands({});
+const HomeBrandsCarouselMap = () => {
+  const { data, isLoading } = useGetBrandsQuery({});
   return (
-    <Carousel {...settings}>
-      {data && data?.brands?.map((brand) => <BrandItems key={brand.id} icon={brand.logo} link={`/brands/${brand.id}`} />)}
-    </Carousel>
+    <div>
+      {isLoading ? (
+        <div>
+          <Skeleton active />
+        </div>
+      ) : (
+        <Carousel {...settings}>
+          {data && data?.brands?.map((brand) => <BrandItems key={brand.id} icon={brand.logo} link={`/brands/${brand.id}`} />)}
+        </Carousel>
+      )}
+    </div>
   );
 };
 

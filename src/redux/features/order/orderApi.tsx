@@ -60,8 +60,58 @@ export const OrderApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.order],
     }),
+    // admin apis
+    getAllOrders: builder.query<{ orders: Order[]; meta: IMeta }, { params?: IQuery; status: OrderStatus[] }>({
+      query: (arg) => ({
+        url: order_url + "/" + arg.status.join(","),
+        method: "GET",
+        params: arg?.params,
+      }),
+      transformResponse: (response: Order[], meta: IMeta) => {
+        return {
+          orders: response,
+          meta,
+        };
+      },
+      providesTags: [tagTypes.order],
+    }),
+    updateOrder: builder.mutation({
+      query: (arg: { id: string; data: Partial<Order> }) => ({
+        url: order_url + "/update" + "/" + arg.id,
+        method: "PATCH",
+        data: arg.data,
+      }),
+      invalidatesTags: [tagTypes.order],
+    }),
+    giveQuotation: builder.mutation({
+      query: (arg: { id: string; data: Partial<Order> }) => ({
+        url: order_url + "/quotation-approve" + "/" + arg.id,
+        method: "PATCH",
+        data: arg.data,
+        contentType: "multipart/form-data",
+      }),
+      invalidatesTags: [tagTypes.order],
+    }),
+    addInvoice: builder.mutation({
+      query: (arg: { id: string; data: Partial<Order> }) => ({
+        url: order_url + "/add-invoice" + "/" + arg.id,
+        method: "PATCH",
+        data: arg.data,
+        contentType: "multipart/form-data",
+      }),
+      invalidatesTags: [tagTypes.order],
+    }),
   }),
 });
 
-export const { useRequestQuotationMutation, useGetMyOrdersQuery, useDeclineOrderMutation, useConfirmOrderMutation, useGetSingleOrderQuery } =
-  OrderApi;
+export const {
+  useRequestQuotationMutation,
+  useGetMyOrdersQuery,
+  useDeclineOrderMutation,
+  useConfirmOrderMutation,
+  useGetSingleOrderQuery,
+  useGetAllOrdersQuery,
+  useUpdateOrderMutation,
+  useGiveQuotationMutation,
+  useAddInvoiceMutation,
+} = OrderApi;
