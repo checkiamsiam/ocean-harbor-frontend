@@ -4,17 +4,15 @@ import GABreadCrumb from "@/components/ui/GABreadcrumb";
 import GATable from "@/components/ui/GATable";
 import { Link } from "@/lib/router-events";
 import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/dashboard/dashboardSlice";
-import { useGetAllOrdersQuery, useUpdateOrderMutation } from "@/redux/features/order/orderApi";
+import { useGetAllOrdersQuery } from "@/redux/features/order/orderApi";
 import { useAppDispatch } from "@/redux/hooks";
 import { OrderStatus } from "@/types/ApiResponse";
-import { Modal, TableColumnProps, Tooltip, message } from "antd";
+import { TableColumnProps, Tooltip } from "antd";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
-const { confirm } = Modal;
-
-const QuotationRequestsPage = () => {
+const QuotationGivenPage = () => {
   const { data: session } = useSession();
   const dispatch = useAppDispatch();
   const query: Record<string, any> = {};
@@ -28,14 +26,12 @@ const QuotationRequestsPage = () => {
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;
   const { data, isLoading } = useGetAllOrdersQuery(
-    { params: { ...query }, status: [OrderStatus.requestQuotation] },
+    { params: { ...query }, status: [OrderStatus.quotationApproved] },
     {
       refetchOnMountOrArgChange: true,
       skip: !session?.accessToken,
     }
   );
-
-  const [ignoreQuotationRequest] = useUpdateOrderMutation();
 
   const orders = data?.orders;
   const meta = data?.meta;
@@ -83,32 +79,19 @@ const QuotationRequestsPage = () => {
       },
     },
     {
-      title: "Requested At",
-      dataIndex: "createdAt",
+      title: "Quotation",
+      dataIndex: "quotation",
+      render: function (data: string) {
+        return <a href={data}>download</a>;
+      },
+    },
+    {
+      title: "Updated At",
+      dataIndex: "updatedAt",
       render: function (data: any) {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
       },
       sorter: true,
-    },
-    {
-      title: "Action",
-      dataIndex: "id",
-      render: function (data: string) {
-        return (
-          <div className="flex justify-center items-center gap-5">
-            <Tooltip title="Decline Request" key={`dart-${data}`}>
-              <span onClick={() => showIgnoreQuotationRequestConfirm(data)} className="cursor-pointer text-blue-400 underline">
-                ignore
-              </span>
-            </Tooltip>
-            <Tooltip title="Give Quotation" key={`aart-${data}`}>
-              <Link href={`/admin/quotation-requests/give-quotation/${data}`} className="cursor-pointer text-blue-400 underline">
-                give
-              </Link>
-            </Tooltip>
-          </div>
-        );
-      },
     },
   ];
 
@@ -128,42 +111,10 @@ const QuotationRequestsPage = () => {
     dispatch(toggleOrderItemDrawer());
   };
 
-  const showIgnoreQuotationRequestConfirm = (data: string) => {
-    confirm({
-      title: "Are you sure you want to ignore this quotation request?",
-      content: "This action cannot be undone.",
-      okText: "Yes",
-      okType: "danger",
-      cancelText: "No",
-      onOk() {
-        handleIgnoreQuotationReq(data);
-      },
-    });
-  };
-
-  const handleIgnoreQuotationReq = async (id: string) => {
-    message.loading("Ignoring.....");
-    try {
-      const res = await ignoreQuotationRequest({
-        id,
-        data: {
-          status: OrderStatus.spam,
-        },
-      }).unwrap();
-      if (!!res) {
-        message.destroy();
-        message.success("Your request to ignore quotation request  has been sent successful");
-      }
-    } catch (err: any) {
-      message.destroy();
-      message.warning("Failed to Ignore! try again");
-    }
-  };
-
   return (
     <div>
-      <GAActionBar title="Quotation Requests">
-        <GABreadCrumb items={[{ label: "Order" }, { label: "Quotation Requests" }]} />
+      <GAActionBar title="Quotation Given">
+        <GABreadCrumb items={[{ label: "Order" }, { label: "Quotation Given" }]} />
       </GAActionBar>
 
       <GATable
@@ -181,4 +132,4 @@ const QuotationRequestsPage = () => {
   );
 };
 
-export default QuotationRequestsPage;
+export default QuotationGivenPage;
