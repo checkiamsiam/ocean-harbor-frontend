@@ -1,8 +1,9 @@
 "use client";
 import GAActionBar from "@/components/ui/GAActionBar";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
+import GAButton from "@/components/ui/GAButton";
 import GATable from "@/components/ui/GATable";
-import { Link } from "@/lib/router-events";
+import { Link, useRouter } from "@/lib/router-events";
 import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/dashboard/dashboardSlice";
 import { useGetAllOrdersQuery, useUpdateOrderMutation } from "@/redux/features/order/orderApi";
 import { useAppDispatch } from "@/redux/hooks";
@@ -18,7 +19,7 @@ const QuotationRequestsPage = () => {
   const { data: session } = useSession();
   const dispatch = useAppDispatch();
   const query: Record<string, any> = {};
-
+  const router = useRouter();
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
@@ -96,16 +97,12 @@ const QuotationRequestsPage = () => {
       render: function (data: string) {
         return (
           <div className="flex justify-center items-center gap-5">
-            <Tooltip title="Decline Request" key={`dart-${data}`}>
-              <span onClick={() => showIgnoreQuotationRequestConfirm(data)} className="cursor-pointer text-blue-400 underline">
-                ignore
-              </span>
-            </Tooltip>
-            <Tooltip title="Give Quotation" key={`aart-${data}`}>
-              <Link href={`/admin/quotation-requests/give-quotation/${data}`} className="cursor-pointer text-blue-400 underline">
-                give
-              </Link>
-            </Tooltip>
+            <GAButton size="small" onClick={() => showIgnoreQuotationRequestConfirm(data)}>
+              ignore
+            </GAButton>
+            <GAButton size="small" onClick={() => router.push(`/admin/quotation-requests/give-quotation/${data}`)}>
+              give
+            </GAButton>
           </div>
         );
       },

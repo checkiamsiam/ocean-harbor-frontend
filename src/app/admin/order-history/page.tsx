@@ -22,12 +22,13 @@ const OrderHistoryPage = () => {
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
+  const [statusFilter, setStatusFilter] = useState<OrderStatus[]>([OrderStatus.declined, OrderStatus.spam, OrderStatus.delivered]);
 
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;
   const { data, isLoading } = useGetAllOrdersQuery(
-    { params: { ...query }, status: [OrderStatus.declined, OrderStatus.spam, OrderStatus.delivered] },
+    { params: { ...query }, status: statusFilter },
     {
       refetchOnMountOrArgChange: true,
       skip: !session?.accessToken,
@@ -86,6 +87,11 @@ const OrderHistoryPage = () => {
       render: function (data: OrderStatus) {
         return <>{convertStatusText(data)}</>;
       },
+      filters: [
+        { text: "Declined", value: OrderStatus.declined },
+        { text: "Delivered", value: OrderStatus.delivered },
+        { text: "Ignore", value: OrderStatus.spam },
+      ],
     },
     {
       title: "Quotation",
@@ -118,6 +124,12 @@ const OrderHistoryPage = () => {
     setSize(pageSize);
   };
   const onTableChange = (pagination: any, filter: any, sorter: any) => {
+    if (filter.status) {
+      setStatusFilter(filter.status);
+    } else {
+      setStatusFilter([OrderStatus.declined, OrderStatus.spam, OrderStatus.delivered]);
+    }
+
     const { order, field } = sorter;
     if (order === undefined || field === undefined) return;
     setSortBy(field as string);

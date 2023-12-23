@@ -4,10 +4,10 @@ import GABreadCrumb from "@/components/ui/GABreadcrumb";
 import GAButton from "@/components/ui/GAButton";
 import GATable from "@/components/ui/GATable";
 import { useDebounced } from "@/hooks/useDebounced";
-import { Link } from "@/lib/router-events";
+import { Link, useRouter } from "@/lib/router-events";
 import { useGetCustomersQuery, useUpdateCustomerMutation } from "@/redux/features/user/userApi";
 import { CustomerStatus } from "@/types/ApiResponse";
-import { Button, Input, Switch, TableColumnProps, Tooltip, message } from "antd";
+import { Button, Input, Switch, TableColumnProps, message } from "antd";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { AiOutlineReload } from "react-icons/ai";
@@ -15,7 +15,7 @@ import { AiOutlineReload } from "react-icons/ai";
 const ManageCustomerPage = () => {
   const { data: session } = useSession();
   const query: Record<string, any> = {};
-
+  const router = useRouter();
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
@@ -85,26 +85,21 @@ const ManageCustomerPage = () => {
     {
       title: "Action",
       dataIndex: "id",
+      className: "text-center" ,
       render: function (data: string) {
         return (
           <div className="flex justify-center items-center gap-5">
-            <Tooltip title="View Details" key={`ec-${data}`}>
-              <Link href={`/admin/manage-customer/details/${data}`} className="cursor-pointer text-blue-400 underline">
-                view
-              </Link>
-            </Tooltip>
-            <Tooltip title="Edit Customer" key={`vdc-${data}`}>
-              <Link href={`/admin/manage-customer/edit/${data}`} className="cursor-pointer text-blue-400 underline">
-                edit
-              </Link>
-            </Tooltip>
+            <GAButton size="small" onClick={() => router.push(`/admin/manage-customer/details/${data}`)}>
+              view
+            </GAButton>
+            <GAButton size="small" onClick={() => router.push(`/admin/manage-customer/edit/${data}`)}>
+              edit
+            </GAButton>
           </div>
         );
       },
     },
   ];
-
- 
 
   const onPaginationChange = (page: number, pageSize: number) => {
     setPage(page);

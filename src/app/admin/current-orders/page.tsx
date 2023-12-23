@@ -1,32 +1,36 @@
 "use client";
 import GAActionBar from "@/components/ui/GAActionBar";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
+import GAButton from "@/components/ui/GAButton";
 import GATable from "@/components/ui/GATable";
-import { Link } from "@/lib/router-events";
+import { Link, useRouter } from "@/lib/router-events";
 import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/dashboard/dashboardSlice";
-import { useGetAllOrdersQuery } from "@/redux/features/order/orderApi";
+import { useGetAllOrdersQuery, useUpdateOrderMutation } from "@/redux/features/order/orderApi";
 import { useAppDispatch } from "@/redux/hooks";
 import { OrderStatus } from "@/types/ApiResponse";
-import { TableColumnProps, Tooltip } from "antd";
-import dayjs from "dayjs";
+import { Modal, TableColumnProps, Tooltip, message } from "antd";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+
+const { confirm } = Modal;
 
 const CurrentOrderPage = () => {
   const { data: session } = useSession();
   const dispatch = useAppDispatch();
   const query: Record<string, any> = {};
-
+  const router = useRouter();
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
+  const [statusFilter, setStatusFilter] = useState<OrderStatus[]>([OrderStatus.ordered, OrderStatus.orderInProcess]);
 
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;
+  const [markAsDelivered] = useUpdateOrderMutation();
   const { data, isLoading } = useGetAllOrdersQuery(
-    { params: { ...query }, status: [OrderStatus.ordered, OrderStatus.orderInProcess] },
+    { params: { ...query }, status: statusFilter },
     {
       refetchOnMountOrArgChange: true,
       skip: !session?.accessToken,
@@ -85,38 +89,96 @@ const CurrentOrderPage = () => {
       render: function (data: OrderStatus) {
         return <>{data === OrderStatus.ordered ? "Confirmed" : data === OrderStatus.orderInProcess ? "Invoiced" : data}</>;
       },
+      filters: [
+        {
+          text: "Confirmed",
+          value: OrderStatus.ordered,
+        },
+        {
+          text: "Invoiced",
+          value: OrderStatus.orderInProcess,
+        },
+      ],
     },
     {
       title: "Quotation",
       dataIndex: "quotation",
       className: "text-center",
       render: function (data: string) {
-        return <a href={data}>download</a>;
+        return data ? <a href={data}>download </a> : "N/A";
       },
     },
     {
       title: "Invoice",
-      dataIndex: "invoice",
+      key: "invoice",
       className: "text-center",
-      render: function (data: string) {
-        return <a href={data}>download</a>;
+      render: function (data) {
+        return data?.invoice ? (
+          <a href={data?.invoice}>download </a>
+        ) : (
+          <GAButton size="small" onClick={() => router.push(`/admin/current-orders/add-invoice/${data?.id}`)}>
+            Add
+          </GAButton>
+        );
       },
     },
     {
-      title: "Updated At",
-      dataIndex: "updatedAt",
+      title: "Action",
+      dataIndex: "id",
       render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+        return (
+          <GAButton size="small" onClick={() => showMarkAsDeliveredConfirm(data)}>
+            Mark Delivered
+          </GAButton>
+        );
       },
       sorter: true,
     },
   ];
+
+  const showMarkAsDeliveredConfirm = (data: string) => {
+    confirm({
+      title: "Are you sure you want to mark this order as delivered?",
+      content: "This action cannot be undone.",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        showMarkAsDeliveredOrder(data);
+      },
+    });
+  };
+
+  const showMarkAsDeliveredOrder = async (id: string) => {
+    message.loading("Marking As Delivered.....");
+    try {
+      const res = await markAsDelivered({
+        id,
+        data: {
+          status: OrderStatus.delivered,
+        },
+      }).unwrap();
+      if (!!res) {
+        message.destroy();
+        message.success("Order Marked As Delivered Successfully!");
+      }
+    } catch (err: any) {
+      message.destroy();
+      message.warning("Failed to Mark As Delivered! try again");
+    }
+  };
 
   const onPaginationChange = (page: number, pageSize: number) => {
     setPage(page);
     setSize(pageSize);
   };
   const onTableChange = (pagination: any, filter: any, sorter: any) => {
+    if (filter.status) {
+      setStatusFilter(filter.status);
+    } else {
+      setStatusFilter([OrderStatus.ordered, OrderStatus.orderInProcess]);
+    }
+
     const { order, field } = sorter;
     if (order === undefined || field === undefined) return;
     setSortBy(field as string);
