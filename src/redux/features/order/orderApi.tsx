@@ -84,7 +84,7 @@ export const OrderApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.order],
     }),
     giveQuotation: builder.mutation({
-      query: (arg: { id: string; data: Partial<Order> }) => ({
+      query: (arg: { id: string; data: FormData }) => ({
         url: order_url + "/quotation-approve" + "/" + arg.id,
         method: "PATCH",
         data: arg.data,
@@ -93,7 +93,7 @@ export const OrderApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.order],
     }),
     addInvoice: builder.mutation({
-      query: (arg: { id: string; data: Partial<Order> }) => ({
+      query: (arg: { id: string; data: FormData }) => ({
         url: order_url + "/add-invoice" + "/" + arg.id,
         method: "PATCH",
         data: arg.data,

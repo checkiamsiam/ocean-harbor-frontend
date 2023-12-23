@@ -1,42 +1,39 @@
 "use client";
 import GAActionBar from "@/components/ui/GAActionBar";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
-import GAButton from "@/components/ui/GAButton";
 import GATable from "@/components/ui/GATable";
-import { Link, useRouter } from "@/lib/router-events";
+import { Link } from "@/lib/router-events";
 import { setCurrentOrderId, toggleOrderItemDrawer } from "@/redux/features/dashboard/dashboardSlice";
-import { useGetAllOrdersQuery, useUpdateOrderMutation } from "@/redux/features/order/orderApi";
+import { useGetAllOrdersQuery } from "@/redux/features/order/orderApi";
 import { useAppDispatch } from "@/redux/hooks";
 import { OrderStatus } from "@/types/ApiResponse";
-import { Modal, TableColumnProps, Tooltip, message } from "antd";
+import { convertStatusText } from "@/utils/convertStatusText";
+import { TableColumnProps, Tooltip } from "antd";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
-const { confirm } = Modal;
-
-const QuotationRequestsPage = () => {
+const OrderHistoryPage = () => {
   const { data: session } = useSession();
   const dispatch = useAppDispatch();
   const query: Record<string, any> = {};
-  const router = useRouter();
+
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
+  const [statusFilter, setStatusFilter] = useState<OrderStatus[]>([OrderStatus.declined, OrderStatus.spam, OrderStatus.delivered]);
 
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;
   const { data, isLoading } = useGetAllOrdersQuery(
-    { params: { ...query }, status: [OrderStatus.requestQuotation] },
+    { params: { ...query }, status: statusFilter },
     {
       refetchOnMountOrArgChange: true,
       skip: !session?.accessToken,
     }
   );
-
-  const [ignoreQuotationRequest] = useUpdateOrderMutation();
 
   const orders = data?.orders;
   const meta = data?.meta;
@@ -84,28 +81,41 @@ const QuotationRequestsPage = () => {
       },
     },
     {
-      title: "Requested At",
-      dataIndex: "createdAt",
+      title: "Status",
+      dataIndex: "status",
+      className: "text-center",
+      render: function (data: OrderStatus) {
+        return <>{convertStatusText(data)}</>;
+      },
+      filters: [
+        { text: "Declined", value: OrderStatus.declined },
+        { text: "Delivered", value: OrderStatus.delivered },
+        { text: "Ignore", value: OrderStatus.spam },
+      ],
+    },
+    {
+      title: "Quotation",
+      dataIndex: "quotation",
+      className: "text-center",
+      render: function (data: string) {
+        return data ? <a href={data}>download </a> : "N/A";
+      },
+    },
+    {
+      title: "Invoice",
+      dataIndex: "invoice",
+      className: "text-center",
+      render: function (data: string) {
+        return data ? <a href={data}>download</a> : "N/A";
+      },
+    },
+    {
+      title: "Updated At",
+      dataIndex: "updatedAt",
       render: function (data: any) {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
       },
       sorter: true,
-    },
-    {
-      title: "Action",
-      dataIndex: "id",
-      render: function (data: string) {
-        return (
-          <div className="flex justify-center items-center gap-5">
-            <GAButton size="small" onClick={() => showIgnoreQuotationRequestConfirm(data)}>
-              ignore
-            </GAButton>
-            <GAButton size="small" onClick={() => router.push(`/admin/quotation-requests/give-quotation/${data}`)}>
-              give
-            </GAButton>
-          </div>
-        );
-      },
     },
   ];
 
@@ -114,6 +124,12 @@ const QuotationRequestsPage = () => {
     setSize(pageSize);
   };
   const onTableChange = (pagination: any, filter: any, sorter: any) => {
+    if (filter.status) {
+      setStatusFilter(filter.status);
+    } else {
+      setStatusFilter([OrderStatus.declined, OrderStatus.spam, OrderStatus.delivered]);
+    }
+
     const { order, field } = sorter;
     if (order === undefined || field === undefined) return;
     setSortBy(field as string);
@@ -125,42 +141,10 @@ const QuotationRequestsPage = () => {
     dispatch(toggleOrderItemDrawer());
   };
 
-  const showIgnoreQuotationRequestConfirm = (data: string) => {
-    confirm({
-      title: "Are you sure you want to ignore this quotation request?",
-      content: "This action cannot be undone.",
-      okText: "Yes",
-      okType: "danger",
-      cancelText: "No",
-      onOk() {
-        handleIgnoreQuotationReq(data);
-      },
-    });
-  };
-
-  const handleIgnoreQuotationReq = async (id: string) => {
-    message.loading("Ignoring.....");
-    try {
-      const res = await ignoreQuotationRequest({
-        id,
-        data: {
-          status: OrderStatus.spam,
-        },
-      }).unwrap();
-      if (!!res) {
-        message.destroy();
-        message.success("Your request to ignore quotation request  has been sent successful");
-      }
-    } catch (err: any) {
-      message.destroy();
-      message.warning("Failed to Ignore! try again");
-    }
-  };
-
   return (
     <div>
-      <GAActionBar title="Quotation Requests">
-        <GABreadCrumb items={[{ label: "Order" }, { label: "Quotation Requests" }]} />
+      <GAActionBar title="Current Orders">
+        <GABreadCrumb items={[{ label: "Order" }, { label: "Current Orders" }]} />
       </GAActionBar>
 
       <GATable
@@ -178,4 +162,4 @@ const QuotationRequestsPage = () => {
   );
 };
 
-export default QuotationRequestsPage;
+export default OrderHistoryPage;

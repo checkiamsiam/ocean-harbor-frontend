@@ -1,11 +1,12 @@
 "use client";
 import GAActionBar from "@/components/ui/GAActionBar";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
+import GAButton from "@/components/ui/GAButton";
 import GATable from "@/components/ui/GATable";
 import { useDebounced } from "@/hooks/useDebounced";
-import { Link } from "@/lib/router-events";
+import { useRouter } from "@/lib/router-events";
 import { useDeclineAccountRequestMutation, useGetAccountRequestsQuery } from "@/redux/features/accountRequest/accoutRequestApi";
-import { Button, Input, Modal, TableColumnProps, Tooltip, message } from "antd";
+import { Button, Input, Modal, TableColumnProps, message } from "antd";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { AiOutlineReload } from "react-icons/ai";
@@ -14,7 +15,7 @@ const { confirm } = Modal;
 const AccountRequestsPage = () => {
   const { data: session } = useSession();
   const query: Record<string, any> = {};
-
+  const router = useRouter();
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
@@ -66,20 +67,17 @@ const AccountRequestsPage = () => {
     },
     {
       title: "Action",
+      className: "text-center" ,
       dataIndex: "id",
       render: function (data: string) {
         return (
           <div className="flex justify-center items-center gap-5">
-            <Tooltip title="Decline Request" key={`dar-${data}`}>
-              <span onClick={() => showDeclineAccountRequest(data)} className="cursor-pointer text-blue-400 underline">
-                decline
-              </span>
-            </Tooltip>
-            <Tooltip title="Accept Request" key={`aar-${data}`}>
-              <Link href={`/admin/account-requests/accept/${data}`} className="cursor-pointer text-blue-400 underline">
-                accept
-              </Link>
-            </Tooltip>
+            <GAButton size="small" onClick={() => showDeclineAccountRequest(data)}>
+              decline
+            </GAButton>
+            <GAButton size="small" onClick={() => router.push(`/admin/account-requests/accept/${data}`)}>
+              accept
+            </GAButton>
           </div>
         );
       },

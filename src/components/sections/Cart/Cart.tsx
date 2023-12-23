@@ -36,6 +36,7 @@ const Cart = () => {
         message.success("Quotation Request sent for following items");
         clearCart();
         setCart(getCart());
+        router.push("/dashboard/quotation-requests");
       }
     } catch (error) {
       message.destroy();

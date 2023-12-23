@@ -17,6 +17,6 @@ export const convertStatusText = (status: OrderStatus) => {
     case OrderStatus.declined:
       return "Declined";
     default:
-      return "Spam";
+      return status;
   }
 }
