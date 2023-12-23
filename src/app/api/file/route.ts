@@ -1,8 +1,7 @@
-// @ts-ignore
-import { NextApiRequest, NextApiResponse } from "next";
+//@ts-nocheck
 import { NextResponse } from "next/server";
 
-const handler = (req: NextApiRequest, res: NextApiResponse) => {
+const handler = (req, res) => {
   return NextResponse.json({ name: "File uploaded" });
 };
 
