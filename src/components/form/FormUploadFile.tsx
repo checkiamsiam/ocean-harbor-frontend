@@ -1,3 +1,4 @@
+"use client";
 import { getErrorMessageByPropertyName } from "@/utils/Form/schemaValidator";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Upload, message } from "antd";
