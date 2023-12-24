@@ -85,7 +85,7 @@ const ManageCustomerPage = () => {
     {
       title: "Action",
       dataIndex: "id",
-      className: "text-center" ,
+      className: "text-center",
       render: function (data: string) {
         return (
           <div className="flex justify-center items-center gap-5">
@@ -161,7 +161,7 @@ const ManageCustomerPage = () => {
           <Link href="/admin/manage-customer/create">
             <GAButton type="primary">Add Customer</GAButton>
           </Link>
-          {(!!sortBy || !!sortOrder || !!searchTerm) && (
+          {(!!sortBy || !!sortOrder || !!searchTerm || !!statusFilter) && (
             <Button style={{ margin: "0px 5px" }} type="primary" onClick={resetFilters}>
               <AiOutlineReload />
             </Button>

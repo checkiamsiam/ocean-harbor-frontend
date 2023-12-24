@@ -59,4 +59,4 @@ export const getSingleProduct = async ({ id, params }: { id: string; params?: IQ
   };
 };
 
-export const { useGetProductsQuery } = productApi;
+export const { useGetProductsQuery , useGetSingleProductQuery } = productApi;
