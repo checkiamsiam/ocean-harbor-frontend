@@ -52,7 +52,6 @@ const FormSelectField = ({
             value={value}
             style={{
               width: "100%",
-              borderRadius: 0,
               fontSize: "15px",
               backgroundColor: "#FAFAFA",
               ...style,

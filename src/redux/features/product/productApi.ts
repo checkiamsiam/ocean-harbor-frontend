@@ -1,5 +1,6 @@
 import { axiosInstance } from "@/helpers/axios/axiosInstance";
 import { baseApi } from "@/redux/baseApi";
+import { tagTypes } from "@/redux/tag-types";
 import { IMeta, IQuery } from "@/types";
 import { Product } from "@/types/ApiResponse";
 
@@ -19,6 +20,7 @@ export const productApi = baseApi.injectEndpoints({
           meta,
         };
       },
+      providesTags: [tagTypes.product],
     }),
     getSingleProduct: builder.query<{ product: Product }, { id: string; params?: IQuery }>({
       query: (arg) => ({
@@ -31,6 +33,25 @@ export const productApi = baseApi.injectEndpoints({
           product: response,
         };
       },
+      providesTags: [tagTypes.product],
+    }),
+    addProduct: builder.mutation({
+      query: (arg : {  data: FormData }) => ({
+        url: product_url + "/create",
+        method: "POST",
+        data: arg.data,
+        contentType: "multipart/form-data",
+      }),
+      invalidatesTags: [tagTypes.product],
+    }),
+    updateProduct: builder.mutation({
+      query: (arg: { id: string; data: Partial<Product> }) => ({
+        url: product_url + "/update" + "/" + arg.id,
+        method: "PATCH",
+        data: arg.data,
+        contentType: "multipart/form-data",
+      }),
+      invalidatesTags: [tagTypes.product],
     }),
   }),
 });
@@ -59,4 +80,4 @@ export const getSingleProduct = async ({ id, params }: { id: string; params?: IQ
   };
 };
 
-export const { useGetProductsQuery , useGetSingleProductQuery } = productApi;
+export const { useGetProductsQuery , useGetSingleProductQuery , useAddProductMutation , useUpdateProductMutation } = productApi;
