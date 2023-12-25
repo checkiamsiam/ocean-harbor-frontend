@@ -5,14 +5,13 @@ import GAButton from "@/components/ui/GAButton";
 import GATable from "@/components/ui/GATable";
 import { useDebounced } from "@/hooks/useDebounced";
 import { Link, useRouter } from "@/lib/router-events";
-import { useGetCategoriesQuery } from "@/redux/features/category/categoryApi";
-import { useGetSubCategoriesQuery } from "@/redux/features/subCategory/subCategoryApi";
+import { useGetBrandsQuery } from "@/redux/features/brand/brandApi";
 import { Button, Input, TableColumnProps } from "antd";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { AiOutlineReload } from "react-icons/ai";
 
-const ManageSubCategoryPage = () => {
+const ManageBrandPage = () => {
   const { data: session } = useSession();
   const query: Record<string, any> = {};
   const router = useRouter();
@@ -21,12 +20,10 @@ const ManageSubCategoryPage = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
 
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;
-  query["categoryId"] = categoryFilter ? categoryFilter : undefined;
 
   const debouncedTerm = useDebounced({
     searchQuery: searchTerm,
@@ -37,16 +34,15 @@ const ManageSubCategoryPage = () => {
     query["searchKey"] = debouncedTerm;
   }
 
-  const { data: categoryData } = useGetCategoriesQuery({}, { refetchOnMountOrArgChange: true });
-  const { data, isLoading } = useGetSubCategoriesQuery(
-    { params: { ...query, populate: "category" } },
+  const { data, isLoading } = useGetBrandsQuery(
+    { params: { ...query } },
     {
       refetchOnMountOrArgChange: true,
       skip: !session?.accessToken,
     }
   );
 
-  const subCategories = data?.subCategories;
+  const brands = data?.brands;
   const meta = data?.meta;
 
   const columns: TableColumnProps<any>[] = [
@@ -60,28 +56,16 @@ const ManageSubCategoryPage = () => {
       dataIndex: "title",
     },
     {
-      title: "Category",
-      dataIndex: "category",
-      render: function (data) {
-        return data?.title;
-      },
-      filters: categoryData?.categories?.map((c) => {
-        return { text: c.title, value: c.id };
-      }),
-      filterMultiple: false,
-      filterSearch: true,
-    },
-    {
       title: "Action",
       dataIndex: "id",
       className: "text-center",
       render: function (data: string) {
         return (
           <div className="flex justify-center items-center gap-5">
-            <GAButton size="small" onClick={() => router.push(`/admin/manage-sub-category/details/${data}`)}>
+            <GAButton size="small" onClick={() => router.push(`/admin/manage-brand/details/${data}`)}>
               view
             </GAButton>
-            <GAButton size="small" onClick={() => router.push(`/admin/manage-sub-category/edit/${data}`)}>
+            <GAButton size="small" onClick={() => router.push(`/admin/manage-brand/edit/${data}`)}>
               edit
             </GAButton>
           </div>
@@ -95,11 +79,6 @@ const ManageSubCategoryPage = () => {
     setSize(pageSize);
   };
   const onTableChange = (pagination: any, filter: any, sorter: any) => {
-    if (!!filter.category) {
-      setCategoryFilter(filter.category[0]);
-    } else {
-      setCategoryFilter(null);
-    }
     const { order, field } = sorter;
     if (!(order === undefined || field === undefined)) {
       setSortBy(field as string);
@@ -111,14 +90,13 @@ const ManageSubCategoryPage = () => {
     setSortBy("");
     setSortOrder("");
     setSearchTerm("");
-    setCategoryFilter(null);
   };
 
   return (
     <div>
-      <GAActionBar title="Manage Sub-Category">
+      <GAActionBar title="Manage Brand">
         <div className="flex md:flex-row flex-col gap-5 md:gap-0  justify-between items-center">
-          <GABreadCrumb items={[{ label: "Management" }, { label: "Sub-Category" }]} />
+          <GABreadCrumb items={[{ label: "Management" }, { label: "Brand" }]} />
           <div className="w-full md:w-1/4">
             <Input
               type="text"
@@ -132,10 +110,10 @@ const ManageSubCategoryPage = () => {
           </div>
         </div>
         <div>
-          <Link href="/admin/manage-sub-category/create">
-            <GAButton type="primary">Add Sub-Category</GAButton>
+          <Link href="/admin/manage-brand/create">
+            <GAButton type="primary">Add Brand</GAButton>
           </Link>
-          {(!!sortBy || !!sortOrder || !!searchTerm || !!categoryFilter ) && (
+          {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button style={{ margin: "0px 5px" }} type="primary" onClick={resetFilters}>
               <AiOutlineReload />
             </Button>
@@ -146,7 +124,7 @@ const ManageSubCategoryPage = () => {
       <GATable
         loading={isLoading}
         columns={columns}
-        dataSource={subCategories}
+        dataSource={brands}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -158,4 +136,4 @@ const ManageSubCategoryPage = () => {
   );
 };
 
-export default ManageSubCategoryPage;
+export default ManageBrandPage;
