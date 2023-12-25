@@ -59,8 +59,8 @@ export const adminMenuItems: MenuItem[] = [
         key: `/admin/manage-products`,
       },
       {
-        label: <Link href={`/admin/category`}>Manage Categories</Link>,
-        key: `/admin/category`,
+        label: <Link href={`/admin/manage-category`}>Manage Categories</Link>,
+        key: `/admin/manage-category`,
       },
       {
         label: <Link href={`/admin/sub-category`}>Manage Sub-Categories</Link>,

@@ -5,14 +5,13 @@ import GAButton from "@/components/ui/GAButton";
 import GATable from "@/components/ui/GATable";
 import { useDebounced } from "@/hooks/useDebounced";
 import { Link, useRouter } from "@/lib/router-events";
-import { useGetCustomersQuery, useUpdateCustomerMutation } from "@/redux/features/user/userApi";
-import { CustomerStatus } from "@/types/ApiResponse";
-import { Button, Input, Switch, TableColumnProps, message } from "antd";
+import { useGetCategoriesQuery } from "@/redux/features/category/categoryApi";
+import { Button, Input, TableColumnProps } from "antd";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { AiOutlineReload } from "react-icons/ai";
 
-const ManageCustomerPage = () => {
+const ManageCategoryPage = () => {
   const { data: session } = useSession();
   const query: Record<string, any> = {};
   const router = useRouter();
@@ -21,12 +20,10 @@ const ManageCustomerPage = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [statusFilter, setStatusFilter] = useState<string[] | null>(null);
 
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;
-  query["status"] = statusFilter ? statusFilter.join(",") : undefined;
 
   const debouncedTerm = useDebounced({
     searchQuery: searchTerm,
@@ -37,16 +34,15 @@ const ManageCustomerPage = () => {
     query["searchKey"] = debouncedTerm;
   }
 
-  const [updateCustomer] = useUpdateCustomerMutation();
-  const { data, isLoading } = useGetCustomersQuery(
-    { params: { ...query } },
+  const { data, isLoading } = useGetCategoriesQuery(
+    { params: { ...query, populate: "subCategories" } },
     {
       refetchOnMountOrArgChange: true,
       skip: !session?.accessToken,
     }
   );
 
-  const customers = data?.customers;
+  const categories = data?.categories;
   const meta = data?.meta;
 
   const columns: TableColumnProps<any>[] = [
@@ -56,32 +52,8 @@ const ManageCustomerPage = () => {
       sorter: true,
     },
     {
-      title: "Name",
-      dataIndex: "name",
-    },
-    {
-      title: "Company Name",
-      dataIndex: "companyName",
-    },
-    {
-      title: "Phone Number",
-      dataIndex: "phone",
-    },
-    {
-      title: "Status",
-      key: "status",
-      filters: [
-        { text: "Active", value: CustomerStatus.active },
-        { text: "Disabled", value: CustomerStatus.disabled },
-      ],
-      filterMultiple: false,
-      render: function (data) {
-        return (
-          <div className="flex justify-center">
-            <Switch size="small" checked={data.status === CustomerStatus.active} onChange={(e) => handleSwitchStatus(e, data.id)} />
-          </div>
-        );
-      },
+      title: "Title",
+      dataIndex: "title",
     },
     {
       title: "Action",
@@ -90,10 +62,10 @@ const ManageCustomerPage = () => {
       render: function (data: string) {
         return (
           <div className="flex justify-center items-center gap-5">
-            <GAButton size="small" onClick={() => router.push(`/admin/manage-customer/details/${data}`)}>
+            <GAButton size="small" onClick={() => router.push(`/admin/manage-category/details/${data}`)}>
               view
             </GAButton>
-            <GAButton size="small" onClick={() => router.push(`/admin/manage-customer/edit/${data}`)}>
+            <GAButton size="small" onClick={() => router.push(`/admin/manage-category/edit/${data}`)}>
               edit
             </GAButton>
           </div>
@@ -107,7 +79,6 @@ const ManageCustomerPage = () => {
     setSize(pageSize);
   };
   const onTableChange = (pagination: any, filter: any, sorter: any) => {
-    setStatusFilter(filter.status);
     const { order, field } = sorter;
     if (!(order === undefined || field === undefined)) {
       setSortBy(field as string);
@@ -115,37 +86,17 @@ const ManageCustomerPage = () => {
     }
   };
 
-  const handleSwitchStatus = async (checked: boolean, id: string) => {
-    message.loading(checked ? "Making Active..." : "Making Disable...");
-    try {
-      const res = await updateCustomer({
-        id,
-        data: {
-          status: checked ? CustomerStatus.active : CustomerStatus.disabled,
-        },
-      }).unwrap();
-      if (!!res) {
-        message.destroy();
-        message.success(`Your request to ${checked ? "active" : "disable"} customer has been sent successful`);
-      }
-    } catch (err: any) {
-      message.destroy();
-      message.warning(`Failed to ${checked ? "active" : "disable"} customer! try again`);
-    }
-  };
-
   const resetFilters = () => {
     setSortBy("");
     setSortOrder("");
     setSearchTerm("");
-    setStatusFilter(null);
   };
 
   return (
     <div>
-      <GAActionBar title="Manage Customer">
+      <GAActionBar title="Manage Category">
         <div className="flex md:flex-row flex-col gap-5 md:gap-0  justify-between items-center">
-          <GABreadCrumb items={[{ label: "Accounts" }, { label: "Manage Customer" }]} />
+          <GABreadCrumb items={[{ label: "Management" }, { label: "Category" }]} />
           <div className="w-full md:w-1/4">
             <Input
               type="text"
@@ -159,10 +110,10 @@ const ManageCustomerPage = () => {
           </div>
         </div>
         <div>
-          <Link href="/admin/manage-customer/create">
-            <GAButton type="primary">Add Customer</GAButton>
+          <Link href="/admin/manage-category/create">
+            <GAButton type="primary">Add Category</GAButton>
           </Link>
-          {(!!sortBy || !!sortOrder || !!searchTerm || !!statusFilter) && (
+          {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button style={{ margin: "0px 5px" }} type="primary" onClick={resetFilters}>
               <AiOutlineReload />
             </Button>
@@ -173,7 +124,7 @@ const ManageCustomerPage = () => {
       <GATable
         loading={isLoading}
         columns={columns}
-        dataSource={customers}
+        dataSource={categories}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -185,4 +136,4 @@ const ManageCustomerPage = () => {
   );
 };
 
-export default ManageCustomerPage;
+export default ManageCategoryPage;

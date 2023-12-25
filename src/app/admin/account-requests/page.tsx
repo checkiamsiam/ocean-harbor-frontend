@@ -52,6 +52,7 @@ const AccountRequestsPage = () => {
     {
       title: "ID",
       dataIndex: "id",
+      sorter: true,
     },
     {
       title: "Name",

@@ -61,6 +61,7 @@ const ManageProductPage = () => {
     {
       title: "ID",
       dataIndex: "id",
+      sorter: true,
     },
     {
       title: "Title",
