@@ -1,14 +1,15 @@
 import { baseApi } from "@/redux/baseApi";
+import { tagTypes } from "@/redux/tag-types";
 import { IMeta, IQuery } from "@/types";
 import { SubCategory } from "@/types/ApiResponse";
 
-const subSubCategory_url = "/sub-category";
+const subCategory_url = "/sub-category";
 
 export const subSubCategoryAPI = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getSubCategories: builder.query<{ subCategories: SubCategory[]; meta: IMeta }, { params?: IQuery }>({
       query: (arg) => ({
-        url: subSubCategory_url,
+        url: subCategory_url,
         method: "GET",
         params: arg?.params,
       }),
@@ -18,20 +19,40 @@ export const subSubCategoryAPI = baseApi.injectEndpoints({
           meta,
         };
       },
+      providesTags: [tagTypes.subCategory],
     }),
-    getSingleSubSubCategory: builder.query<{ subSubCategory: SubCategory }, { id: string; params?: IQuery }>({
+    getSingleSubCategory: builder.query<{ subCategory: SubCategory }, { id: string; params?: IQuery }>({
       query: (arg) => ({
-        url: subSubCategory_url + "/" + arg?.id,
+        url: subCategory_url + "/" + arg?.id,
         method: "GET",
         params: arg?.params,
       }),
       transformResponse: (response: SubCategory) => {
         return {
-          subSubCategory: response,
+          subCategory: response,
         };
       },
+      providesTags: [tagTypes.subCategory],
+    }),
+    addSubCategory: builder.mutation({
+      query: (arg: { data: FormData }) => ({
+        url: subCategory_url + "/create",
+        method: "POST",
+        data: arg.data,
+        contentType: "multipart/form-data",
+      }),
+      invalidatesTags: [tagTypes.subCategory],
+    }),
+    updateSubCategory: builder.mutation({
+      query: (arg: { id: string; data: Partial<SubCategory> }) => ({
+        url: subCategory_url + "/update" + "/" + arg.id,
+        method: "PATCH",
+        data: arg.data,
+        contentType: "multipart/form-data",
+      }),
+      invalidatesTags: [tagTypes.subCategory],
     }),
   }),
 });
 
-export const { useGetSingleSubSubCategoryQuery, useGetSubCategoriesQuery } = subSubCategoryAPI;
+export const { useGetSingleSubCategoryQuery, useGetSubCategoriesQuery , useAddSubCategoryMutation , useUpdateSubCategoryMutation } = subSubCategoryAPI;

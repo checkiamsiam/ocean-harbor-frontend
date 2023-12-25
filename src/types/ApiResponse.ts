@@ -77,7 +77,7 @@ export interface Category {
 export interface SubCategory {
   id: string;
   title: string;
-  icon: string;
+  icon ?: string;
   categoryId: string;
   category: Category;
   createdAt?: Date;

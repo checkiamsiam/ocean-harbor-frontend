@@ -5,16 +5,14 @@ import GAButton from "@/components/ui/GAButton";
 import GATable from "@/components/ui/GATable";
 import { useDebounced } from "@/hooks/useDebounced";
 import { Link, useRouter } from "@/lib/router-events";
-import { useGetBrandsQuery } from "@/redux/features/brand/brandApi";
 import { useGetCategoriesQuery } from "@/redux/features/category/categoryApi";
-import { useGetProductsQuery } from "@/redux/features/product/productApi";
 import { useGetSubCategoriesQuery } from "@/redux/features/subCategory/subCategoryApi";
 import { Button, Input, TableColumnProps } from "antd";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { AiOutlineReload } from "react-icons/ai";
 
-const ManageProductPage = () => {
+const ManageSubCategoryPage = () => {
   const { data: session } = useSession();
   const query: Record<string, any> = {};
   const router = useRouter();
@@ -24,15 +22,11 @@ const ManageProductPage = () => {
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
-  const [subCategoryFilter, setSubCategoryFilter] = useState<string | null>(null);
-  const [brandFilter, setBrandFilter] = useState<string | null>(null);
 
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;
   query["categoryId"] = categoryFilter ? categoryFilter : undefined;
-  query["subCategoryId"] = subCategoryFilter ? subCategoryFilter : undefined;
-  query["brandId"] = brandFilter ? brandFilter : undefined;
 
   const debouncedTerm = useDebounced({
     searchQuery: searchTerm,
@@ -43,18 +37,16 @@ const ManageProductPage = () => {
     query["searchKey"] = debouncedTerm;
   }
 
-  const { data: categoryData } = useGetCategoriesQuery({ params: { populate: "subCategories" } }, { refetchOnMountOrArgChange: true });
-  const { data: subCategoryData } = useGetSubCategoriesQuery({}, { refetchOnMountOrArgChange: true });
-  const { data: brandData } = useGetBrandsQuery({}, { refetchOnMountOrArgChange: true });
-  const { data, isLoading } = useGetProductsQuery(
-    { params: { ...query, populate: "brand,category,subCategory" } },
+  const { data: categoryData } = useGetCategoriesQuery({}, { refetchOnMountOrArgChange: true });
+  const { data, isLoading } = useGetSubCategoriesQuery(
+    { params: { ...query, populate: "category" } },
     {
       refetchOnMountOrArgChange: true,
       skip: !session?.accessToken,
     }
   );
 
-  const products = data?.products;
+  const subCategories = data?.subCategories;
   const meta = data?.meta;
 
   const columns: TableColumnProps<any>[] = [
@@ -68,14 +60,10 @@ const ManageProductPage = () => {
       dataIndex: "title",
     },
     {
-      title: "Type",
-      dataIndex: "type",
-    },
-    {
       title: "Category",
-      key: "category",
+      dataIndex: "category",
       render: function (data) {
-        return data?.category?.title;
+        return data?.title;
       },
       filters: categoryData?.categories?.map((c) => {
         return { text: c.title, value: c.id };
@@ -84,47 +72,16 @@ const ManageProductPage = () => {
       filterSearch: true,
     },
     {
-      title: "Sub-Category",
-      key: "subCategory",
-      render: function (data) {
-        return data?.subCategory?.title;
-      },
-      filters: categoryFilter
-        ? categoryData?.categories
-            ?.find((c) => c.id === categoryFilter)
-            ?.subCategories?.map((c) => {
-              return { text: c.title, value: c.id };
-            })
-        : subCategoryData?.subCategories?.map((c) => {
-            return { text: c.title, value: c.id };
-          }),
-      filterMultiple: false,
-      filterSearch: true,
-    },
-    {
-      title: "Brand",
-      key: "brand",
-      render: function (data) {
-        return data?.brand?.title;
-      },
-      filters: brandData?.brands?.map((c) => {
-        return { text: c.title, value: c.id };
-      }),
-      filterMultiple: false,
-      filterSearch: true,
-    },
-
-    {
       title: "Action",
       dataIndex: "id",
       className: "text-center",
       render: function (data: string) {
         return (
           <div className="flex justify-center items-center gap-5">
-            <GAButton size="small" onClick={() => router.push(`/admin/manage-products/details/${data}`)}>
+            <GAButton size="small" onClick={() => router.push(`/admin/manage-sub-category/details/${data}`)}>
               view
             </GAButton>
-            <GAButton size="small" onClick={() => router.push(`/admin/manage-products/edit/${data}`)}>
+            <GAButton size="small" onClick={() => router.push(`/admin/manage-sub-category/edit/${data}`)}>
               edit
             </GAButton>
           </div>
@@ -140,19 +97,8 @@ const ManageProductPage = () => {
   const onTableChange = (pagination: any, filter: any, sorter: any) => {
     if (!!filter.category) {
       setCategoryFilter(filter.category[0]);
-      filter.subCategory = undefined;
     } else {
       setCategoryFilter(null);
-    }
-    if (!!filter.subCategory) {
-      setSubCategoryFilter(filter.subCategory[0]);
-    } else {
-      setSubCategoryFilter(null);
-    }
-    if (!!filter.brand) {
-      setBrandFilter(filter.brand[0]);
-    } else {
-      setBrandFilter(null);
     }
     const { order, field } = sorter;
     if (!(order === undefined || field === undefined)) {
@@ -166,15 +112,13 @@ const ManageProductPage = () => {
     setSortOrder("");
     setSearchTerm("");
     setCategoryFilter(null);
-    setSubCategoryFilter(null);
-    setBrandFilter(null);
   };
 
   return (
     <div>
-      <GAActionBar title="Manage Products">
+      <GAActionBar title="Manage Sub-Category">
         <div className="flex md:flex-row flex-col gap-5 md:gap-0  justify-between items-center">
-          <GABreadCrumb items={[{ label: "Management" }, { label: "Product" }]} />
+          <GABreadCrumb items={[{ label: "Management" }, { label: "Sub-Category" }]} />
           <div className="w-full md:w-1/4">
             <Input
               type="text"
@@ -188,10 +132,10 @@ const ManageProductPage = () => {
           </div>
         </div>
         <div>
-          <Link href="/admin/manage-products/create">
-            <GAButton type="primary">Add Product</GAButton>
+          <Link href="/admin/manage-sub-category/create">
+            <GAButton type="primary">Add Sub-Category</GAButton>
           </Link>
-          {(!!sortBy || !!sortOrder || !!searchTerm || !!categoryFilter || !!subCategoryFilter || !!brandFilter) && (
+          {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button style={{ margin: "0px 5px" }} type="primary" onClick={resetFilters}>
               <AiOutlineReload />
             </Button>
@@ -202,7 +146,7 @@ const ManageProductPage = () => {
       <GATable
         loading={isLoading}
         columns={columns}
-        dataSource={products}
+        dataSource={subCategories}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -214,4 +158,4 @@ const ManageProductPage = () => {
   );
 };
 
-export default ManageProductPage;
+export default ManageSubCategoryPage;

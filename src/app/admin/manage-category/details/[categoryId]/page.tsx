@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
-const CustomerDetails = () => {
+const CategoryDetailsPage = () => {
   const params = useParams();
   const { data: session } = useSession();
   const { isLoading, data } = useGetSingleCategoryQuery(
@@ -56,4 +56,4 @@ const CustomerDetails = () => {
   );
 };
 
-export default CustomerDetails;
+export default CategoryDetailsPage;

@@ -63,12 +63,12 @@ export const adminMenuItems: MenuItem[] = [
         key: `/admin/manage-category`,
       },
       {
-        label: <Link href={`/admin/sub-category`}>Manage Sub-Categories</Link>,
-        key: `/admin/sub-category`,
+        label: <Link href={`/admin/manage-sub-category`}>Manage Sub-Categories</Link>,
+        key: `/admin/manage-sub-category`,
       },
       {
-        label: <Link href={`/admin/brand`}>Manage Brands</Link>,
-        key: `/admin/brand`,
+        label: <Link href={`/admin/manage-brand`}>Manage Brands</Link>,
+        key: `/admin/manage-brand`,
       },
     ],
   },

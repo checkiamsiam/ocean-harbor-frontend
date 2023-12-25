@@ -1,10 +1,10 @@
 "use client";
-import CategoryForm from "@/components/ManagePBCS/CategoryForm";
+import SubCategoryForm from "@/components/ManagePBCS/SubCategoryForm";
 import Form from "@/components/form/Form";
 import GAActionBar from "@/components/ui/GAActionBar";
 import GABreadCrumb from "@/components/ui/GABreadcrumb";
 import { useRouter } from "@/lib/router-events";
-import { useGetSingleCategoryQuery, useUpdateCategoryMutation } from "@/redux/features/category/categoryApi";
+import { useGetSingleSubCategoryQuery, useUpdateSubCategoryMutation } from "@/redux/features/subCategory/subCategoryApi";
 import { Button, Skeleton, message } from "antd";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
@@ -15,21 +15,22 @@ const CategoryEditPage = () => {
   const [defaultValues, setDefaultValues] = useState<Record<string, any>>({});
   const params = useParams();
   const { data: session } = useSession();
-  const [updateCategory] = useUpdateCategoryMutation();
-  const { isLoading, data } = useGetSingleCategoryQuery(
+  const [updateSubCategory] = useUpdateSubCategoryMutation();
+  const { isLoading, data } = useGetSingleSubCategoryQuery(
     {
-      id: params.categoryId as string,
+      id: params.subCategoryId as string,
     },
     {
       refetchOnMountOrArgChange: true,
-      skip: !params.categoryId || !session?.accessToken,
+      skip: !params.subCategoryId || !session?.accessToken,
     }
   );
   useEffect(() => {
-    if (!data?.category) return;
+    if (!data?.subCategory) return;
     const defaultValues = {
-      title: data?.category?.title,
-      icon: data?.category?.icon,
+      title: data?.subCategory?.title,
+      categoryId: data?.subCategory?.categoryId,
+      icon: data?.subCategory?.icon,
     };
     setDefaultValues(defaultValues);
   }, [data]);
@@ -54,35 +55,35 @@ const CategoryEditPage = () => {
       }
       message.loading("Updating...");
       try {
-        const res = await updateCategory({
-          id: params.categoryId as string,
+        const res = await updateSubCategory({
+          id: params.subCategoryId as string,
           data: changedProperties,
         }).unwrap();
         if (!!res) {
           message.destroy();
-          message.success("Your request to update category has been sent successful");
-          router.push("/admin/manage-category");
+          message.success("Your request to update sub-category has been sent successful");
+          router.push("/admin/manage-sub-category");
         }
       } catch (err: any) {
         message.destroy();
-        message.warning("Failed to update category! try again");
+        message.warning("Failed to update sub-category! try again");
       }
     } else {
-      router.push("/admin/manage-category");
+      router.push("/admin/manage-sub-category");
       message.success("Updated without any changes");
     }
   };
   return (
     <div>
-      <GAActionBar title="Category Edit">
-        <GABreadCrumb items={[{ label: "Management" }, { label: "Manage Category" }, { label: "Edit" }]} />
+      <GAActionBar title="Sub-Category Edit">
+        <GABreadCrumb items={[{ label: "Management" }, { label: "Manage Sub-Category" }, { label: "Edit" }]} />
       </GAActionBar>
       {isLoading ? (
         <Skeleton active />
       ) : (
         <Form submitHandler={submitHandler} defaultValues={defaultValues}>
           <div>
-            <CategoryForm />
+            <SubCategoryForm />
           </div>
           <div style={{ marginTop: 24 }}>
             <Button type="primary" htmlType="submit">
