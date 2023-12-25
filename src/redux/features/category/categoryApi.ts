@@ -1,5 +1,6 @@
 import { axiosInstance } from "@/helpers/axios/axiosInstance";
 import { baseApi } from "@/redux/baseApi";
+import { tagTypes } from "@/redux/tag-types";
 import { IMeta, IQuery } from "@/types";
 import { Category } from "@/types/ApiResponse";
 
@@ -19,6 +20,7 @@ export const categoryAPI = baseApi.injectEndpoints({
           meta,
         };
       },
+      providesTags: [tagTypes.category],
     }),
     getSingleCategory: builder.query<{ category: Category }, { id: string; params?: IQuery }>({
       query: (arg) => ({
@@ -31,6 +33,25 @@ export const categoryAPI = baseApi.injectEndpoints({
           category: response,
         };
       },
+      providesTags: [tagTypes.category],
+    }),
+    addCategory: builder.mutation({
+      query: (arg: { data: FormData }) => ({
+        url: category_url + "/create",
+        method: "POST",
+        data: arg.data,
+        contentType: "multipart/form-data",
+      }),
+      invalidatesTags: [tagTypes.category],
+    }),
+    updateCategory: builder.mutation({
+      query: (arg: { id: string; data: Partial<Category> }) => ({
+        url: category_url + "/update" + "/" + arg.id,
+        method: "PATCH",
+        data: arg.data,
+        contentType: "multipart/form-data",
+      }),
+      invalidatesTags: [tagTypes.category],
     }),
   }),
 });
@@ -48,13 +69,7 @@ export const getCategory = async ({ params }: { params?: IQuery }): Promise<{ ca
   };
 };
 
-export const getSingleCategory = async ({
-  id,
-  params,
-}: {
-  id: string;
-  params?: IQuery;
-}): Promise<{ category: Category }> => {
+export const getSingleCategory = async ({ id, params }: { id: string; params?: IQuery }): Promise<{ category: Category }> => {
   const result = await axiosInstance({
     url: category_url + "/" + id,
     method: "GET",
@@ -65,6 +80,4 @@ export const getSingleCategory = async ({
   };
 };
 
-
-
-export const { useGetCategoriesQuery, useGetSingleCategoryQuery } = categoryAPI;
+export const { useGetCategoriesQuery, useGetSingleCategoryQuery, useAddCategoryMutation , useUpdateCategoryMutation } = categoryAPI;

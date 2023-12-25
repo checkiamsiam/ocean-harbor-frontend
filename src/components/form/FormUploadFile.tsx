@@ -24,9 +24,10 @@ const beforeUpload = (file: RcFile) => {
 type ImageUploadProps = {
   name: string;
   type?: "pdf" | "image";
+  label?: string;
 };
 
-const FormUploadFile = ({ name, type = "image" }: ImageUploadProps) => {
+const FormUploadFile = ({ name, type = "image" , label }: ImageUploadProps) => {
   const [loading, setLoading] = useState(false);
   const {
     setValue,
@@ -59,8 +60,11 @@ const FormUploadFile = ({ name, type = "image" }: ImageUploadProps) => {
 
   return (
     <>
+      {label ? label : null}
       <Upload
         name={name}
+        key={name}
+        
         listType="picture-card"
         className="avatar-uploader"
         showUploadList={true}

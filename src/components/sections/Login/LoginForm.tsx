@@ -28,6 +28,7 @@ const LoginForm = () => {
         message.success("Your request to login has been sent successful");
         setError(false);
       }
+      
     } catch (err: any) {
       setError(true);
       message.destroy();

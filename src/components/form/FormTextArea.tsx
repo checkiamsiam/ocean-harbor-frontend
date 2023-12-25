@@ -38,7 +38,7 @@ const FormTextArea = ({ name, label, rows, value, placeholder, required }: TextA
             required={required}
             {...field}
             defaultValue={value}
-            style={{ borderRadius: 0, fontSize: "15px", backgroundColor: "#FAFAFA" }}
+            style={{ fontSize: "15px", backgroundColor: "#FAFAFA" }}
           />
         )}
       />

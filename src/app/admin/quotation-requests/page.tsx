@@ -45,6 +45,7 @@ const QuotationRequestsPage = () => {
     {
       title: "Order ID",
       dataIndex: "id",
+      sorter: true,
       render: function (id: string) {
         return (
           <span className="cursor-pointer" onClick={() => handleOnRowClick(id)}>

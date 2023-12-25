@@ -55,20 +55,20 @@ export const adminMenuItems: MenuItem[] = [
     icon: <MdOutlineManageHistory />,
     children: [
       {
-        label: <Link href={`/admin/products`}>Manage Products</Link>,
-        key: `/admin/products`,
+        label: <Link href={`/admin/manage-products`}>Manage Products</Link>,
+        key: `/admin/manage-products`,
       },
       {
-        label: <Link href={`/admin/category`}>Manage Categories</Link>,
-        key: `/admin/category`,
+        label: <Link href={`/admin/manage-category`}>Manage Categories</Link>,
+        key: `/admin/manage-category`,
       },
       {
-        label: <Link href={`/admin/sub-category`}>Manage Sub-Categories</Link>,
-        key: `/admin/sub-category`,
+        label: <Link href={`/admin/manage-sub-category`}>Manage Sub-Categories</Link>,
+        key: `/admin/manage-sub-category`,
       },
       {
-        label: <Link href={`/admin/brand`}>Manage Brands</Link>,
-        key: `/admin/brand`,
+        label: <Link href={`/admin/manage-brand`}>Manage Brands</Link>,
+        key: `/admin/manage-brand`,
       },
     ],
   },

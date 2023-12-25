@@ -1,5 +1,6 @@
 import { axiosInstance } from "@/helpers/axios/axiosInstance";
 import { baseApi } from "@/redux/baseApi";
+import { tagTypes } from "@/redux/tag-types";
 import { IMeta, IQuery } from "@/types";
 import { Brand } from "@/types/ApiResponse";
 
@@ -19,6 +20,7 @@ export const brandApi = baseApi.injectEndpoints({
           meta,
         };
       },
+      providesTags: [tagTypes.brand],
     }),
 
     getSingleBrand: builder.query<{ brand: Brand }, { id: string; params?: IQuery }>({
@@ -32,6 +34,25 @@ export const brandApi = baseApi.injectEndpoints({
           brand: response,
         };
       },
+      providesTags: [tagTypes.brand],
+    }),
+    addBrand: builder.mutation({
+      query: (arg: { data: FormData }) => ({
+        url: brand_url + "/create",
+        method: "POST",
+        data: arg.data,
+        contentType: "multipart/form-data",
+      }),
+      invalidatesTags: [tagTypes.brand],
+    }),
+    updateBrand: builder.mutation({
+      query: (arg: { id: string; data: Partial<Brand> }) => ({
+        url: brand_url + "/update" + "/" + arg.id,
+        method: "PATCH",
+        data: arg.data,
+        contentType: "multipart/form-data",
+      }),
+      invalidatesTags: [tagTypes.brand],
     }),
   }),
 });
@@ -60,4 +81,4 @@ export const getSingleBrand = async ({ id, params }: { id: string; params?: IQue
   };
 };
 
-export const { useGetBrandsQuery, useGetSingleBrandQuery } = brandApi;
+export const { useGetBrandsQuery, useGetSingleBrandQuery , useUpdateBrandMutation , useAddBrandMutation } = brandApi;
