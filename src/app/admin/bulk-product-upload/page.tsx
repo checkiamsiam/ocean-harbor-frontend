@@ -4,11 +4,32 @@ import GABreadCrumb from "@/components/ui/GABreadcrumb";
 import GAButton from "@/components/ui/GAButton";
 import { MdOutlineClose } from "react-icons/md";
 
-import { Button, Col, Row } from "antd";
+import { Product } from "@/types/ApiResponse";
+import { Button, Col, Row, message } from "antd";
+import { useState } from "react";
 import { useCSVReader } from "react-papaparse";
+import { useBulkAddProductMutation } from "@/redux/features/product/productApi";
+import { useRouter } from "@/lib/router-events";
 
 const BulkProductUpload = () => {
+  const router = useRouter();
+  const [parsedData, setParsedData] = useState<Partial<Product>[]>([]);
   const { CSVReader } = useCSVReader();
+  const [bulkAddProduct] = useBulkAddProductMutation()
+  const handleBulkUpload = async () => {
+    message.loading("Adding...");
+    try {
+      const res = await bulkAddProduct({ data: parsedData }).unwrap();
+      if (!!res) {
+        message.destroy();
+        message.success("Your request to add products has been sent successful");
+        router.push("/admin/manage-products");
+      }
+    } catch (err: any) {
+      message.destroy();
+      message.warning("Failed to add new products! try again");
+    }
+  };
   return (
     <div>
       <GAActionBar title="Bulk Upload">
@@ -34,10 +55,15 @@ const BulkProductUpload = () => {
               }}
             >
               <CSVReader
+                config={{
+                  header: true,
+                }}
                 onUploadAccepted={async (results: any) => {
-                  console.log("---------------------------");
-                  console.log(results);
-                  console.log("---------------------------");
+                  await results;
+                  setParsedData(results.data);
+                    // Filter out empty rows
+                    const nonEmptyRows = results.data.filter((row: any) => Object.values(row).some((cell: any) => cell !== ''));
+                    setParsedData(nonEmptyRows);
                 }}
               >
                 {({ getRootProps, acceptedFile, ProgressBar, getRemoveFileProps }: any) => (
@@ -69,8 +95,8 @@ const BulkProductUpload = () => {
           </Row>
         </div>
         <div style={{ marginTop: 24 }}>
-          <Button type="primary" htmlType="submit">
-            Upload
+          <Button type="primary" onClick={handleBulkUpload}>
+            Upload All At Once
           </Button>
         </div>
       </div>

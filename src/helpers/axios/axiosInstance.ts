@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
 });
 axiosInstance.defaults.headers.post["Content-Type"] = "application/json";
 axiosInstance.defaults.headers["Accept"] = "application/json";
-axiosInstance.defaults.timeout = 60000;
+axiosInstance.defaults.timeout = 100000;
 
 // Add a request interceptor
 axiosInstance.interceptors.request.use(

@@ -51,7 +51,7 @@ const BulkImageUpload = () => {
     return () => {
       setUploadedImage(JSON.parse(getFromLocalStorage(uploaded_image_persist_key) as string));
     };
-  }, [uploadedImage, bulkUpload, isLoading]);
+  }, [isLoading]);
 
   return (
     <div>
