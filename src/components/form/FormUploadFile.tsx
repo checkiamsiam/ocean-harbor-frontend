@@ -25,12 +25,14 @@ type ImageUploadProps = {
   name: string;
   type?: "pdf" | "image";
   label?: string;
+  multiple?: boolean;
 };
 
-const FormUploadFile = ({ name, type = "image" , label }: ImageUploadProps) => {
+const FormUploadFile = ({ name, type = "image", label, multiple = false }: ImageUploadProps) => {
   const [loading, setLoading] = useState(false);
   const {
     setValue,
+    getValues,
     formState: { errors },
   } = useFormContext();
 
@@ -42,12 +44,19 @@ const FormUploadFile = ({ name, type = "image" , label }: ImageUploadProps) => {
       return;
     }
     if (info.file.status === "done") {
-      // Clear any existing files to allow only one upload
-
-      setValue(name, info.file.originFileObj);
-      getBase64(info.file.originFileObj as RcFile, (url) => {
+      if (!multiple) {
+        // For a single image
+        setValue(name, info.file.originFileObj);
+        getBase64(info.file.originFileObj as RcFile, (url) => {
+          setLoading(false);
+        });
+      } else {
+        // For multiple images
+        const currentImages = getValues(name) || []; // Get current array of images
+        const newImages = [...currentImages, info.file.originFileObj]; // Add the new image
+        setValue(name, newImages);
         setLoading(false);
-      });
+      }
     }
   };
 
@@ -64,15 +73,15 @@ const FormUploadFile = ({ name, type = "image" , label }: ImageUploadProps) => {
       <Upload
         name={name}
         key={name}
-        
         listType="picture-card"
         className="avatar-uploader"
         showUploadList={true}
+        multiple={multiple}
         action="/api/file"
         onChange={handleChange}
         beforeUpload={beforeUpload}
         accept={type === "pdf" ? "application/pdf" : "image/*"}
-        maxCount={1}
+        maxCount={multiple ? undefined : 1}
       >
         {uploadButton}
       </Upload>

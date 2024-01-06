@@ -3,6 +3,8 @@ import { MenuProps } from "antd";
 import { BiSolidUser } from "react-icons/bi";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { MdOutlineManageHistory } from "react-icons/md";
+import { IoMdCloudUpload } from "react-icons/io";
+
 
 export type MenuItem = Required<MenuProps>["items"][number];
 
@@ -70,6 +72,22 @@ export const adminMenuItems: MenuItem[] = [
         label: <Link href={`/admin/manage-brand`}>Manage Brands</Link>,
         key: `/admin/manage-brand`,
       },
+    ],
+  },
+  {
+    label: "Bulk Upload",
+    key: "bulk",
+    icon: <IoMdCloudUpload />,
+    children: [
+      {
+        label: <Link href={`/admin/bulk-image-upload`}>Image</Link>,
+        key: `/admin/bulk-image-upload`,
+      },
+      {
+        label: <Link href={`/admin/bulk-product-upload`}>Products</Link>,
+        key: `/admin/bulk-product-upload`,
+      },
+      
     ],
   },
 ];

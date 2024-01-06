@@ -1,3 +1,4 @@
+import { axiosInstance } from "@/helpers/axios/axiosInstance";
 import { baseApi } from "@/redux/baseApi";
 import { tagTypes } from "@/redux/tag-types";
 import { IMeta, IQuery } from "@/types";
@@ -54,5 +55,18 @@ export const subSubCategoryAPI = baseApi.injectEndpoints({
     }),
   }),
 });
+
+export const getSubCategory = async ({ params }: { params?: IQuery }): Promise<{ subCategory: SubCategory[]; meta: IMeta }> => {
+  const result = await axiosInstance({
+    url: subCategory_url,
+    method: "GET",
+    params,
+  });
+  return {
+    subCategory: result.data,
+    //@ts-ignore
+    meta: result.meta,
+  };
+};
 
 export const { useGetSingleSubCategoryQuery, useGetSubCategoriesQuery , useAddSubCategoryMutation , useUpdateSubCategoryMutation } = subSubCategoryAPI;

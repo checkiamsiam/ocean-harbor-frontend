@@ -5,13 +5,17 @@ import GAButton from "@/components/ui/GAButton";
 import GATable from "@/components/ui/GATable";
 import { useDebounced } from "@/hooks/useDebounced";
 import { Link, useRouter } from "@/lib/router-events";
-import { useGetBrandsQuery } from "@/redux/features/brand/brandApi";
-import { Button, Input, TableColumnProps } from "antd";
+import { getBrands, useGetBrandsQuery } from "@/redux/features/brand/brandApi";
+import { Brand } from "@/types/ApiResponse";
+import { Button, Input, TableColumnProps, message } from "antd";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { AiOutlineReload } from "react-icons/ai";
+import { useCSVDownloader } from "react-papaparse";
 
 const ManageBrandPage = () => {
+  const { CSVDownloader, Type } = useCSVDownloader();
+  const [csvJson, setCsvJson] = useState<Brand[]>([] as Brand[]);
   const { data: session } = useSession();
   const query: Record<string, any> = {};
   const router = useRouter();
@@ -92,6 +96,13 @@ const ManageBrandPage = () => {
     setSearchTerm("");
   };
 
+  const generateCSV = async () => {
+    message.loading({ content: "Generating CSV...", key: "csv" });
+    const csvData = await getBrands({});
+    setCsvJson(csvData.brands);
+    message.success({ content: "CSV Generated", key: "csv" });
+  };
+
   return (
     <div>
       <GAActionBar title="Manage Brand">
@@ -113,6 +124,17 @@ const ManageBrandPage = () => {
           <Link href="/admin/manage-brand/create">
             <GAButton type="primary">Add Brand</GAButton>
           </Link>
+          {csvJson.length > 0 ? (
+            <CSVDownloader type={Type.Link} filename={"brands"} bom={true} data={csvJson}>
+              <GAButton style={{ margin: "0px 5px" }} type="primary">
+                Download CSV
+              </GAButton>
+            </CSVDownloader>
+          ) : (
+            <GAButton style={{ margin: "0px 5px" }} type="primary" onClick={generateCSV}>
+              Generate CSV
+            </GAButton>
+          )}
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button style={{ margin: "0px 5px" }} type="primary" onClick={resetFilters}>
               <AiOutlineReload />
