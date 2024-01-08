@@ -16,7 +16,6 @@ const NotificationButton = () => {
     }
   );
 
-  console.log(data);
   return (
     <div>
       <Popover placement="bottomRight" content={NotificationPopover} trigger="click">
