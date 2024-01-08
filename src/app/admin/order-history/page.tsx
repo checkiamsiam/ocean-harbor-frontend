@@ -11,19 +11,21 @@ import { convertStatusText } from "@/utils/convertStatusText";
 import { TableColumnProps, Tooltip } from "antd";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const OrderHistoryPage = () => {
   const { data: session } = useSession();
   const dispatch = useAppDispatch();
+  const searchQuery = useSearchParams();
   const query: Record<string, any> = {};
-
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<OrderStatus[]>([OrderStatus.declined, OrderStatus.spam, OrderStatus.delivered]);
 
+  query["id"] = searchQuery.get("id") || undefined;
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;

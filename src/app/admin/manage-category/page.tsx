@@ -5,13 +5,17 @@ import GAButton from "@/components/ui/GAButton";
 import GATable from "@/components/ui/GATable";
 import { useDebounced } from "@/hooks/useDebounced";
 import { Link, useRouter } from "@/lib/router-events";
-import { useGetCategoriesQuery } from "@/redux/features/category/categoryApi";
-import { Button, Input, TableColumnProps } from "antd";
+import { getCategory, useGetCategoriesQuery } from "@/redux/features/category/categoryApi";
+import { Category } from "@/types/ApiResponse";
+import { Button, Input, TableColumnProps, message } from "antd";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { AiOutlineReload } from "react-icons/ai";
+import { useCSVDownloader } from "react-papaparse";
 
 const ManageCategoryPage = () => {
+  const { CSVDownloader, Type } = useCSVDownloader();
+  const [csvJson, setCsvJson] = useState<Category[]>([] as Category[]);
   const { data: session } = useSession();
   const query: Record<string, any> = {};
   const router = useRouter();
@@ -92,6 +96,13 @@ const ManageCategoryPage = () => {
     setSearchTerm("");
   };
 
+  const generateCSV = async () => {
+    message.loading({ content: "Generating CSV...", key: "csv" });
+    const csvData = await getCategory({});
+    setCsvJson(csvData.categories);
+    message.success({ content: "CSV Generated", key: "csv" });
+  };
+
   return (
     <div>
       <GAActionBar title="Manage Category">
@@ -113,6 +124,18 @@ const ManageCategoryPage = () => {
           <Link href="/admin/manage-category/create">
             <GAButton type="primary">Add Category</GAButton>
           </Link>
+
+          {csvJson.length > 0 ? (
+            <CSVDownloader type={Type.Link} filename={"categories"} bom={true} data={csvJson}>
+              <GAButton style={{ margin: "0px 5px" }} type="primary">
+                Download CSV
+              </GAButton>
+            </CSVDownloader>
+          ) : (
+            <GAButton style={{ margin: "0px 5px" }} type="primary" onClick={generateCSV}>
+              Generate CSV
+            </GAButton>
+          )}
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button style={{ margin: "0px 5px" }} type="primary" onClick={resetFilters}>
               <AiOutlineReload />

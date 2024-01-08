@@ -11,12 +11,14 @@ import { OrderStatus } from "@/types/ApiResponse";
 import { Modal, TableColumnProps, Tooltip, message } from "antd";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const { confirm } = Modal;
 
 const QuotationRequestsPage = () => {
   const { data: session } = useSession();
+  const searchQuery = useSearchParams();
   const dispatch = useAppDispatch();
   const query: Record<string, any> = {};
   const router = useRouter();
@@ -25,6 +27,7 @@ const QuotationRequestsPage = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
 
+  query["id"] = searchQuery.get("id") || undefined;
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;

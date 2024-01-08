@@ -1,5 +1,6 @@
 "use client";
 import LogoutButton from "@/components/common/LogoutButton";
+import NotificationButton from "@/components/common/NotificationButton";
 import { Link } from "@/lib/router-events";
 import { Flex } from "antd";
 import { useSession } from "next-auth/react";
@@ -19,6 +20,7 @@ const HeaderUserActions = () => {
           <span>Sign In</span> <BiSolidUser className="text-icon" />
         </Link>
       )}
+      <NotificationButton />
       <Link href="/cart" className="text-white flex justify-center gap-2 items-center hover:text-primary">
         <BiSolidCartAlt className="text-icon" />
       </Link>

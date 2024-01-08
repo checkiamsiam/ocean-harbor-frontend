@@ -8,12 +8,14 @@ import { useRouter } from "@/lib/router-events";
 import { useDeclineAccountRequestMutation, useGetAccountRequestsQuery } from "@/redux/features/accountRequest/accoutRequestApi";
 import { Button, Input, Modal, TableColumnProps, message } from "antd";
 import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { AiOutlineReload } from "react-icons/ai";
 const { confirm } = Modal;
 
 const AccountRequestsPage = () => {
   const { data: session } = useSession();
+  const searchQuery = useSearchParams();
   const query: Record<string, any> = {};
   const router = useRouter();
   const [page, setPage] = useState<number>(1);
@@ -22,6 +24,7 @@ const AccountRequestsPage = () => {
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
 
+  query["id"] = searchQuery.get("id") || undefined;
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;

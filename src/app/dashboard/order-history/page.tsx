@@ -9,18 +9,20 @@ import { OrderStatus } from "@/types/ApiResponse";
 import { convertStatusText } from "@/utils/convertStatusText";
 import { TableColumnProps } from "antd";
 import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const OrderHistoryPage = () => {
   const dispatch = useAppDispatch();
   const { data: session } = useSession();
+  const searchQuery = useSearchParams();
   const query: Record<string, any> = {};
-
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
-
+  
+  query["id"] = searchQuery.get("id") || undefined;
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;
