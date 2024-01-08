@@ -10,12 +10,14 @@ import { useAppDispatch } from "@/redux/hooks";
 import { OrderStatus } from "@/types/ApiResponse";
 import { Modal, TableColumnProps, Tooltip, message } from "antd";
 import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const { confirm } = Modal;
 
 const CurrentOrderPage = () => {
   const { data: session } = useSession();
+  const searchQuery = useSearchParams();
   const dispatch = useAppDispatch();
   const query: Record<string, any> = {};
   const router = useRouter();
@@ -25,6 +27,7 @@ const CurrentOrderPage = () => {
   const [sortOrder, setSortOrder] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<OrderStatus[]>([OrderStatus.ordered, OrderStatus.orderInProcess]);
 
+  query["id"] = searchQuery.get("id") || undefined;
   query["limit"] = size;
   query["page"] = page;
   query["sort"] = !!sortBy && !!sortOrder && sortOrder === "asc" ? sortBy : sortOrder === "desc" ? `-${sortBy}` : undefined;

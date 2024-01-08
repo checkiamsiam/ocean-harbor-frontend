@@ -1,11 +1,10 @@
 "use client";
 import LogoutButton from "@/components/common/LogoutButton";
+import NotificationButton from "@/components/common/NotificationButton";
 import { Link } from "@/lib/router-events";
-import { Flex, Popover } from "antd";
+import { Flex } from "antd";
 import { useSession } from "next-auth/react";
 import { BiSolidCartAlt, BiSolidUser } from "react-icons/bi";
-import { IoNotifications } from "react-icons/io5";
-import NotificationPopover from "./NotificationPopover";
 
 const HeaderUserActions = () => {
   const { data: session, status } = useSession();
@@ -21,11 +20,7 @@ const HeaderUserActions = () => {
           <span>Sign In</span> <BiSolidUser className="text-icon" />
         </Link>
       )}
-      <Popover placement="bottomRight" content={NotificationPopover}  trigger="click">
-        <span className="text-white cursor-pointer flex justify-center gap-2 items-center hover:text-primary">
-          <IoNotifications className="text-icon" />
-        </span>
-      </Popover>
+      <NotificationButton />
       <Link href="/cart" className="text-white flex justify-center gap-2 items-center hover:text-primary">
         <BiSolidCartAlt className="text-icon" />
       </Link>
