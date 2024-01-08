@@ -25,10 +25,13 @@ const LoginForm = () => {
       });
       if (res?.ok && !res?.error) {
         message.destroy();
-        message.success("Your request to login has been sent successful");
+        message.success("Your request to login has been successful");
         setError(false);
+      } else {
+        setError(true);
+        message.destroy();
+        message.warning("Failed to Login! try again");
       }
-      
     } catch (err: any) {
       setError(true);
       message.destroy();

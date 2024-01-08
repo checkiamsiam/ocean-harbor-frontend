@@ -20,7 +20,7 @@ const HeaderUserActions = () => {
           <span>Sign In</span> <BiSolidUser className="text-icon" />
         </Link>
       )}
-      <NotificationButton />
+      {session && status === "authenticated" && <NotificationButton />}
       <Link href="/cart" className="text-white flex justify-center gap-2 items-center hover:text-primary">
         <BiSolidCartAlt className="text-icon" />
       </Link>

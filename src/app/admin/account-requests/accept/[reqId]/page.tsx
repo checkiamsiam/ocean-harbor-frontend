@@ -108,7 +108,7 @@ const AccountRequestDetailPage = () => {
       <div style={{ marginTop: 24 }}>
         <Button onClick={() => router.back()}>Back</Button>
         <Button type="primary" onClick={() => setOpenModal(true)} style={{ margin: "0 8px" }}>
-          Accept
+        Approve 
         </Button>
       </div>
 
@@ -119,11 +119,11 @@ const AccountRequestDetailPage = () => {
         footer={[
           <Button key="cancel">Cancel</Button>,
           <Button key="submit" type="primary" onClick={handleAccept}>
-            Accept
+            Approve 
           </Button>,
         ]}
       >
-        <p className="mb-3">Press &apos;Accept&apos; to accept this registration or &apos;Cancel&apos; to back to previous page</p>
+        <p className="mb-3">Press &apos;Approve&apos; to accept this registration or &apos;Cancel&apos; to back to previous page</p>
         <span>Set Password</span>
         <Input.Password value={passwordText} type="password" placeholder="set password" onChange={(e) => setPasswordText(e.target.value)} />
       </Modal>
