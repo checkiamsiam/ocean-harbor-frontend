@@ -72,7 +72,7 @@ const LoginForm = () => {
 
                 {error && (
                   <p className="text-center">
-                    <span className="text-red-500 underline ">Login failed !. Try with different credentials.</span>
+                    <span className="text-red-500 underline ">Email or Password is wrong, please try again</span>
                   </p>
                 )}
 

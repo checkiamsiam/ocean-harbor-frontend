@@ -105,7 +105,7 @@ const QuotationRequestsPage = () => {
               ignore
             </GAButton>
             <GAButton size="small" onClick={() => router.push(`/admin/quotation-requests/give-quotation/${data}`)}>
-              give
+            Process
             </GAButton>
           </div>
         );

@@ -71,7 +71,7 @@ const AccountRequestsPage = () => {
     },
     {
       title: "Action",
-      className: "text-center" ,
+      className: "text-center",
       dataIndex: "id",
       render: function (data: string) {
         return (
@@ -105,7 +105,7 @@ const AccountRequestsPage = () => {
   const showDeclineAccountRequest = (data: string) => {
     confirm({
       title: "Are you sure decline this registration request?",
-      content: "Press 'Ok' to decline this order or 'Cancel' to back to previous page",
+      content: "Press 'Yes' to decline this order or 'No' to back to previous page",
       okText: "Yes",
       okType: "danger",
       cancelText: "No",
