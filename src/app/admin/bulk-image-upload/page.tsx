@@ -37,9 +37,6 @@ const BulkImageUpload = () => {
         message.success("Images uploaded successful");
         setUploadedImage(res);
         setToLocalStorage(uploaded_image_persist_key, JSON.stringify(res));
-        if (typeof window !== "undefined") {
-          window.location.reload();
-        }
       }
     } catch (err: any) {
       message.destroy();

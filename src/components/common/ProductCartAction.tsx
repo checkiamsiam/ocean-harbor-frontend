@@ -1,4 +1,6 @@
 "use client";
+import { setAddingCartLoading } from "@/redux/features/dashboard/dashboardSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addToCart, getCart, removeFromCart, removeQntFromCart } from "@/service/cart/cart.service";
 import { ICart } from "@/types";
 import { Product } from "@/types/ApiResponse";
@@ -7,22 +9,36 @@ import { useEffect, useState } from "react";
 import { RiAddFill, RiDeleteBin2Fill, RiSubtractFill } from "react-icons/ri";
 
 const ProductCartAction = ({ product }: { product: Product }) => {
+
+  const dispatch = useAppDispatch();
   const [render, setRender] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const handleRemoveQuantityFromCart: ButtonProps["onClick"] = (e) => {
+    dispatch(setAddingCartLoading(true));
     e.stopPropagation();
     removeQntFromCart(product);
     setRender(!render);
+    setTimeout(() => {
+      dispatch(setAddingCartLoading(false));
+    }, 150);
   };
   const handleAddQuantityToCart: ButtonProps["onClick"] = (e) => {
+    dispatch(setAddingCartLoading(true));
     e.stopPropagation();
     addToCart(product);
     setRender(!render);
+    setTimeout(() => {
+      dispatch(setAddingCartLoading(false));
+    }, 150);
   };
   const handleRemoveItem: ButtonProps["onClick"] = (e) => {
+    dispatch(setAddingCartLoading(true));
     e.stopPropagation();
     removeFromCart(product);
     setRender(!render);
+    setTimeout(() => {
+      dispatch(setAddingCartLoading(false));
+    }, 150);
   };
   useEffect(() => {
     const cart: ICart = getCart();

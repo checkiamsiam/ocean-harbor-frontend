@@ -41,6 +41,7 @@ const AccountRequestDetailPage = () => {
       message.destroy();
       message.warning("Failed to register! try again");
     }
+    setOpenModal(false);
   };
 
   return (
@@ -108,7 +109,7 @@ const AccountRequestDetailPage = () => {
       <div style={{ marginTop: 24 }}>
         <Button onClick={() => router.back()}>Back</Button>
         <Button type="primary" onClick={() => setOpenModal(true)} style={{ margin: "0 8px" }}>
-        Approve 
+          Approve
         </Button>
       </div>
 
@@ -116,10 +117,13 @@ const AccountRequestDetailPage = () => {
       <Modal
         title="Are you sure you want to accept this request?"
         open={openModal}
+        onCancel={() => setOpenModal(false)}
         footer={[
-          <Button key="cancel">Cancel</Button>,
+          <Button key="cancel" onClick={() => setOpenModal(false)}>
+            Cancel
+          </Button>,
           <Button key="submit" type="primary" onClick={handleAccept}>
-            Approve 
+            Approve
           </Button>,
         ]}
       >

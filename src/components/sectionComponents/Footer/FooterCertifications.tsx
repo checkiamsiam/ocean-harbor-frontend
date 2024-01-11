@@ -8,22 +8,22 @@ const FooterCertifications = () => {
         <p className="uppercase text-primary font-bold">Certifications</p>
         <div className="flex gap-2 flex-wrap">
           <Link href="/">
-            <Image src="/img/goldenanchorlogodemo.jpeg" alt="iso" width={70} height={70} className="rounded-md" />
+            <Image src="/img/certificate-1.png" alt="iso" width={70} height={70} className="rounded-md" />
           </Link>
           <Link href="/">
-            <Image src="/img/goldenanchorlogodemo.jpeg" alt="iso" width={70} height={70} className="rounded-md" />
+            <Image src="/img/certificate-2.png" alt="iso" width={70} height={70} className="rounded-md" />
           </Link>
           <Link href="/">
-            <Image src="/img/goldenanchorlogodemo.jpeg" alt="iso" width={70} height={70} className="rounded-md" />
+            <Image src="/img/certificate-3.png" alt="iso" width={70} height={70} className="rounded-md" />
           </Link>
           <Link href="/">
-            <Image src="/img/goldenanchorlogodemo.jpeg" alt="iso" width={70} height={70} className="rounded-md" />
+            <Image src="/img/certificate-4.png" alt="iso" width={70} height={70} className="rounded-md" />
           </Link>
           <Link href="/">
-            <Image src="/img/goldenanchorlogodemo.jpeg" alt="iso" width={70} height={70} className="rounded-md" />
+            <Image src="/img/certificate-5.png" alt="iso" width={70} height={70} className="rounded-md" />
           </Link>
           <Link href="/">
-            <Image src="/img/goldenanchorlogodemo.jpeg" alt="iso" width={70} height={70} className="rounded-md" />
+            <Image src="/img/certificate-6.png" alt="iso" width={70} height={70} className="rounded-md" />
           </Link>
         </div>
       </div>
