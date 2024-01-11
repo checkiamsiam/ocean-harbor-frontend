@@ -19,7 +19,7 @@ const RegistrationRequestForm = () => {
       const res = await requestAccount(data).unwrap();
       if (!!res) {
         message.destroy();
-        message.success("Your request has been sent successfully");
+        message.success("We'll email your new account details soon. Thank you!");
         router.push("/");
       }
     } catch (err: any) {

@@ -11,7 +11,7 @@ const FaqQue = () => {
               <FAQsAndAns
                 question="HOW CAN I BECOME A CUSTOMER?"
                 answer="You can become a customer by filling out the registration form clicking on the button below. After you have filled the form out please
-                send a mail to us at info@goldenanchor.com so our admin can register you as a customer. The sales manager of your area will contact
+                send a mail to us at info@goldenanchor.nl so our admin can register you as a customer. The sales manager of your area will contact
                 you shortly after to make an appointment for a first meeting."
                 action={{ text: "Become a customer", link: "https://www.unidexholland.com/en/faqs" }}
               />
@@ -31,7 +31,7 @@ const FaqQue = () => {
             <div>
               <FAQsAndAns
                 question="I WOULD LIKE TO MAKE A DELIVERY. HOW CAN I GET IN CONTACT WITH THE RIGHT DEPARTMENT?"
-                answer="In case of a delivery announcement you can contact our logistics department at transport@goldenanchor.com. If you are a supplier and you would like us to carry your products you can send your company information to purchase@goldenanchor.com."
+                answer="In case of a delivery announcement you can contact our logistics department at transport@goldenanchor.nl. If you are a supplier and you would like us to carry your products you can send your company information to purchase@goldenanchor.nl."
               />
             </div>
             <div>

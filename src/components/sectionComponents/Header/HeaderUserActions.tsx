@@ -2,11 +2,13 @@
 import LogoutButton from "@/components/common/LogoutButton";
 import NotificationButton from "@/components/common/NotificationButton";
 import { Link } from "@/lib/router-events";
+import { useAppSelector } from "@/redux/hooks";
 import { Flex } from "antd";
 import { useSession } from "next-auth/react";
 import { BiSolidCartAlt, BiSolidUser } from "react-icons/bi";
 
 const HeaderUserActions = () => {
+  const { addingCartLoading } = useAppSelector((state) => state.customerDashboard);
   const { data: session, status } = useSession();
 
   return (
@@ -20,8 +22,13 @@ const HeaderUserActions = () => {
           <span>Sign In</span> <BiSolidUser className="text-icon" />
         </Link>
       )}
-      <NotificationButton />
-      <Link href="/cart" className="text-white flex justify-center gap-2 items-center hover:text-primary">
+      {session && status === "authenticated" && <NotificationButton />}
+      <Link
+        href="/cart"
+        className={`flex justify-center gap-2 items-center hover:text-primary ${
+          addingCartLoading ? "text-primary scale-90" : "text-white scale-100"
+        } `}
+      >
         <BiSolidCartAlt className="text-icon" />
       </Link>
       {session && status === "authenticated" && <LogoutButton />}

@@ -12,12 +12,8 @@ const ReachUsToContact = () => {
           </span>
           <div className="flex flex-col gap-2">
             <div>
-              <h5 className="text-body font-semibold ">Postal Address</h5>
-              <p className="text-body">63 word, dhaka 1232</p>
-            </div>
-            <div>
               <h5 className="text-body font-semibold">Visiting Address</h5>
-              <p className="text-body">RS Tower, 2nd Floor, Rupa Tower, Jhalkuri, Narayangang</p>
+              <p className="text-body">Metaalbewerkerweg 19, Unit C, 1032KW Amsterdam</p>
             </div>
           </div>
         </li>

@@ -8,12 +8,7 @@ const AboutIntro = () => {
             <hr className="text-primary bg-primary" />
             <div className="pt-5 text-secondary leading-6">
               <p className="text-body mb-5">
-                Golden Anchor is a family business, founded in 1989 out of love and passion for authentic food from all over the world. Our team of 60
-                dedicated employees delivers the tastiest authentic flavors of African, Caribbean, Asian, and Middle Eastern cuisine to your store.
-                <br /> In addition to our headquarters in the Netherlands, we have sales offices in Belgium, Great Britain, Portugal, and Spain. We
-                also have our own production facility in Thailand, where we source and produce the freshest and highest-quality ingredients. <br /> At
-                Golden Anchor, we believe that everyone deserves to enjoy the delicious and authentic flavors of the world. That&apos;s why we&apos;re
-                committed to providing our customers with the widest possible variety of authentic products, at the best possible prices.
+              Welcome to Golden Anchor, here we are driven by our passion for bringing the rich and diverse flavors of Bangladesh right to the bustling markets of Europe. Nestled in the Netherlands, with our expansive warehouse strategically located in Amsterdam, we excel in importing an exquisite variety of high-quality dry foods. Our carefully curated selection includes everything from various types of rice and aromatic spices to delicious biscuits, cookies, nutritious fish, and an array of frozen snacks and vegetables, all procured from the biggest brands in Bangladesh.
               </p>
             </div>
           </div>

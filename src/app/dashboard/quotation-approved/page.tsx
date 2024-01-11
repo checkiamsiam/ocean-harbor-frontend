@@ -156,7 +156,7 @@ const QuotationApprovedPage = () => {
   const showDeclineConfirm = (data: string) => {
     confirm({
       title: "Are you sure decline this order?",
-      content: "Press 'Ok' to decline this order or 'Cancel' to back to previous page",
+      content: "Press 'Yes' to decline this order or 'No' to back to previous page",
       okText: "Yes",
       okType: "danger",
       cancelText: "No",
@@ -168,7 +168,7 @@ const QuotationApprovedPage = () => {
   const showConfirmOrderConfirm = (data: string) => {
     confirm({
       title: "Are you sure confirm this order?",
-      content: "Press 'Ok' to confirm this order or 'Cancel' to back to previous page",
+      content: "Press 'Yes' to confirm this order or 'No' to back to previous page",
       okText: "Yes",
       okType: "danger",
       cancelText: "No",

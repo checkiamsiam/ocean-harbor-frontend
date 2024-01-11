@@ -7,31 +7,37 @@ const ContactSupport = () => {
       <div className="pb-10 ">
         <div className="grid md:grid-cols-3 grid-cols-1 gap-5">
           <Card>
-            <div className="flex flex-col justify-center items-center">
-              <RiCustomerService2Fill className="text-[6rem] text-secondary" />
-              <div>
-                <h2 className="text-heading text-primary uppercase text-center">customer service</h2>
-                <p className="text-body  text-center text-secondary">+8801910072665</p>
+            <a href="tel:+8701910072662">
+              <div className="flex flex-col justify-center items-center">
+                <RiCustomerService2Fill className="text-[6rem] text-secondary" />
+                <div>
+                  <h2 className="text-heading text-primary uppercase text-center">customer service</h2>
+                  <p className="text-body  text-center text-secondary">+31 6 87359280</p>
+                </div>
               </div>
-            </div>
+            </a>
           </Card>
           <Card>
-            <div className="flex flex-col justify-center items-center">
-              <RiWhatsappLine className="text-[6rem] text-secondary" />
-              <div>
-                <h2 className="text-heading text-primary uppercase text-center">Whatsapp Chat</h2>
-                <p className="text-body  text-center text-secondary">+8801910072665</p>
+            <a href="https://api.whatsapp.com/send?phone=+31 6 87359280">
+              <div className="flex flex-col justify-center items-center">
+                <RiWhatsappLine className="text-[6rem] text-secondary" />
+                <div>
+                  <h2 className="text-heading text-primary uppercase text-center">Whatsapp Chat</h2>
+                  <p className="text-body  text-center text-secondary">+31 6 87359280</p>
+                </div>
               </div>
-            </div>
+            </a>
           </Card>
           <Card>
-            <div className="flex flex-col justify-center items-center">
-              <RiMailSendLine className="text-[6rem] text-secondary" />
-              <div>
-                <h2 className="text-heading text-primary uppercase text-center">Contact email</h2>
-                <p className="text-body  text-center text-secondary">support@goldenanchor.com</p>
+            <a href="mailto:info@goldenanchor.nl">
+              <div className="flex flex-col justify-center items-center">
+                <RiMailSendLine className="text-[6rem] text-secondary" />
+                <div>
+                  <h2 className="text-heading text-primary uppercase text-center">Contact email</h2>
+                  <p className="text-body  text-center text-secondary">info@goldenanchor.nl</p>
+                </div>
               </div>
-            </div>
+            </a>
           </Card>
         </div>
       </div>

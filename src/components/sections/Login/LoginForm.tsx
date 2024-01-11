@@ -25,10 +25,13 @@ const LoginForm = () => {
       });
       if (res?.ok && !res?.error) {
         message.destroy();
-        message.success("Your request to login has been sent successful");
+        message.success("Your request to login has been successful");
         setError(false);
+      } else {
+        setError(true);
+        message.destroy();
+        message.warning("Failed to Login! try again");
       }
-      
     } catch (err: any) {
       setError(true);
       message.destroy();
@@ -69,7 +72,7 @@ const LoginForm = () => {
 
                 {error && (
                   <p className="text-center">
-                    <span className="text-red-500 underline ">Login failed !. Try with different credentials.</span>
+                    <span className="text-red-500 underline ">Email or Password is wrong, please try again</span>
                   </p>
                 )}
 

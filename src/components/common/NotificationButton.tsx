@@ -21,8 +21,9 @@ const NotificationButton = () => {
       <Popover placement="bottomRight" content={NotificationPopover} trigger="click">
         <span className="text-white cursor-pointer flex justify-center gap-2 items-center hover:text-primary relative">
           <IoNotifications className="text-icon" />
-          {!isLoading && data && <span
-            className="
+          {!isLoading && data && data?.count > 0 && (
+            <span
+              className="
               absolute
               -top-1
               -right-1
@@ -36,9 +37,10 @@ const NotificationButton = () => {
               justify-center
               items-center
             "
-          >
-            {data?.count > 9 ? "9+" : data?.count}
-          </span>}
+            >
+              {data?.count > 9 ? "9+" : data?.count}
+            </span>
+          )}
         </span>
       </Popover>
     </div>
