@@ -118,7 +118,6 @@ const ManageSubCategoryPage = () => {
       const res = await deleteCategory({ id });
       if (!!res) {
         message.destroy();
-        message.success("Your request to delete sub-category has been sent successful");
       }
     } catch (err: any) {
       message.destroy();

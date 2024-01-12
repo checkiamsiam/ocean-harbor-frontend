@@ -102,7 +102,6 @@ const ManageBrandPage = () => {
       const res = await deleteBrand({ id });
       if (!!res) {
         message.destroy();
-        message.success("Your request to delete brand has been sent successful");
       }
     } catch (err: any) {
       message.destroy();
