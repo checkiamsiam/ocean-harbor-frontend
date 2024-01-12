@@ -6,13 +6,14 @@ import GATable from "@/components/ui/GATable";
 import { useDebounced } from "@/hooks/useDebounced";
 import { Link, useRouter } from "@/lib/router-events";
 import { useGetCategoriesQuery } from "@/redux/features/category/categoryApi";
-import { getSubCategory, useGetSubCategoriesQuery } from "@/redux/features/subCategory/subCategoryApi";
+import { getSubCategory, useDeleteSubCategoryMutation, useGetSubCategoriesQuery } from "@/redux/features/subCategory/subCategoryApi";
 import { SubCategory } from "@/types/ApiResponse";
-import { Button, Input, TableColumnProps, message } from "antd";
+import { Button, Input, Modal, TableColumnProps, message } from "antd";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { AiOutlineReload } from "react-icons/ai";
 import { useCSVDownloader } from "react-papaparse";
+const { confirm } = Modal;
 
 const ManageSubCategoryPage = () => {
   const { CSVDownloader, Type } = useCSVDownloader();
@@ -41,6 +42,7 @@ const ManageSubCategoryPage = () => {
     query["searchKey"] = debouncedTerm;
   }
 
+  const [deleteCategory] = useDeleteSubCategoryMutation();
   const { data: categoryData } = useGetCategoriesQuery({}, { refetchOnMountOrArgChange: true });
   const { data, isLoading } = useGetSubCategoriesQuery(
     { params: { ...query, populate: "category" } },
@@ -88,11 +90,40 @@ const ManageSubCategoryPage = () => {
             <GAButton size="small" onClick={() => router.push(`/admin/manage-sub-category/edit/${data}`)}>
               edit
             </GAButton>
+            <GAButton size="small" onClick={() => showDeleteCategoryModal(data)}>
+              Delete
+            </GAButton>
           </div>
         );
       },
     },
   ];
+
+  const showDeleteCategoryModal = (data: string) => {
+    confirm({
+      title: "Are you sure delete this sub-category?",
+      content: "Press 'Yes' to delete or 'No' to back to previous page",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        handleDeleteCategory(data);
+      },
+    });
+  };
+
+  const handleDeleteCategory = async (id: string) => {
+    message.loading("Deleting.....");
+    try {
+      const res = await deleteCategory({ id });
+      if (!!res) {
+        message.destroy();
+      }
+    } catch (err: any) {
+      message.destroy();
+      message.warning("Failed to delete! try again");
+    }
+  };
 
   const onPaginationChange = (page: number, pageSize: number) => {
     setPage(page);

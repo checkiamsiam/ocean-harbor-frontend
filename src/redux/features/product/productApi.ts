@@ -1,4 +1,3 @@
-import { useBulkUploadMutation } from '@/redux/features/upload/uploadApi';
 import { axiosInstance } from "@/helpers/axios/axiosInstance";
 import { baseApi } from "@/redux/baseApi";
 import { tagTypes } from "@/redux/tag-types";
@@ -37,7 +36,7 @@ export const productApi = baseApi.injectEndpoints({
       providesTags: [tagTypes.product],
     }),
     addProduct: builder.mutation({
-      query: (arg : {  data: FormData }) => ({
+      query: (arg: { data: FormData }) => ({
         url: product_url + "/create",
         method: "POST",
         data: arg.data,
@@ -46,7 +45,7 @@ export const productApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.product],
     }),
     bulkAddProduct: builder.mutation({
-      query: (arg : {  data: Partial<Product>[] }) => ({
+      query: (arg: { data: Partial<Product>[] }) => ({
         url: product_url + "/bulk-create",
         method: "POST",
         data: arg.data,
@@ -54,7 +53,7 @@ export const productApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.product],
     }),
     updateProduct: builder.mutation({
-      query: (arg: { id: string; data: Partial<Product> }) => ({
+      query: (arg: { id: string; data: FormData }) => ({
         url: product_url + "/update" + "/" + arg.id,
         method: "PATCH",
         data: arg.data,
@@ -89,4 +88,5 @@ export const getSingleProduct = async ({ id, params }: { id: string; params?: IQ
   };
 };
 
-export const { useGetProductsQuery , useGetSingleProductQuery , useAddProductMutation , useUpdateProductMutation , useBulkAddProductMutation } = productApi;
+export const { useGetProductsQuery, useGetSingleProductQuery, useAddProductMutation, useUpdateProductMutation, useBulkAddProductMutation } =
+  productApi;

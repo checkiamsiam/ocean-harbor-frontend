@@ -54,6 +54,13 @@ export const brandApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.brand],
     }),
+    deleteBrand: builder.mutation({
+      query: (arg: { id: string }) => ({
+        url: brand_url + "/delete" + "/" + arg.id,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.brand],
+    }),
   }),
 });
 
@@ -66,7 +73,7 @@ export const getBrands = async ({ params }: { params?: IQuery }): Promise<{ bran
   return {
     brands: result.data,
     //@ts-ignore
-    meta: result.meta
+    meta: result.meta,
   };
 };
 
@@ -81,4 +88,4 @@ export const getSingleBrand = async ({ id, params }: { id: string; params?: IQue
   };
 };
 
-export const { useGetBrandsQuery, useGetSingleBrandQuery , useUpdateBrandMutation , useAddBrandMutation } = brandApi;
+export const { useGetBrandsQuery, useGetSingleBrandQuery, useUpdateBrandMutation, useAddBrandMutation, useDeleteBrandMutation } = brandApi;

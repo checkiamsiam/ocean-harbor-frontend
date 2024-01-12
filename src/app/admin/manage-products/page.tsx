@@ -7,10 +7,10 @@ import { useDebounced } from "@/hooks/useDebounced";
 import { Link, useRouter } from "@/lib/router-events";
 import { useGetBrandsQuery } from "@/redux/features/brand/brandApi";
 import { useGetCategoriesQuery } from "@/redux/features/category/categoryApi";
-import { getProducts, useGetProductsQuery } from "@/redux/features/product/productApi";
+import { getProducts, useGetProductsQuery, useUpdateProductMutation } from "@/redux/features/product/productApi";
 import { useGetSubCategoriesQuery } from "@/redux/features/subCategory/subCategoryApi";
-import { Product } from "@/types/ApiResponse";
-import { Button, Input, TableColumnProps, message } from "antd";
+import { Product, ProductStatus } from "@/types/ApiResponse";
+import { Button, Input, Switch, TableColumnProps, message } from "antd";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { AiOutlineReload } from "react-icons/ai";
@@ -30,6 +30,7 @@ const ManageProductPage = () => {
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [subCategoryFilter, setSubCategoryFilter] = useState<string | null>(null);
   const [brandFilter, setBrandFilter] = useState<string | null>(null);
+  const [statusFilter, setStatusFilter] = useState<string[] | null>(null);
 
   query["limit"] = size;
   query["page"] = page;
@@ -37,6 +38,7 @@ const ManageProductPage = () => {
   query["categoryId"] = categoryFilter ? categoryFilter : undefined;
   query["subCategoryId"] = subCategoryFilter ? subCategoryFilter : undefined;
   query["brandId"] = brandFilter ? brandFilter : undefined;
+  query["status"] = statusFilter ? statusFilter.join(",") : undefined;
 
   const debouncedTerm = useDebounced({
     searchQuery: searchTerm,
@@ -57,6 +59,7 @@ const ManageProductPage = () => {
       skip: !session?.accessToken,
     }
   );
+  const [updateProduct] = useUpdateProductMutation();
 
   const products = data?.products;
   const meta = data?.meta;
@@ -117,6 +120,22 @@ const ManageProductPage = () => {
       filterMultiple: false,
       filterSearch: true,
     },
+    {
+      title: "Status",
+      key: "status",
+      filters: [
+        { text: "Active", value: ProductStatus.active },
+        { text: "Disabled", value: ProductStatus.disabled },
+      ],
+      filterMultiple: false,
+      render: function (data) {
+        return (
+          <div className="flex justify-center">
+            <Switch size="small" checked={data.status === ProductStatus.active} onChange={(e) => handleSwitchStatus(e, data.id)} />
+          </div>
+        );
+      },
+    },
 
     {
       title: "Action",
@@ -142,6 +161,7 @@ const ManageProductPage = () => {
     setSize(pageSize);
   };
   const onTableChange = (pagination: any, filter: any, sorter: any) => {
+    setStatusFilter(filter.status);
     if (!!filter.category) {
       setCategoryFilter(filter.category[0]);
       filter.subCategory = undefined;
@@ -165,6 +185,25 @@ const ManageProductPage = () => {
     }
   };
 
+  const handleSwitchStatus = async (checked: boolean, id: string) => {
+    message.loading(checked ? "Making Active..." : "Making Disable...");
+    try {
+      const formData = new FormData();
+      formData.append("status", checked ? ProductStatus.active : ProductStatus.disabled);
+      const res = await updateProduct({
+        id,
+        data: formData,
+      }).unwrap();
+      if (!!res) {
+        message.destroy();
+        message.success(`Your request to ${checked ? "active" : "disable"} product has been sent successful`);
+      }
+    } catch (err: any) {
+      message.destroy();
+      message.warning(`Failed to ${checked ? "active" : "disable"} product! try again`);
+    }
+  };
+
   const resetFilters = () => {
     setSortBy("");
     setSortOrder("");
@@ -172,6 +211,7 @@ const ManageProductPage = () => {
     setCategoryFilter(null);
     setSubCategoryFilter(null);
     setBrandFilter(null);
+    setStatusFilter(null);
   };
 
   const generateCSV = async () => {

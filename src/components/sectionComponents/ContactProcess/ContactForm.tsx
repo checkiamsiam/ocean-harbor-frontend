@@ -3,10 +3,15 @@ import Form from "@/components/form/Form";
 import FormInput from "@/components/form/FormInput";
 import FormTextArea from "@/components/form/FormTextArea";
 import GAButton from "@/components/ui/GAButton";
+import { useContactMailMutation } from "@/redux/features/contact/contactApi";
+import { IContactMail } from "@/types";
+import { message } from "antd";
 
 const ContactForm = () => {
-  const submitHandler = (data: any) => {
-    console.log("submited");
+  const [sendMail] = useContactMailMutation();
+  const submitHandler = async (data: IContactMail) => {
+    await sendMail({ data });
+    message.success("Your message has been sent successfully");
   };
   return (
     <div>
@@ -16,7 +21,7 @@ const ContactForm = () => {
             <FormInput name="name" required label="Name" size="large" />
           </div>
           <div>
-            <FormInput name="company" required label="Company" size="large" />
+            <FormInput name="companyName" required label="Company" size="large" />
           </div>
           <div>
             <FormInput name="phone" required label="Phone Number" size="large" />

@@ -5,13 +5,14 @@ import GAButton from "@/components/ui/GAButton";
 import GATable from "@/components/ui/GATable";
 import { useDebounced } from "@/hooks/useDebounced";
 import { Link, useRouter } from "@/lib/router-events";
-import { getBrands, useGetBrandsQuery } from "@/redux/features/brand/brandApi";
+import { getBrands, useDeleteBrandMutation, useGetBrandsQuery } from "@/redux/features/brand/brandApi";
 import { Brand } from "@/types/ApiResponse";
-import { Button, Input, TableColumnProps, message } from "antd";
+import { Button, Input, Modal, TableColumnProps, message } from "antd";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { AiOutlineReload } from "react-icons/ai";
 import { useCSVDownloader } from "react-papaparse";
+const { confirm } = Modal;
 
 const ManageBrandPage = () => {
   const { CSVDownloader, Type } = useCSVDownloader();
@@ -38,6 +39,7 @@ const ManageBrandPage = () => {
     query["searchKey"] = debouncedTerm;
   }
 
+  const [deleteBrand] = useDeleteBrandMutation();
   const { data, isLoading } = useGetBrandsQuery(
     { params: { ...query } },
     {
@@ -72,11 +74,40 @@ const ManageBrandPage = () => {
             <GAButton size="small" onClick={() => router.push(`/admin/manage-brand/edit/${data}`)}>
               edit
             </GAButton>
+            <GAButton size="small" onClick={() => showDeleteBrandModal(data)}>
+              Delete
+            </GAButton>
           </div>
         );
       },
     },
   ];
+
+  const showDeleteBrandModal = (data: string) => {
+    confirm({
+      title: "Are you sure delete this brand?",
+      content: "Press 'Yes' to delete or 'No' to back to previous page",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        handleDeleteBrand(data);
+      },
+    });
+  };
+
+  const handleDeleteBrand = async (id: string) => {
+    message.loading("Deleting.....");
+    try {
+      const res = await deleteBrand({ id });
+      if (!!res) {
+        message.destroy();
+      }
+    } catch (err: any) {
+      message.destroy();
+      message.warning("Failed to delete! try again");
+    }
+  };
 
   const onPaginationChange = (page: number, pageSize: number) => {
     setPage(page);

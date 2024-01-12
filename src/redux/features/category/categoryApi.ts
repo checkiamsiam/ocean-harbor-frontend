@@ -53,6 +53,13 @@ export const categoryAPI = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.category],
     }),
+    deleteCategory: builder.mutation({
+      query: (arg: { id: string }) => ({
+        url: category_url + "/delete" + "/" + arg.id,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.category],
+    }),
   }),
 });
 
@@ -80,4 +87,4 @@ export const getSingleCategory = async ({ id, params }: { id: string; params?: I
   };
 };
 
-export const { useGetCategoriesQuery, useGetSingleCategoryQuery, useAddCategoryMutation , useUpdateCategoryMutation } = categoryAPI;
+export const { useGetCategoriesQuery, useGetSingleCategoryQuery, useAddCategoryMutation, useUpdateCategoryMutation , useDeleteCategoryMutation } = categoryAPI;
