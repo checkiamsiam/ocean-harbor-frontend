@@ -53,6 +53,13 @@ export const subSubCategoryAPI = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.subCategory],
     }),
+    deleteSubCategory: builder.mutation({
+      query: (arg: { id: string }) => ({
+        url: subCategory_url + "/delete" + "/" + arg.id,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.subCategory],
+    }),
   }),
 });
 
@@ -69,4 +76,4 @@ export const getSubCategory = async ({ params }: { params?: IQuery }): Promise<{
   };
 };
 
-export const { useGetSingleSubCategoryQuery, useGetSubCategoriesQuery , useAddSubCategoryMutation , useUpdateSubCategoryMutation } = subSubCategoryAPI;
+export const { useGetSingleSubCategoryQuery, useGetSubCategoriesQuery, useAddSubCategoryMutation, useUpdateSubCategoryMutation , useDeleteSubCategoryMutation } = subSubCategoryAPI;

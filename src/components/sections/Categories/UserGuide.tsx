@@ -11,7 +11,7 @@ const UserGuide = () => {
                 <p className="text-body">Are you new to Golden Anchor and would you like to request a price quote? Please follow these steps:</p>
                 <ol className="text-body pl-10 mb-5">
                   <li>
-                    rowse through our product offer and press the plus sign under the product(s) for which you would like to receive a price quote.
+                    browse through our product offer and press the plus sign under the product(s) for which you would like to receive a price quote.
                   </li>
                   <li>
                     When you have specified all products for which you wish to receive a quotation, go to the shopping cart. Here you can leave your

@@ -65,7 +65,7 @@ const ProductEditPage = () => {
       try {
         const res = await updateProduct({
           id: params.productId as string,
-          data: changedProperties,
+          data: formData,
         }).unwrap();
         if (!!res) {
           message.destroy();
