@@ -1,15 +1,18 @@
-import GALogo from "@/components/common/GALogo";
+import GALogo from "@/components/common/OHLogo";
 import { Col, Row } from "antd";
 import HeaderUserActions from "./HeaderUserActions";
 import SearchBar from "./SearchBar";
 
 const HeaderBottomBar = () => {
   return (
-    <div className="pt-3">
+    <div className="pt-5 relative">
       <Row justify="center" align="bottom">
         <Col span={0} md={6}>
-          <div className="hidden lg:block">
+          <div className="hidden lg:block absolute -top-12">
+            <div className="bg-secondary px-3 py-1 rounded-full">
+
             <GALogo />
+            </div>
           </div>
         </Col>
         <Col span={4} md={10}>

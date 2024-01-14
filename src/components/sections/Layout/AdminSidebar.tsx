@@ -1,5 +1,5 @@
 "use client";
-import GALogo from "@/components/common/GALogo";
+import GALogo from "@/components/common/OHLogo";
 import { adminMenuItems } from "@/constants/AdminDashboardItems";
 import { useAppSelector } from "@/redux/hooks";
 import { Layout, Menu, SiderProps } from "antd";

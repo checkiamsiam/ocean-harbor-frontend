@@ -12,8 +12,8 @@ interface ITheme {
 
 export const theme: ITheme = {
   colors: {
-    primary: "#BABD92",
-    secondary: "#292b2f",
+    primary: "#6BA6B6",
+    secondary: "#202225",
   },
   fontSizes: {
     body: "1rem",
