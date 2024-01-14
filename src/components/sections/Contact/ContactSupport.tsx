@@ -29,12 +29,12 @@ const ContactSupport = () => {
             </a>
           </Card>
           <Card>
-            <a href="mailto:info@goldenanchor.nl">
+            <a href="mailto:info@oceanharbor.nl">
               <div className="flex flex-col justify-center items-center">
                 <RiMailSendLine className="text-[6rem] text-secondary" />
                 <div>
                   <h2 className="text-heading text-primary uppercase text-center">Contact email</h2>
-                  <p className="text-body  text-center text-secondary">info@goldenanchor.nl</p>
+                  <p className="text-body  text-center text-secondary">info@oceanharbor.nl</p>
                 </div>
               </div>
             </a>
