@@ -5,8 +5,7 @@ const FooterContact = () => {
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-2">
         <p className="uppercase text-primary font-bold">Golden Anchor B.V</p>
-        <p className="">Chamber of Commerce: 90042794
-</p>
+        <p className="">Chamber of Commerce: 90042794</p>
         <p className="">RSIN: 865192157</p>
       </div>
       <div className="flex flex-col gap-2">
@@ -20,8 +19,8 @@ const FooterContact = () => {
       <div className="flex flex-col gap-2">
         <p className="uppercase text-primary font-bold">Email</p>
         <span>
-          <Link href="mailto:info@goldenanchor.nl" className=" hover:text-primary hover:underline text-inherit">
-          info@goldenanchor.nl
+          <Link href="mailto:info@oceanharbor.nl" className=" hover:text-primary hover:underline text-inherit">
+            info@oceanharbor.nl
           </Link>
         </span>
       </div>
