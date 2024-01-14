@@ -19,7 +19,7 @@ const Banner = ({
       <div className={`h-[300px] w-full ${background} `}>
         <div className="ga-container flex w-full h-full items-center justify-center">
           <div>
-            {title && <h1 className="text-[2rem] text-primary  text-center">{title}</h1>}
+            {title && <h1 className="text-[2rem] text-primary uppercase  text-center">{title}</h1>}
             {subTitle && <p className="text-body text-white  font-bold mt-1 text-center">{subTitle}</p>}
             {action && (
               <div className="flex justify-center mt-5">

@@ -15,7 +15,7 @@ interface IInput {
   required?: boolean;
 }
 
-const FormInput = ({ name, type, size = "small", value, id, placeholder, validation, label, required }: IInput & InputProps) => {
+const FormInput = ({ name, type, size = "small", value, id, placeholder, validation, label, required , style }: IInput & InputProps) => {
   const {
     control,
     formState: { errors },
@@ -45,7 +45,7 @@ const FormInput = ({ name, type, size = "small", value, id, placeholder, validat
               size={size}
               required={required}
               placeholder={placeholder}
-              style={{ borderRadius: 0, fontSize: "15px", backgroundColor: "#FAFAFA" }}
+              style={{  fontSize: "15px", backgroundColor: "#FAFAFA" , ...style }}
               {...field}
               value={value ? value : field.value}
             />
@@ -55,7 +55,7 @@ const FormInput = ({ name, type, size = "small", value, id, placeholder, validat
               type={type}
               size={size}
               placeholder={placeholder}
-              style={{ borderRadius: 0, fontSize: "15px", backgroundColor: "#FAFAFA" }}
+              style={{  fontSize: "15px", backgroundColor: "#FAFAFA" ,  ...style }}
               {...field}
               value={value ? value : field.value}
             />

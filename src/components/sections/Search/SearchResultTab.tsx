@@ -1,10 +1,19 @@
-"use client";
 import BrandResult from "@/components/sectionComponents/SearchResultTab/BrandResult";
 import CategoryResult from "@/components/sectionComponents/SearchResultTab/CategoryResult";
 import ProductResult from "@/components/sectionComponents/SearchResultTab/ProductResult";
+import { getSearch } from "@/redux/features/search/searchApi";
+import { IQuery } from "@/types";
 import { Tabs } from "antd";
 
-const SearchResultTab = () => {
+const SearchResultTab = async ({ searchKey, searchParams }: { searchKey: string; searchParams: IQuery }) => {
+  const data = await getSearch({
+    params: {
+      searchKey,
+      limit: searchParams.limit || 12,
+      page: searchParams.page || 1,
+    },
+  });
+
   return (
     <div>
       <div className="ga-container">
@@ -14,17 +23,17 @@ const SearchResultTab = () => {
             {
               key: "1",
               label: "Products",
-              children: <ProductResult />,
+              children: <ProductResult products={data?.products} meta={data?.meta} />,
             },
             {
               key: "2",
               label: "Categories",
-              children: <CategoryResult />,
+              children: <CategoryResult categories={data?.categories}/>,
             },
             {
               key: "3",
               label: "Brands",
-              children: <BrandResult />,
+              children: <BrandResult brands={data?.brands} />,
             },
           ]}
         />

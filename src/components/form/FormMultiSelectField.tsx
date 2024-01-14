@@ -36,7 +36,7 @@ const FormMultiSelectField = ({ name, size = "small", value, placeholder = "sele
             placeholder={placeholder}
             allowClear
             mode="multiple"
-            style={{ width: "100%", borderRadius: 0, fontSize: "15px", backgroundColor: "#FAFAFA" }}
+            style={{ width: "100%",  fontSize: "15px", backgroundColor: "#FAFAFA" }}
             
           />
         )}

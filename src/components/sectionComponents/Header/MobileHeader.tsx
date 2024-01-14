@@ -1,14 +1,17 @@
 "use client";
+import useClickOutside from "@/hooks/useClickOutside";
+import { Link } from "@/lib/router-events";
 import { Col, Row } from "antd";
 import { Squash as Hamburger } from "hamburger-react";
-import { Link } from "@/lib/router-events";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SearchBar from "./SearchBar";
 
 const MobileHeader = () => {
+  const ref = useRef(null);
   const [isOpen, setOpen] = useState(false);
+  useClickOutside(ref, () => setOpen(false));
   return (
-    <div>
+    <div ref={ref}>
       <Row>
         <Col span={4}>
           <Hamburger toggled={isOpen} toggle={setOpen} color="white" />

@@ -1,41 +1,27 @@
 "use client";
-import { Select, SelectProps } from "antd";
-import { useParams,  useSearchParams } from "next/navigation";
 import { useRouter } from "@/lib/router-events";
+import { Category } from "@/types/ApiResponse";
+import { Select, SelectProps } from "antd";
 
-const SelectCategory = () => {
-  const params = useParams();
-  const searchParams = useSearchParams();
+const SelectCategory = ({ categories, categoryId }: { categories: Category[]; categoryId: string }) => {
   const router = useRouter();
   const handleChange: SelectProps["onChange"] = (value) => {
-    const searchQuery = Object.fromEntries(searchParams.entries());
-    const { subCategory, brand, ...rest } = searchQuery;
-    router.replace(`/categories/${value}?${new URLSearchParams(rest)}`);
+    router.replace(`/categories/${value}`);
   };
 
   return (
     <div>
-      <Select
-        // loading={loading}
-        options={[
-          { label: "Food", value: "food" },
-          { label: "Drinks", value: "drinks" },
-          { label: "Electronics", value: "electronics" },
-          { label: "Clothing", value: "clothing" },
-          { label: "Furniture", value: "furniture" },
-          { label: "Books", value: "books" },
-          { label: "Toys", value: "toys" },
-          { label: "Sports", value: "sports" },
-          { label: "Health", value: "health" },
-          { label: "Beauty", value: "beauty" },
-          { label: "Jewelery", value: "jewelery" },
-          { label: "Automotive", value: "automotive" },
-        ]}
-        value={params.catSlug}
-        style={{ width: "200px" }}
-        placeholder={"Category"}
-        onChange={handleChange}
-      />
+      {categories && (
+        <Select
+          options={categories?.map((c) => {
+            return { label: c.title, value: c.id };
+          })}
+          value={{ label: categories?.find((c) => c.id === categoryId)?.title, value: categoryId }}
+          style={{ width: "200px" }}
+          placeholder={"Category"}
+          onChange={handleChange}
+        />
+      )}
     </div>
   );
 };

@@ -1,4 +1,3 @@
-"use client";
 import HomeBrandsCarouselMap from "@/components/sectionComponents/HomeBrands/HomeBrandsCarouselMap";
 import GAButton from "@/components/ui/GAButton";
 

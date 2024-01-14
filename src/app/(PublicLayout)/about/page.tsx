@@ -8,7 +8,7 @@ import styles from "@/styles/about.module.css";
 const AboutPage = () => {
   return (
     <>
-      <Banner background={styles.bannerBG} title="About Golden Anchor" subTitle="Your One-Stop Shop for All Your Favorite Brands" />
+      <Banner background={styles.bannerBG} title="About Golden Anchor" subTitle="Your Gateway to Premium Bangladeshi Dry Foods in Europe" />
       <AboutIntro />
       <AboutMore />
       <Banner background={styles.secondaryBannerBG} />

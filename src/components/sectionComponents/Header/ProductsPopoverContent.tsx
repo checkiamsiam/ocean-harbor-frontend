@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 
 const ProductsPopoverContent = () => {
-  const { data } = useGetCategoriesQuery({});
+  const { data, isLoading, isSuccess } = useGetCategoriesQuery({});
   const ref = useRef(null);
   const [show, setShow] = useState(false);
   useClickOutside(ref, () => setShow(false));
@@ -17,10 +17,10 @@ const ProductsPopoverContent = () => {
         <p onClick={() => setShow(!show)} className="uppercase cursor-pointer hover:text-primary flex items-center gap-1">
           Products <AiFillCaretDown />
         </p>
-        {show && (
+        {show && !isLoading && isSuccess && (
           <div ref={ref} className="absolute z-50 p-5 bg-secondary mt-4 w-[800px] shadow-lg">
             <Row gutter={[10, 10]}>
-              {data?.categories.map((slug, i) => (
+              {data?.categories?.map((slug, i) => (
                 <Col span={8} key={i}>
                   <Link href={`/categories/${slug.id}`} className="text-white  hover:text-primary">
                     {slug.title}

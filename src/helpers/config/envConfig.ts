@@ -1,9 +1,17 @@
 interface EnvConfig {
   siteUrl: string;
   backendUrl: string;
+  jwt: {
+    secret: string;
+    expiresIn: string;
+  };
 }
 
 export const envConfig: EnvConfig = {
-  siteUrl: process.env.NEXTAUTH_URL || process.env.NEXT_PUBLIC_NEXTAUTH_URL || "http://localhost:3000",
-  backendUrl: process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL || "",
+  jwt: {
+    secret: process.env.JWT_SECRET || "secret",
+    expiresIn: process.env.JWT_EXPIRES_IN || "1d",
+  },
+  siteUrl: process.env.NEXT_PUBLIC_NEXTAUTH_URL || "http://localhost:3000",
+  backendUrl: process.env.NEXT_PUBLIC_BACKEND_URL || "",
 };

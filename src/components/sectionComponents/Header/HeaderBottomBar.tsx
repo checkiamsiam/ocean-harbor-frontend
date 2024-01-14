@@ -1,7 +1,6 @@
 import GALogo from "@/components/common/GALogo";
-import { Link } from "@/lib/router-events";
-import { Col, Flex, Row } from "antd";
-import { BiSolidCartAlt, BiSolidUser } from "react-icons/bi";
+import { Col, Row } from "antd";
+import HeaderUserActions from "./HeaderUserActions";
 import SearchBar from "./SearchBar";
 
 const HeaderBottomBar = () => {
@@ -19,14 +18,7 @@ const HeaderBottomBar = () => {
           </div>
         </Col>
         <Col span={20} md={8}>
-          <Flex justify="end" align="center" gap={10}>
-            <Link href="/login" className="text-white flex justify-center gap-2 items-center hover:text-primary">
-              <span>Sign In</span> <BiSolidUser className="text-icon" />
-            </Link>
-            <Link href="/cart" className="text-white flex justify-center gap-2 items-center hover:text-primary">
-              <BiSolidCartAlt className="text-icon" />
-            </Link>
-          </Flex>
+          <HeaderUserActions />
         </Col>
       </Row>
     </div>

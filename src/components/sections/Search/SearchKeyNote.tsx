@@ -1,9 +1,4 @@
-"use client";
-import { useSearchParams } from "next/navigation";
-
-const SearchKeyNote = () => {
-  const searchParams = useSearchParams();
-  const searchKey = searchParams.get("searchKey");
+const SearchKeyNote = ({ searchKey }: { searchKey: string }) => {
   return (
     <div>
       <div className="ga-container">

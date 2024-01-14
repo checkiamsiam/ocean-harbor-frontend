@@ -1,5 +1,6 @@
 "use client";
 
+import { getErrorMessageByPropertyName } from "@/utils/Form/schemaValidator";
 import { Select } from "antd";
 import { Controller, useFormContext } from "react-hook-form";
 
@@ -32,11 +33,13 @@ const FormSelectField = ({
   style,
   handleChange,
 }: SelectFieldProps & { style ?: Record<string, any> }) => {
-  const { control } = useFormContext();
+  const { control , formState: { errors }, } = useFormContext();
+
+  const errorMessage = getErrorMessageByPropertyName(errors, name);
 
   return (
     <>
-      {label ? label : null}
+      {label ? label : null} 
       <Controller
         control={control}
         name={name}
@@ -47,10 +50,8 @@ const FormSelectField = ({
             loading={loading}
             options={options}
             value={value}
-            defaultValue={defaultValue}
             style={{
               width: "100%",
-              borderRadius: 0,
               fontSize: "15px",
               backgroundColor: "#FAFAFA",
               ...style,
@@ -59,6 +60,7 @@ const FormSelectField = ({
           />
         )}
       />
+      <small style={{ color: "red" }}>{errorMessage}</small>
     </>
   );
 };

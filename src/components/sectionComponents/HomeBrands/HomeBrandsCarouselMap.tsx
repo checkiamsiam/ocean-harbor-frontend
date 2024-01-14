@@ -1,16 +1,23 @@
+"use client";
 import BrandItems from "@/components/common/BrandItems";
-import { Carousel } from "antd";
+import { useGetBrandsQuery } from "@/redux/features/brand/brandApi";
+import { Carousel, Skeleton } from "antd";
 import { settings } from "./HomeBrandsCarouselSettings";
 
 const HomeBrandsCarouselMap = () => {
+  const { data, isLoading } = useGetBrandsQuery({});
   return (
-    <Carousel {...settings}>
-      {Array(10)
-        .fill(Math.random())
-        .map((_, i) => (
-          <BrandItems key={i} icon="/img/pran-logo.png" link="/" />
-        ))}
-    </Carousel>
+    <div>
+      {isLoading ? (
+        <div>
+          <Skeleton active />
+        </div>
+      ) : (
+        <Carousel {...settings}>
+          {data && data?.brands?.map((brand) => <BrandItems key={brand.id} icon={brand.logo} link={`/brands/${brand.id}`} />)}
+        </Carousel>
+      )}
+    </div>
   );
 };
 

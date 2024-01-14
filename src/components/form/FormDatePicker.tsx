@@ -1,9 +1,10 @@
 "use client";
+import { CSSProperties } from "@ant-design/cssinjs/lib/hooks/useStyleRegister";
 import { DatePicker, DatePickerProps } from "antd";
 import dayjs, { Dayjs } from "dayjs";
 import { Controller, useFormContext } from "react-hook-form";
 
-type UMDatePikerProps = {
+type Props = {
   onChange?: (valOne: Dayjs | null, valTwo: string) => void;
   name: string;
   label?: string;
@@ -11,7 +12,7 @@ type UMDatePikerProps = {
   size?: "large" | "small";
 };
 
-const FormDatePicker = ({ name, label, onChange, size = "small" }: UMDatePikerProps) => {
+const FormDatePicker = ({ name, label, onChange, size = "small" }: Props) => {
   const { control, setValue } = useFormContext();
 
   const handleOnChange: DatePickerProps["onChange"] = (date, dateString) => {
@@ -31,7 +32,7 @@ const FormDatePicker = ({ name, label, onChange, size = "small" }: UMDatePikerPr
             defaultValue={dayjs(field.value) || Date.now()}
             size={size}
             onChange={handleOnChange}
-            style={{ width: "100%", borderRadius: 0, fontSize: "15px", backgroundColor: "#FAFAFA" }}
+            style={{ width: "100%", fontSize: "15px", backgroundColor: "#FAFAFA" }}
           />
         )}
       />

@@ -1,30 +1,31 @@
 import ProductCard from "@/components/common/ProductCard";
+import { getProducts } from "@/redux/features/product/productApi";
+import { IQuery } from "@/types";
+import { ProductStatus } from "@/types/ApiResponse";
+import { Empty } from "antd";
 
-const BrandWiseProducts = () => {
+const BrandWiseProducts = async ({ searchQuery, brandId }: { searchQuery: IQuery; brandId: string }) => {
+  const queryParamsForProductQuery = {
+    ...searchQuery,
+    status: ProductStatus.active,
+    brandId,
+    limit: searchQuery.limit || 12,
+    page: searchQuery.page || 1,
+  };
+  const data = await getProducts({ params: queryParamsForProductQuery });
   return (
     <div>
       <div className="ga-container">
         <div className="pb-5">
-          <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-          </div>
+          {data && data.products.length > 0 ? (
+            <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
+              {data?.products?.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <Empty description="There is no product" />
+          )}
         </div>
       </div>
     </div>

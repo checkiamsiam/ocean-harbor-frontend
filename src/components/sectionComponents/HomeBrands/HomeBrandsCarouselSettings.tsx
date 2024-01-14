@@ -5,6 +5,8 @@ export const settings: CarouselProps = {
   slidesToShow: 5,
   slidesToScroll: 1,
   arrows: false,
+  swipeToSlide: true,
+  swipe:  true,
   responsive: [
     {
       breakpoint: 1024,
