@@ -4,7 +4,7 @@ import MobileHeader from "../../sectionComponents/Header/MobileHeader";
 
 const Header = () => {
   return (
-    <div className="fixed top-0 w-full bg-[#202225] z-50">
+    <div className="fixed top-0 w-full bg-secondary z-50">
       <div className="ga-container">
         <div className="py-5">
           <div className="hidden lg:block">

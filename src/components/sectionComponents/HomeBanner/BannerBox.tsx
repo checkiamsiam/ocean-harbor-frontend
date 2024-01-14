@@ -1,4 +1,4 @@
-import GALogo from "@/components/common/GALogo";
+import GALogo from "@/components/common/OHLogo";
 
 const BannerBox = ({ title, subTitle }: { title: string; subTitle: string }) => {
   return (

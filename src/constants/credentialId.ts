@@ -1,1 +1,1 @@
-export const login_credential : string = "GA-Login-With-Credentials"
+export const login_credential : string = "OH-Login-With-Credentials"
