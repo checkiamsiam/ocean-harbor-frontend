@@ -25,7 +25,7 @@ const GAActionBar = ({ title, children }: ActionBarProps) => {
   return (
     <div>
       <div className="flex flex-wrap justify-between items-center">
-        <h1 className="text-heading text-primary uppercase">{title}</h1>
+        <h1 className="text-heading text-primary capitalize">{title}</h1>
 
         <div className="lg:hidden block">
           <span onClick={handleDashboardOpen} className="flex underline justify-center gap-2 items-center cursor-pointer text-primary">

@@ -1,7 +1,7 @@
 import { Link } from "@/lib/router-events";
 import Image from "next/image";
 
-const OHLogo = ({ width = 96, height = 100 }: { width?: number; height?: number }) => {
+const OHLogo = ({ width = 100, height = 100 }: { width?: number; height?: number }) => {
   return (
     <div>
       <Link href="/">

@@ -10,7 +10,7 @@ const CategoriesMap = () => {
     <div>
       <div className="ga-container">
         <div className="py-10">
-          <SectionHeader title="Categories" subtitle="The best of the best categories of our products" />
+          <SectionHeader title="Categories" subtitle="The Finest Selection of Seafood Categories" />
           <div className="p-5 mt-5">
             {isLoading ? (
               <div>

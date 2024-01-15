@@ -4,23 +4,23 @@ const FooterContact = () => {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-2">
-        <p className="uppercase text-primary font-bold">Golden Anchor B.V</p>
-        <p className="">Chamber of Commerce: 90042794</p>
-        <p className="">RSIN: 865192157</p>
+        <p className="capitalize text-primary font-bold">OCEAN HARBOR B.V</p>
+        <p className="">Chamber of Commerce: 91891434</p>
+        <p className="">RSIN: 865807267</p>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="uppercase text-primary font-bold">PHONE</p>
+        <p className="capitalize text-primary font-bold">PHONE</p>
         <span>
-          <Link href="tel:+8701910072662" className=" hover:text-primary hover:underline text-inherit ">
-            +31 6 87359280
+          <Link href="tel:+8701910072662" className=" hover:text-primary  text-inherit ">
+            +31 6 24945665
           </Link>
         </span>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="uppercase text-primary font-bold">Email</p>
+        <p className="capitalize text-primary font-bold">Email</p>
         <span>
-          <Link href="mailto:info@oceanharbor.nl" className=" hover:text-primary hover:underline text-inherit">
-            info@oceanharbor.nl
+          <Link href="mailto:info@oceanharbor.nl" className=" hover:text-primary  text-inherit">
+            nfo@oceanharbor.nl
           </Link>
         </span>
       </div>

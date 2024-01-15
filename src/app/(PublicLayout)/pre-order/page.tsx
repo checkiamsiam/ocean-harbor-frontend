@@ -5,7 +5,7 @@ import styles from "@/styles/preOrder.module.css";
 const PreOrderPage = () => {
   return (
     <>
-      <Banner background={styles.bannerBg} title="PRE-ORDER" />
+      <Banner background={styles.bannerBg} title="Pre-order" />
       <PreOrderInstruction />
     </>
   );

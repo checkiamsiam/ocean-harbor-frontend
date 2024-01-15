@@ -5,7 +5,7 @@ import styles from "@/styles/brand.module.css";
 const BrandsPage = () => {
   return (
     <>
-      <Banner background={styles.bannerBG} title="Our Brands" subTitle="Your One-Stop Shop for All Your Favorite Brands" />
+      <Banner background={styles.bannerBG} title="Our Brands" subTitle="The Finest Selection of Top-Quality Brands" />
       <Brands />
     </>
   );

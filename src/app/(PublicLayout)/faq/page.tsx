@@ -7,8 +7,8 @@ const FAQPage = () => {
     <>
       <Banner
         background={styles.bannerBG}
-        title="FREQUENTLY ASKED QUESTIONS"
-        subTitle="In case you have a question that is not answered below please contact us through the chat or the contact page"
+        title="Frequently Asked Questions"
+        subTitle="We’re here to help. Find answers to common questions below or contact us through contact page"
       />
       <FaqQue />
     </>

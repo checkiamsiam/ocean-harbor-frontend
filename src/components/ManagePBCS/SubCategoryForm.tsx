@@ -16,7 +16,7 @@ const SubCategoryForm = () => {
           marginTop: "10px",
         }}
       >
-        <h1 className="text-heading text-primary uppercase mb-5">Sub-Category Information</h1>
+        <h1 className="text-heading text-primary capitalize mb-5">Sub-Category Information</h1>
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
           <Col
             className="gutter-row"

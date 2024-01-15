@@ -9,7 +9,7 @@ const HeaderBottomBar = () => {
       <Row justify="center" align="bottom">
         <Col span={0} md={6}>
           <div className="hidden lg:block absolute -top-12">
-            <div className="bg-secondary px-3 py-1 rounded-full">
+            <div className="bg-secondary p-1 rounded-full">
 
             <GALogo />
             </div>

@@ -14,7 +14,7 @@ const ProductsPopoverContent = () => {
   return (
     <>
       <div className="relative">
-        <p onClick={() => setShow(!show)} className="uppercase cursor-pointer hover:text-primary flex items-center gap-1">
+        <p onClick={() => setShow(!show)} className="capitalize cursor-pointer hover:text-primary flex items-center gap-1">
           Products <AiFillCaretDown />
         </p>
         {show && !isLoading && isSuccess && (

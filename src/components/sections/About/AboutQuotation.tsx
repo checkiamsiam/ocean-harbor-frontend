@@ -4,7 +4,8 @@ const AboutQuotation = () => {
       <div className="pb-10 flex justify-center">
         <p className="text-center">
           <q className="text-heading italic font-bold">
-            Embark on this flavorful journey with Golden Anchor. Together, let&lsquo;s celebrate the taste of Bangladesh in every corner of Europe.
+            Set sail for unparalleled taste adventures with Ocean Harbor BV. Explore the depths of culinary excellence as we bring the finest seafood
+            treasures to grace every corner of Europe, ensuring a voyage of flavor like no other.
           </q>
         </p>
       </div>

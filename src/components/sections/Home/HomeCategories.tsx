@@ -8,7 +8,7 @@ const HomeCategories = () => {
     <div className="bg-secondary">
       <div className="ga-container">
         <div className="py-10">
-          <SectionHeader title="Our Products" color="white" subtitle="The best of the best categories of our products" />
+          <SectionHeader title="Our Products" color="white" subtitle="The Finest Selection of Seafood Categories" />
           <div className="p-5 mt-5">
             <HomeCategoriesMap />
           </div>
