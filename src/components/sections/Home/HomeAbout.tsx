@@ -7,7 +7,7 @@ const HomeAbout = () => {
     <div className="ga-container">
       <div className="py-10">
         <h1 className="text-body ">
-        Golden Anchor, your ultimate source for premium food and supply distribution, serving small local shops, wholesalers, and supermarkets.
+        Ocean Harbor, your premier destination for exceptional seafood trading, serving retail seafood shops, prominent supermarkets, and culinary enthusiasts.
         </h1>
         <div className="mt-5">
           <Row gutter={[10, 10]}>

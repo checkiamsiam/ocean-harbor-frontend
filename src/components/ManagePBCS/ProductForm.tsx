@@ -19,7 +19,7 @@ const ProductForm = () => {
           marginTop: "10px",
         }}
       >
-        <h1 className="text-heading text-primary uppercase mb-5">Product Information</h1>
+        <h1 className="text-heading text-primary capitalize mb-5">Product Information</h1>
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
           <Col
             className="gutter-row"
@@ -71,10 +71,10 @@ const ProductForm = () => {
               marginBottom: "10px",
             }}
           >
-            <FormUploadFile name="image" label="Image"/>
+            <FormUploadFile name="image" label="Image" />
           </Col>
         </Row>
-        <h1 className="text-heading text-primary uppercase mb-5">Product taxonomy</h1>
+        <h1 className="text-heading text-primary capitalize mb-5">Product taxonomy</h1>
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
           <Col
             className="gutter-row"

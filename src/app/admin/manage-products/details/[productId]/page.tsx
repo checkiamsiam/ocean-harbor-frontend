@@ -61,16 +61,16 @@ const ProductDetail = () => {
                       <div className="grid grid-cols-2 text-md">
                         <p className="text-secondary font-semibold">Category:</p>
                         <p className="text-secondary">
-                          <p className="hover:text-primary text-secondary hover:underline">{product?.category?.title}</p>
+                          <p className="hover:text-primary text-secondary ">{product?.category?.title}</p>
                         </p>
                       </div>
                       <div className="grid grid-cols-2 text-md">
                         <p className="text-secondary font-semibold">Sub Category</p>
-                        <p className="hover:text-primary text-secondary hover:underline">{product?.subCategory?.title}</p>
+                        <p className="hover:text-primary text-secondary ">{product?.subCategory?.title}</p>
                       </div>
                       <div className="grid grid-cols-2 text-md">
                         <p className="text-secondary font-semibold">Brand</p>
-                        <p className="hover:text-primary text-secondary hover:underline">{product?.brand?.title}</p>
+                        <p className="hover:text-primary text-secondary ">{product?.brand?.title}</p>
                       </div>
                     </div>
                   </div>

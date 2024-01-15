@@ -51,7 +51,7 @@ const AccountRequestDetailPage = () => {
       </GAActionBar>
       <Card bordered loading={isLoading}>
         <List>
-          <h1 className="text-heading text-primary uppercase">Basic Information</h1>
+          <h1 className="text-heading text-primary capitalize">Basic Information</h1>
           <List.Item>
             <Typography.Text strong>Name: </Typography.Text>
             <Typography.Text className="w-3/5">{data?.request?.name}</Typography.Text>
@@ -60,7 +60,7 @@ const AccountRequestDetailPage = () => {
             <Typography.Text strong>Email: </Typography.Text>
             <Typography.Text className="w-3/5">{data?.request?.email}</Typography.Text>
           </List.Item>
-          <h1 className="text-heading text-primary uppercase mt-5">Company Information</h1>
+          <h1 className="text-heading text-primary capitalize mt-5">Company Information</h1>
           <List.Item>
             <Typography.Text strong>Company Name:</Typography.Text>
             <Typography.Text className="w-3/5">{data?.request?.companyName}</Typography.Text>
@@ -81,7 +81,7 @@ const AccountRequestDetailPage = () => {
             <Typography.Text strong>Tax Number:</Typography.Text>
             <Typography.Text className="w-3/5">{data?.request?.taxNumber}</Typography.Text>
           </List.Item>
-          <h1 className="text-heading text-primary uppercase mt-5">Contact Information</h1>
+          <h1 className="text-heading text-primary capitalize mt-5">Contact Information</h1>
           <List.Item>
             <Typography.Text strong>Phone: </Typography.Text>
             <Typography.Text className="w-3/5">{data?.request?.phone}</Typography.Text>
@@ -98,7 +98,7 @@ const AccountRequestDetailPage = () => {
             <Typography.Text strong>Country:</Typography.Text>
             <Typography.Text className="w-3/5">{data?.request?.country}</Typography.Text>
           </List.Item>
-          <h1 className="text-heading text-primary uppercase mt-5">Additional</h1>
+          <h1 className="text-heading text-primary capitalize mt-5">Additional</h1>
 
           <List.Item>
             <Typography.Text strong>Message:</Typography.Text>

@@ -23,23 +23,20 @@ const ProductInfo = ({ product }: { product: Product }) => {
         <div className="grid grid-cols-2 text-md">
           <p className="text-secondary font-semibold">Category:</p>
           <p className="text-secondary">
-            <Link href={`/categories/${product.categoryId}`} className="hover:text-primary text-secondary hover:underline">
+            <Link href={`/categories/${product.categoryId}`} className="hover:text-primary text-secondary ">
               {product?.category?.title}
             </Link>
           </p>
         </div>
         <div className="grid grid-cols-2 text-md">
           <p className="text-secondary font-semibold">Sub Category</p>
-          <Link
-            href={`/categories/${product.categoryId}/subCategoryId=${product.subCategoryId}`}
-            className="hover:text-primary text-secondary hover:underline"
-          >
+          <Link href={`/categories/${product.categoryId}/subCategoryId=${product.subCategoryId}`} className="hover:text-primary text-secondary ">
             {product?.subCategory?.title}
           </Link>
         </div>
         <div className="grid grid-cols-2 text-md">
           <p className="text-secondary font-semibold">Brand</p>
-          <Link href="/" className="hover:text-primary text-secondary hover:underline">
+          <Link href="/" className="hover:text-primary text-secondary ">
             {product?.brand?.title}
           </Link>
         </div>

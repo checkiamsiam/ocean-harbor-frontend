@@ -30,7 +30,7 @@ const CustomerDetails = () => {
       </GAActionBar>
       <Card bordered loading={isLoading}>
         <List>
-          <h1 className="text-heading text-primary uppercase">Account Profile</h1>
+          <h1 className="text-heading text-primary capitalize">Account Profile</h1>
           <List.Item>
             <Typography.Text strong>Name: </Typography.Text>
             <Typography.Text className="w-3/5">{data?.customer?.name}</Typography.Text>
@@ -43,7 +43,7 @@ const CustomerDetails = () => {
             <Typography.Text strong>Username: </Typography.Text>
             <Typography.Text className="w-3/5">{data?.customer?.user?.username}</Typography.Text>
           </List.Item>
-          <h1 className="text-heading text-primary uppercase mt-5">Company Profile</h1>
+          <h1 className="text-heading text-primary capitalize mt-5">Company Profile</h1>
           <List.Item>
             <Typography.Text strong>Company Name:</Typography.Text>
             <Typography.Text className="w-3/5">{data?.customer?.companyName}</Typography.Text>
@@ -64,7 +64,7 @@ const CustomerDetails = () => {
             <Typography.Text strong>Tax Number:</Typography.Text>
             <Typography.Text className="w-3/5">{data?.customer?.taxNumber}</Typography.Text>
           </List.Item>
-          <h1 className="text-heading text-primary uppercase mt-5">Contact Information</h1>
+          <h1 className="text-heading text-primary capitalize mt-5">Contact Information</h1>
           <List.Item>
             <Typography.Text strong>Phone: </Typography.Text>
             <Typography.Text className="w-3/5">{data?.customer?.phone}</Typography.Text>
@@ -81,7 +81,7 @@ const CustomerDetails = () => {
             <Typography.Text strong>Country:</Typography.Text>
             <Typography.Text className="w-3/5">{data?.customer?.country}</Typography.Text>
           </List.Item>
-          <h1 className="text-heading text-primary uppercase mt-5">Order States</h1>
+          <h1 className="text-heading text-primary capitalize mt-5">Order States</h1>
 
           <List.Item>
             <Typography.Text strong>Total Orders:</Typography.Text>

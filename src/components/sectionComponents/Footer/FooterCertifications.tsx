@@ -5,7 +5,7 @@ const FooterCertifications = () => {
   return (
     <div>
       <div className="flex flex-col gap-2">
-        <p className="uppercase text-primary font-bold">Certifications</p>
+        <p className="capitalize text-primary font-bold">CERTIFICATIONS</p>
         <div className="flex gap-2 flex-wrap">
           <Link href="/">
             <Image src="/img/certificate-1.png" alt="iso" width={70} height={70} className="rounded-md" />

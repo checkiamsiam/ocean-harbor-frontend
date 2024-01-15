@@ -5,10 +5,10 @@ const UserGuide = () => {
         <div className="py-10">
           <div className="md:grid md:grid-cols-2 gap-5">
             <div>
-              <h1 className="text-heading text-primary uppercase">New in Golden Anchor?</h1>
+              <h1 className="text-heading text-primary capitalize">New in Ocean Harbor?</h1>
               <hr className="text-primary bg-primary" />
               <div className="pt-5 text-secondary leading-6 ">
-                <p className="text-body">Are you new to Golden Anchor and would you like to request a price quote? Please follow these steps:</p>
+                <p className="text-body">Are you new to Ocean Harbor and would you like to request a price quote? Please follow these steps:</p>
                 <ol className="text-body pl-10 mb-5">
                   <li>
                     browse through our product offer and press the plus sign under the product(s) for which you would like to receive a price quote.
@@ -22,7 +22,7 @@ const UserGuide = () => {
               </div>
             </div>
             <div>
-              <h1 className="text-heading text-primary uppercase">Existing Customer?</h1>
+              <h1 className="text-heading text-primary capitalize">Existing Customer?</h1>
               <hr className="text-primary bg-primary" />
               <div className="pt-5 text-secondary leading-6">
                 <p className="text-body">

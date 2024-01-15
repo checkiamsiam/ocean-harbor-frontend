@@ -4,29 +4,29 @@ const FooterSiteIndex = () => {
   return (
     <div>
       <div className="flex flex-col gap-2">
-        <p className="uppercase text-primary font-bold">Site index</p>
+        <p className="capitalize text-primary font-bold">SITE INDEX</p>
         <span>
-          <Link href="/about" className=" hover:text-primary hover:underline text-inherit">
+          <Link href="/about" className=" hover:text-primary  text-inherit">
             About Golden Anchor
           </Link>
         </span>
         <span>
-          <Link href="/brands" className=" hover:text-primary hover:underline text-inherit">
+          <Link href="/brands" className=" hover:text-primary  text-inherit">
             Brands
           </Link>
         </span>
         <span>
-          <Link href="/faq" className=" hover:text-primary hover:underline text-inherit">
+          <Link href="/faq" className=" hover:text-primary  text-inherit">
             FAQs
           </Link>
         </span>
         <span>
-          <Link href="/pre-order" className=" hover:text-primary hover:underline text-inherit">
+          <Link href="/pre-order" className=" hover:text-primary  text-inherit">
             Pre-order
           </Link>
         </span>
         <span>
-          <Link href="/contact" className=" hover:text-primary hover:underline text-inherit">
+          <Link href="/contact" className=" hover:text-primary  text-inherit">
             Contact us
           </Link>
         </span>

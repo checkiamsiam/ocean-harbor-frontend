@@ -24,25 +24,25 @@ const MobileHeader = () => {
       {isOpen && (
         <div className="mobile-navigation mt-5 ">
           <div className="flex flex-col gap-5">
-            <Link href="/" className="text-white uppercase hover:text-primary no-underline">
+            <Link href="/" className="text-white capitalize hover:text-primary no-underline">
               Home
             </Link>
-            <Link href="/categories" className="text-white uppercase hover:text-primary no-underline">
+            <Link href="/categories" className="text-white capitalize hover:text-primary no-underline">
               Products
             </Link>
-            <Link href="/brands" className="text-white uppercase hover:text-primary no-underline">
+            <Link href="/brands" className="text-white capitalize hover:text-primary no-underline">
               Brands
             </Link>
-            <Link href="/faq" className="text-white uppercase hover:text-primary no-underline">
-              Faqs
+            <Link href="/faq" className="text-white capitalize hover:text-primary no-underline">
+              FAQs
             </Link>
-            <Link href="/about" className="text-white uppercase hover:text-primary no-underline">
-              About golden anchor
+            <Link href="/about" className="text-white capitalize hover:text-primary no-underline">
+              About ocean harbor
             </Link>
-            <Link href="/pre-order" className="text-white uppercase hover:text-primary no-underline">
+            <Link href="/pre-order" className="text-white capitalize hover:text-primary no-underline">
               Pre-order
             </Link>
-            <Link href="/contact" className="text-white uppercase hover:text-primary no-underline">
+            <Link href="/contact" className="text-white capitalize hover:text-primary no-underline">
               Contact us
             </Link>
           </div>

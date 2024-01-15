@@ -2,10 +2,9 @@ const FooterAdress = () => {
   return (
     <div>
       <div className="flex flex-col gap-2">
-        <p className="uppercase text-primary font-bold">Visiting address</p>
+        <p className="capitalize text-primary font-bold">VISITING ADDRESS</p>
         <div className="flex flex-col gap-5">
-          <p>Metaalbewerkerweg 19, Unit C, 1032KW Amsterdam
-</p>
+          <p>Deltazijde 20B, 1261 ZM, Blaricum, The Netherlands</p>
         </div>
       </div>
     </div>
