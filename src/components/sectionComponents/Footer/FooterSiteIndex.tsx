@@ -7,7 +7,7 @@ const FooterSiteIndex = () => {
         <p className="capitalize text-primary font-bold">SITE INDEX</p>
         <span>
           <Link href="/about" className=" hover:text-primary  text-inherit">
-            About Golden Anchor
+            About Ocean Harbor
           </Link>
         </span>
         <span>
