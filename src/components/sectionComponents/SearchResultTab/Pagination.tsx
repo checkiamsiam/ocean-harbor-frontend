@@ -16,6 +16,7 @@ const ProductPagination = ({ meta }: { meta: IMeta }) => {
   return (
     <div>
       <Pagination
+        showTotal={(total, range) => `${range[0]}-${range[1]} of ${total}`}
         size="small"
         showLessItems
         defaultCurrent={1}
