@@ -32,8 +32,6 @@ FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
-ARG NEXT_PUBLIC_BACKEND_URL ${NEXT_PUBLIC_BACKEND_URL}
-ENV NEXT_PUBLIC_BACKEND_URL ${NEXT_PUBLIC_BACKEND_URL}
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
@@ -50,6 +48,8 @@ RUN chown nextjs:nodejs .next
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+COPY .env ./
 
 USER nextjs
 

@@ -19,6 +19,7 @@ const CategoryProductPagination = () => {
     <div>
       {data && !isLoading && (
         <Pagination
+        showTotal={(total, range) => `${range[0]}-${range[1]} of ${total}`}
           size="small"
           showLessItems
           current={Number(searchQuery.page) || 1}

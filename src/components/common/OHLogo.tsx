@@ -5,7 +5,7 @@ const OHLogo = ({ width = 100, height = 100 }: { width?: number; height?: number
   return (
     <div>
       <Link href="/">
-        <Image src="/img/ocean-harbor-logo.png" alt="golden anchor logo" width={width} height={height} />
+        <Image src="/img/ocean-harbor-logo.png" alt="ocean harbor logo" width={width} height={height} />
       </Link>
     </div>
   );
