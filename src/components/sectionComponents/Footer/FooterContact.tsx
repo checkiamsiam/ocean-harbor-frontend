@@ -20,7 +20,7 @@ const FooterContact = () => {
         <p className="capitalize text-primary font-bold">Email</p>
         <span>
           <Link href="mailto:info@oceanharbor.nl" className=" hover:text-primary  text-inherit">
-            nfo@oceanharbor.nl
+            info@oceanharbor.nl
           </Link>
         </span>
       </div>

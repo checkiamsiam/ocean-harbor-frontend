@@ -17,7 +17,7 @@ const HomePage = () => {
         <Banner
           background={styles.callToActBG}
           title="Wanna Join Us?"
-          subTitle="Let's work together with the Golden Anchor"
+          subTitle="Let's work together with the Ocean Harbor"
           action={{
             title: "Request Price Quotation",
             link: "/",
